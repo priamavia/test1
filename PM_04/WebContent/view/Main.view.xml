@@ -1,0 +1,159 @@
+<core:View xmlns:l="sap.ui.layout"
+           xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core"
+           xmlns:mvc="sap.ui.core.mvc"
+           xmlns="sap.m"
+       controllerName="cj.pm0040.controller.Main"
+       xmlns:html="http://www.w3.org/1999/xhtml">
+  <Page id="mainpage" title="">
+     <headerContent>
+          <Button id="btnScheduled" text="{i18n>lblScheduled}" />
+          <Button id="btnCompleted" text="{i18n>lblCompleted}" />
+          <Button id="btnDelayed" 	text="{i18n>lblDelayed}" />
+    </headerContent>   
+      <f:SimpleForm
+          layout="ResponsiveGridLayout"
+          labelSpanL="1"
+          labelSpanM="1"
+          emptySpanL="0"
+          emptySpanM="0"
+          emptySpanS="0"
+          columnsL="5"
+          columnsM="5"
+          backgroundDesign="sap.ui.layout.BackgroundDesign.Solid" >
+
+      <f:content width="100%">     
+          <Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop" required="true" >
+          </Label>
+		  <Select id="swerk" forceSelection="false" change="onSwerkSelect" required="true">
+           <layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+ 		  </Select>          
+<!--      
+           <ComboBox id="swerk" selectionChange="onSwerkSelect" required="true" >
+           <layoutData>
+              <l:GridData span="L2 M2 S1" />
+            </layoutData>
+           </ComboBox>
+ -->          
+            <Label text="{i18n>lblPlanCategory}" class="sapUiTinyMarginTop">
+            <layoutData>
+              <l:GridData span="L1 M1 S1" />
+            </layoutData>
+          </Label>
+          <ComboBox id="mityp">
+            <layoutData>
+              <l:GridData span="L3 M3 S1" />
+            </layoutData>
+          </ComboBox>
+           <Label text="{i18n>lblSortField}" class="sapUiTinyMarginTop">
+             <layoutData>
+              <l:GridData span="L1 M1 S1" />
+            </layoutData>
+          </Label>
+          <ComboBox id="psort">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox>   
+                    
+<!--           <MultiInput id="psort" valueHelpRequest="onValueHelpRequest" change="onChange">
+            <layoutData>
+              <l:GridData span="L3 M3 S1" />
+            </layoutData>
+          </MultiInput> -->
+           <Label text="" class="sapUiTinyMarginTop">
+             <layoutData>
+              <l:GridData span="L2 M2 S1" />
+            </layoutData>
+          </Label>
+
+
+      <!-- Line   -->
+
+          <Label text="{i18n>lblPG}" class="sapUiTinyMarginTop">
+          </Label>
+          <ComboBox  id="ingrp" >
+            <layoutData>
+              <l:GridData span="L2 M2 S1" />
+            </layoutData>
+          </ComboBox>
+          <Label text="{i18n>lblWorkCenter}" class="sapUiTinyMarginTop">
+            <layoutData>
+              <l:GridData span="L3 M3 S1" />
+            </layoutData>
+          </Label>
+          <ComboBox id="arbpl">
+            <layoutData>
+              <l:GridData span="L2 M2 S1" />
+            </layoutData>
+          </ComboBox>
+          <Label text="{i18n>lblYearMonth}"  class="sapUiTinyMarginTop" required="true" >
+            <layoutData>
+              <l:GridData span="L1 M1 S1" />
+            </layoutData>
+          </Label>
+      <DatePicker
+		      id="period"
+		      width="150px"
+		      placeholder="{i18n>lblEnterDate}"
+		      required="true"
+		      change="handlePeriodChange">
+            <layoutData>
+              <l:GridData span="L2 M2 S1" />
+            </layoutData>
+       </DatePicker>
+<!--            <Label text="" class="sapUiTinyMarginTop">
+             <layoutData>
+              <l:GridData span="L2 M2 S1" />
+            </layoutData>
+          </Label> -->
+          <Button text="{i18n>search}" press="onBtnSearch">
+            <layoutData>
+              <l:GridData span="L1 M1 S1" />
+            </layoutData>
+          </Button>
+
+
+<!--
+      </f:content>
+   	  <f:content>
+                <core:Icon src="sys-enter-2"
+                          color=" #66FF33"  >
+
+                         </core:Icon>
+-->
+<!--
+#2DFA06, #66FF33 : green, #FC0519, #FF3300 : RED, #FFFF66 : YELLOW
+ -->
+<!--           <Label text="Scheduled" class="sapUiTinyMarginTop">
+            <layoutData>
+              <l:GridData span="L1 M1 S1" />
+            </layoutData>
+          </Label>
+          <Label text="Completed" class="sapUiTinyMarginTop">
+            <layoutData>
+              <l:GridData span="L1 M1 S1" />
+            </layoutData>
+          </Label>
+          <Label text="Delayed" class="sapUiTinyMarginTop">
+            <layoutData>
+              <l:GridData span="L1 M1 S1" />
+            </layoutData>
+          </Label>
+-->
+          <Label text="" class="sapUiTinyMarginTop">
+            <layoutData>
+              <l:GridData span="L12 M12 S1" />
+            </layoutData>
+          </Label>
+           <core:HTML id="cal" content="">
+           </core:HTML>
+        </f:content>
+
+      </f:SimpleForm>
+  </Page>
+</core:View>

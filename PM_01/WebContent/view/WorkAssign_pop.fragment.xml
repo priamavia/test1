@@ -1,0 +1,115 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">	
+	<Dialog id="dialog_assign" title="{i18n>popup_assign_title}" 
+	        resizable="true" 
+	        contentWidth="71rem" 
+	        contentHeight="18rem"
+	        draggable = "true"
+	        afterClose="onWorkAssignAfterClose">
+		<content>
+		<VBox>
+    		<items>		         
+		     <t:Table id="table_assign"
+		         selectionMode="MultiToggle"
+				 selectionBehavior="Row"
+				 visibleRowCount="4"
+				 class="sapUiResponsiveMargin">
+		             <t:columns>
+	                    <t:Column width="8rem" hAlign="Center">
+	                        <Label text="{i18n>lblWorkCenter}"/>
+	                        <t:template>
+                            <Text text="{Ktext}" />                     
+	                        </t:template>
+	                    </t:Column>	
+	                    <t:Column width="10rem" hAlign="Center">
+	                        <Label text="{i18n>lblName}" />
+	                        <t:template>
+                            <Text text="{Zname}" />				                        
+	                        </t:template>
+	                    </t:Column>
+	                    <t:Column width="5rem" hAlign="Center">
+	                        <Label text="{i18n>lblAssigned}" />
+	                        <t:template>
+                            <CheckBox selected="{Chk}" enabled="false"/>	
+	                        </t:template>
+	                    </t:Column>	                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD}" />
+	                        <t:template>
+                            <Text text="{Zplhr1}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD1}" />
+	                        <t:template>
+                            <Text text="{Zplhr2}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD2}" />
+	                        <t:template>
+                            <Text text="{Zplhr3}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD3}" />
+	                        <t:template>
+                            <Text text="{Zplhr4}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD4}" />
+	                        <t:template>
+                            <Text text="{Zplhr5}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD5}" />
+	                        <t:template>
+                            <Text text="{Zplhr6}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD6}" />
+	                        <t:template>
+                            <Text text="{Zplhr7}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD7}" />
+	                        <t:template>
+                            <Text text="{Zplhr8}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD8}" />
+	                        <t:template>
+                            <Text text="{Zplhr9}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="4rem" hAlign="Center">
+	                        <Label text="{i18n>lblD9}" />
+	                        <t:template>
+                            <Text text="{Zplhr10}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	                    		                    
+	              </t:columns>
+		    </t:Table>
+	    	    
+		    </items>
+			</VBox>
+		</content>
+         <buttons>
+             <Button id="assignCreate" text = "{i18n>assign}"     press = "onAssCreateDialog"></Button>
+             <Button id="assignChange" text = "{i18n>change}"   press = "onAssChangeDialog"></Button>
+             <Button id="assignDelete" text = "{i18n>delete}"   press = "onAssDeleteDialog"></Button>
+             <Button id="assignCancel" text = "{i18n>cancel}"   press = "onAssCancelDialog"></Button>
+         </buttons>
+		
+	</Dialog>
+</core:FragmentDefinition>
