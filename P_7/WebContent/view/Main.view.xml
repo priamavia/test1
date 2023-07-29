@@ -1,0 +1,136 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm0210.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" title="{i18n>title}">
+		<headerContent>
+	    	<Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+	    </headerContent>   
+
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+ 						labelSpanL="1"
+ 						labelSpanM="2"
+ 						labelSpanS="2"
+
+						>
+<!-- 						emptySpanL="0" -->
+<!-- 						emptySpanM="0" -->
+<!-- 						emptySpanS="0" -->
+<!-- 						columnsL="2" -->
+<!-- 						columnsM="4" -->
+						
+    		<f:content>
+    			<Label 	text="{i18n>lblOrderNo}"
+    					
+    					/>
+    					 
+
+          		<Input 	id="aufnr" 
+          		        
+          		        editable="{screenMode>/aufnr}"
+          		        />
+<!--     			<Label 	text="{i18n>lblGoodIssueDate}" -->
+<!--     					width="70px"  -->
+<!--     					/> -->
+          		<DatePicker	id="budat" 
+          		        editable="{screenMode>/budat}"
+         				change="handleDateChangeFrom">
+          		 </DatePicker>
+    		</f:content>
+<!--     		<f:content> -->
+<!--     			<Label 	text="{i18n>lblReservationNo}"  -->
+<!--     					/> -->
+<!--           		<Input 	id="rsnum"  -->
+<!--           		        required="true" -->
+<!--           		        editable="{screenMode>/rsnum}" -->
+<!--           		        /> -->
+<!--     		</f:content>    		 -->
+    	</f:SimpleForm>
+
+		<Table 	id="listTable"
+				inset="false"
+				mode="SingleSelectMaster"
+				growing="true"			 
+				growingThreshold="10"
+				growingScrollToLoad="true"
+				items="{ path: 'ResList>/results'
+						}" >
+<!-- 			<headerToolbar> -->
+<!-- 				<Toolbar> -->
+
+<!--			<ToolbarSpacer /> --> 
+
+<!--                 	<Button	icon="sap-icon://add-document"  -->
+<!--                         	text="{i18n>lblCreatePo}" -->
+<!--                         	press="onCreatePo"  -->
+<!--                         	visible="true" /> -->
+<!-- 				</Toolbar> -->
+<!-- 			</headerToolbar>   -->
+ 			<columns>
+				<Column id="Matnr" width="25px" hAlign="Left"><Text text="{i18n>lblMaterial}"/></Column>
+				<Column id="Maktx" width="120px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblMaterialDesc}"/></Column>
+				<Column id="Werks" width="20px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblPlant}"/></Column>
+				<Column id="Lgort" width="20px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblLocation}"/></Column>
+				<Column id="Menge" width="32px" hAlign="Right"><Text text="{i18n>lblQuantity}"/></Column>
+				<Column id="Meins" width="15px" hAlign="Center"><Text text="{i18n>lblUnit}"/></Column>
+				<Column id="Stock" width="32px" hAlign="Right" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblStock}"/></Column>
+				<Column id="Giqty" width="32px" hAlign="Right"><Text text="{i18n>lblGiqty}"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active">
+<!-- 				<ColumnListItem vAlign="Middle" type="Navigation"  mode="Active">		  -->
+			    	<cells>
+						<Text text="{ResList>Matnr}"/>
+						<Text text="{ResList>Maktx}"/>
+						<Text text="{ResList>Werks}"/>
+						<Text text="{ResList>Lgort}"/>
+						<Text text="{ResList>Menge}"/>
+						<Text text="{ResList>Meins}"/>
+						<Text text="{ResList>Stock}"/>
+<!-- 						<Text text="{ResList>Giqty}"/> -->
+          				<Input value="{ResList>Giqty}"
+          					   height="1px" 
+          				       textAlign="Right"
+          		       	/>
+						<Text text="{ResList>Rsnum}" visible="false"/>
+						<Text text="{ResList>Rspos}" visible="false"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+    
+		<footer>
+			<Bar>
+<!-- 				<contentLeft> -->
+<!-- 					<Button id="orderDisp" text="{i18n>display}" press="onPress_disp" /> -->
+<!-- 				</contentLeft> -->
+
+				<contentMiddle>
+					<Button id="Search"
+							type="Accept"
+							text="{i18n>lblSearch}"
+							visible="{screenMode>/Search}" 	
+							press="onBtnSearch" />
+					<Button id="GoodIssue"
+							type="Accept"
+							text="{i18n>lblGoodIssue}"  
+							visible="{screenMode>/GoodIssue}" 	
+							press="onBtnGoodIssue" />
+					<Button id="Cancel"
+							type="Reject"
+							text="{i18n>lblCancel}" 	
+							visible="{screenMode>/Cancel}" 	
+							press="onBtnCancel" />
+		 		</contentMiddle>
+
+<!-- 				<contentRight> -->
+<!-- 					<Button id="workAssign"   text="{i18n>workAssign}"   press="onPress_wkassign" />			 -->
+<!-- 				</contentRight> -->
+			</Bar>
+		</footer>    	
+	</Page>
+</core:View>

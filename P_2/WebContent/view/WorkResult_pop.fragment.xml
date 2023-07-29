@@ -1,0 +1,179 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	
+	<Dialog id="dialog_result" title="{i18n>popup_result_title}" 
+	        resizable="true" 
+	        contentWidth="80rem" 
+	        contentHeight="60rem"
+	        draggable = "true"
+	        afterClose="onResultAfterClose">
+		<content>
+    	<f:SimpleForm
+    	    id = "SimpleForm_Header"
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="1"
+			labelSpanM="1"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="5"
+			columnsM="5"
+			editable="true">
+	    	<f:content>
+	          <Label text="{i18n>lblOrderNo}" class="sapUiTinyMarginTop" >
+	          </Label> 		          
+	          <Input id="aufnr_hwr" value="{header>/Aufnr}" editable="false">		          
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </Input>            
+	          <Text id="ktext_hwr" text="{header>/Ktext}">		          
+	          	<layoutData>
+	          		<l:GridData span="L4 M4 S1" />
+	          	</layoutData>
+	          </Text>
+	          <Label text="{i18n>lblOrderType}" class="sapUiTinyMarginTop" >
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>		          
+	          </Label> 	
+	          <Input id="auart_hwr" value="{header>/Auart}" editable="false">		          
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </Input>		          
+	          <Label text="{i18n>lblPlanDate}" class="sapUiTinyMarginTop" >
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>		          
+	          </Label> 	
+				<DatePicker
+					id="addat_hwr"
+					placeholder="{i18n>lblEnterDate}"
+					width="98px"	
+			        value="{header>/Addat}"	
+					editable="false" >
+    
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </DatePicker>   		          		          		          
+	          <Label text="{i18n>lblMaintWC}" class="sapUiTinyMarginTop" >
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>		          
+	          </Label> 	
+	          <Input id="vaplz_hwr" value="{header>/Vaplz}" editable="false">		          
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </Input>   		
+		          
+<!-- ==================================================================================  -->		          
+	
+	          <Label text="{i18n>lblEquipment}" class="sapUiTinyMarginTop" >
+	          </Label> 		          
+	          <Input id="equnr_hwr" value="{header>/Equnr}" editable="false">		          
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </Input>             		          
+	          <Text id="eqktx_hwr" text="{header>/Eqktx}">		          
+	          	<layoutData>
+	          		<l:GridData span="L4 M4 S1" />
+	          	</layoutData>
+	          </Text>
+	          <Label text="{i18n>lblNotiNo}" class="sapUiTinyMarginTop" >
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>		          
+	          </Label> 	
+	          <Input id="qmnum_hwr" value="{header>/Qmnum}" editable="false">		          
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </Input>   		          
+	          <Label text="{i18n>lblNotiDate}" class="sapUiTinyMarginTop" >
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>		          
+	          </Label> 	
+				<DatePicker
+					id="qmdat_hwr"
+					placeholder="{i18n>lblEnterDate}"
+					width="98px"	
+			        value="{header>/Qmdat}"	
+					editable="false" >								          	          
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </DatePicker>  		          
+	          <Label text="{i18n>lblRequester}" class="sapUiTinyMarginTop" >
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>		          
+	          </Label> 	
+	          <Input id="zname_hwr" value="{header>/Zname}" editable="false">		          
+	          	<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+	          </Input>   	
+	          
+		    <Label text="{i18n>lblBMCM}" class="sapUiTinyMarginTop" required="{header>/Zbmindrequired}" visible="{header>/ZbmindVisibleStatus}"/>
+	        <ComboBox id="bmcm_hwr" selectedKey="{header>/Zbmind}" required="{header>/Zbmindrequired}"  editable="{header>/ZbmindEditStatus}" visible="{header>/ZbmindVisibleStatus}" change="onCBChange">
+	            <items>
+                 	<core:Item key="BM" text="BM" />
+                 	<core:Item key="CM" text="CM" />
+                  	<core:Item key="NM" text="NM" /> <!-- 20210818 NM통지에 오더연결하도록 개선 NM, PM추가  --> 
+                  	<core:Item key="PM" text="PM" />
+                </items>
+	            <layoutData>
+	          		<l:GridData span="L2 M2 S2" />
+	          	</layoutData>
+	        </ComboBox>	          
+	        <Text text="" class="sapUiTinyMarginTop" visible="{header>/ZbmindVisibleStatus}">
+				<layoutData>
+	          		<l:GridData span="L3 M3 S1" />
+	          	</layoutData>
+         	</Text>
+      		<Label text="{i18n>lblPMActType}" class="sapUiTinyMarginTop" required="true" visible="{header>/IlartVisibleStatus}">
+				<layoutData>
+	          		<l:GridData span="L1 M1 S1" />
+	          	</layoutData>
+         	</Label>
+         	<ComboBox id="act_hwr" selectedKey="{header>/Ilart}" required="true" editable="{header>/IlartEditStatus}" visible="{header>/IlartVisibleStatus}" change="onCBChange" >
+		          	<layoutData>
+	          		<l:GridData span="L3 M3 S3" />
+	          	</layoutData> 
+	        </ComboBox>
+	          
+	           
+	    	</f:content>
+    	</f:SimpleForm>     
+			
+			<IconTabBar id="wrtab" select="onSelectTab" selectedKey="wrtab1">
+				<items>
+					<IconTabFilter id="wrtab1" text="{i18n>popup_result_tab1}">
+						<core:Fragment fragmentName="cj.pm0101.view.WorkResult_pop_tab1" type="XML"/>
+						<!-- <mvc:XMLView viewName="cj.pm0101.view.WorkResult_pop_tab1"/> -->						
+					</IconTabFilter>
+					<IconTabFilter id="wrtab2" text="{i18n>popup_result_tab2}" >
+						<core:Fragment fragmentName="cj.pm0101.view.WorkResult_pop_tab2" type="XML"/>
+						<!-- <mvc:XMLView viewName="cj.pm0101.view.WorkResult_pop_tab2"/> -->
+					</IconTabFilter>
+				</items>
+			</IconTabBar>			
+		</content>
+         <buttons>
+             <Button id="resultSave"   text = "{i18n>save}"     press = "onResultSaveDialog" ></Button>
+             <Button id="resultCancel" text = "{i18n>WorkResultCancel}"   press = "onResultCancelDialog" ></Button>
+             <Button id="resultClose"  text = "{i18n>close}"    press = "onResultCloseDialog" ></Button>
+         </buttons>
+		
+	</Dialog>
+</core:FragmentDefinition>

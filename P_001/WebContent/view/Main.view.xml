@@ -1,0 +1,14 @@
+<core:View xmlns:core="sap.ui.core" 
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns="sap.m"
+		  controllerName="cj.pm0010.controller.Main" 
+		  xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>title}" >
+		<content>
+		 <Button text="{i18n>lblSearchEquipment}" press="onPress"></Button>
+	     <Button text="{i18n>lblBOM}" press="onPress_BOM"></Button>
+	     <Button text="{i18n>lblEquipMaterial}" press="onPress_equipMaterial"></Button>
+	     <Button text="{i18n>lblEquipmentDetail}" press="onPress_equipDetail"></Button>
+		</content>
+	</Page>
+</core:View>

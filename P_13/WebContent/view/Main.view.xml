@@ -1,0 +1,249 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm0050.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+		          
+  <Page id="mainpage" title="">
+	       <f:SimpleForm
+	    	    layout="ResponsiveGridLayout"
+	    	  	labelSpanL="1"
+				labelSpanM="1"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="3"
+				columnsM="3">
+		    	<f:content>
+		          <Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop" required="true">
+		          </Label>
+		         <!--  <ComboBox id="swerk" selectionChange="onSelChange_Tab1"> -->
+		          <Select id="swerk" change="onSwerkSelect"  required="true">
+		             <layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	 </layoutData>
+		          </Select>		    	
+		          <Label text="{i18n>lblMaterialType}" class="sapUiTinyMarginTop">
+ 		             <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	 </layoutData>
+		          </Label>
+		          <ComboBox id="mtart" selectionChange="onChange_mtart">
+			         <layoutData>
+			         	<l:GridData span="L3 M3 S1" />
+			         </layoutData>
+			      </ComboBox>
+		          <Label text="{i18n>lblMaterialSubGroup}" class="sapUiTinyMarginTop">
+ 		             <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	 </layoutData>
+		          </Label>
+		          <ComboBox id="matkl_sub"  selectionChange="onChange_matkl_sub">
+			         <layoutData>
+			         	<l:GridData span="L3 M3 S1" />
+			         </layoutData>
+			      </ComboBox>
+		          <Label text="{i18n>lblMatGroup}" class="sapUiTinyMarginTop">
+<!--  		             <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	 </layoutData>
+ -->		          </Label>
+		          <ComboBox id="matkl" >
+			         <layoutData>
+			         	<l:GridData span="L3 M3 S1" />
+			         </layoutData>
+			      </ComboBox>
+		    	  <Label text="{i18n>lblMaterial}"  class="sapUiTinyMarginTop" >
+		             <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	 </layoutData>		    	  
+		          </Label>
+		          <Input id="matnr">
+		          	<layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	 </layoutData>
+		          </Input>
+		          <Label text="{i18n>lblItemName}" class="sapUiTinyMarginTop">
+		             <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	 </layoutData>
+		          </Label>
+		          <Input id="name" >
+		          	<layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	</layoutData>
+		          </Input> 
+		          <Label text="{i18n>lblMRPCon}" class="sapUiTinyMarginTop">
+<!--  		             <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	 </layoutData>  -->
+		          </Label>
+		          <ComboBox id="mrp" >
+		          	 <layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	 </layoutData>
+		          </ComboBox> 
+		          <Label text="{i18n>lblSpecifications}" class="sapUiTinyMarginTop">
+ 		           	 <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		          </Label>
+		          <Input id="spec">
+		          	<layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	</layoutData>
+		          </Input>
+		          <Label text="{i18n>lblDescription}" class="sapUiTinyMarginTop">
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData> 
+		          </Label>
+		          <Input id="desc" >
+		          	<layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	</layoutData>
+		          </Input> 
+		          <Label text="{i18n>lblMaker}" class="sapUiTinyMarginTop">
+<!--  		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData> -->
+		          </Label>
+		          <Input id="maker"  >
+		          	<layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	</layoutData>
+		          </Input> 
+		          <Label>
+ 		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		          </Label>		          
+			      <HBox>
+			        <CheckBox id="local" text="{i18n>lblLocal}" class="sapUiMediumMarginEnd"/>
+			        <CheckBox id="import" text="{i18n>lblImport}" />
+			        <layoutData>
+			         	<l:GridData span="L3 M3 S1" />
+			         </layoutData>
+			      </HBox>		          
+		          <Label>
+ 		          	<layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	</layoutData>
+		          </Label>
+		          <Button text="{i18n>search}" press="onSearch_equipStock">
+ 		            <layoutData>
+		          		<l:GridData span="L1 M1 S1"/>
+		          	</layoutData> 
+		          </Button>
+		    	</f:content>
+	    	</f:SimpleForm>
+           <t:Table id="table"
+			 selectionBehavior="Row"
+			 visibleRowCount="16"
+			 selectionMode="None"
+			 showNoData = "false"
+			 class="sapUiResponsiveMargin">  
+	        <t:toolbar>
+                 <Toolbar>
+                     <content>
+                         <Button
+                         	icon="sap-icon://excel-attachment"
+                         	tooltip="{i18n>lblDownloadExcel}"
+                         	press="downloadExcel"/>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters"/>
+                         <ToolbarSpacer/>                             
+                     </content>
+                 </Toolbar>
+             </t:toolbar>			               
+	           <t:columns>
+	               <t:Column width="3rem" hAlign="Center">
+	                    <Label text="{i18n>lblNo}"/>
+	                    <t:template>
+	                        <Text text="{Idx}" textAlign="Center" />    
+	                    </t:template>
+	                </t:Column>
+	          	   <t:Column width="7rem"                        
+		          	       sortProperty="Mtart"
+	                       filterProperty="Mtart"
+	                       hAlign="Center">
+	                    <Label text="{i18n>lblMaterialType}"/>
+	                    <t:template>
+	                        <Text text="{Mtart}" />    
+	                    </t:template>
+	                </t:Column>	                
+	          	   <t:Column width="8rem"                        
+		          	       sortProperty="Matnr"
+	                       filterProperty="Matnr"
+	                       hAlign="Center">
+	                    <Label text="{i18n>lblMaterial}"/>
+	                    <t:template>
+	                        <Text text="{Matnr}" />    
+	                    </t:template>
+	                </t:Column>
+	                <t:Column width="18rem"                         
+		          	       sortProperty="Maktx"
+	                       filterProperty="Maktx">
+	                    <Label text="{i18n>lblDescription}" />
+	                    <t:template>
+	                        <Text text="{Maktx}"  wrapping="false"/>
+	                    </t:template>
+	                </t:Column>
+	          	   <t:Column width="7rem"                        
+		          	       sortProperty="Matkl"
+	                       filterProperty="Matkl"
+	                       hAlign="Center">
+	                    <Label text="{i18n>lblMaterialGroup}"/>
+	                    <t:template>
+	                        <Text text="{Matkl}" />    
+	                    </t:template>
+	                </t:Column>	  	  
+	          	   <t:Column width="7rem"                        
+		          	       sortProperty="Wgbez"
+	                       filterProperty="Wgbez"
+	                       hAlign="Center">
+	                    <Label text="{i18n>lblDesc}"/>
+	                    <t:template>
+	                        <Text text="{Wgbez}" wrapping="false"/>    
+	                    </t:template>
+	                </t:Column>	  		                              
+	                <t:Column width="9rem"                         
+		          	       sortProperty="LgortT"
+	                       filterProperty="LgortT">
+	                    <Label text="{i18n>lblSl}" />
+	                    <t:template>
+	                        <Text text="{LgortT}"  wrapping="false"/>
+	                    </t:template>
+	                </t:Column>
+	                <t:Column width="6rem" hAlign="Right">
+	                    <Label text="{i18n>lblN}" />
+	                    <t:template>
+                            <Text text="{StockN}"/>     
+	                    </t:template>
+	                </t:Column>
+	                <t:Column width="6rem" hAlign="Right">
+	                    <Label text="{i18n>lblO}" />
+	                    <t:template>
+	                        <Text text="{StockO}"/>     
+	                    </t:template>
+	                </t:Column>             
+	                <t:Column width="4rem" hAlign="Center">
+	                    <Label text="{i18n>lblUom}" />
+	                    <t:template>
+	                        <Text text="{Meins}"/>
+	                    </t:template>
+	                </t:Column>
+	            </t:columns>
+	        </t:Table>
+  </Page>
+</core:View>

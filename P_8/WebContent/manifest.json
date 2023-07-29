@@ -1,0 +1,183 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "cj.pm0220",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_0020_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+            "recodeMeasure": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_0040_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },           
+            "orderService": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_0110_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },           
+            "userInfo" : {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_CM001_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+             "possible" : {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_CM002_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            }              
+                        
+        }
+    },
+    "sap.ui": {
+        "_version": "1.1.0",
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_bluecrystal"
+        ]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "rootView": {
+            "viewName": "cj.pm0220.view.App",
+            "type": "XML"
+        },
+        "dependencies": {
+            "minUI5Version": "1.38.0",
+            "libs": {
+                "sap.ui.core": {  },
+                "sap.m": {  },
+                "sap.ui.layout": {  },
+                "sap.ui.comp" : {  }
+            },
+            "components": {
+           		"cj.pm0220": {
+	                "minVersion": "1.1.0"
+	            }
+            } 
+        },
+                
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings" : {
+                    "bundleName": "cj.pm0220.i18n.i18n"
+                }
+            },
+            "":{
+                "dataSource": "mainService"
+            },
+            "userInfo":{
+                "dataSource": "userInfo"
+            },
+            "recodeMeasure":{
+                "dataSource": "recodeMeasure"
+            },
+            "orderService":{
+                "dataSource": "orderService"
+            },
+            "possible":{
+                "dataSource": "possible"
+            }                                 
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "cj.pm0220.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "main",
+                    "target": [
+                        "main"
+                    ]
+                },
+                {
+                    "pattern": "detail",
+                    "name": "detail",
+                    "target": [
+                        "detail"
+                    ]
+                },
+				{
+                    "pattern": "input",
+                    "name": "input",
+                    "target": [
+                        "input"
+                    ]
+                } 
+            ],
+            "targets": {
+                "main": {
+                    "viewName": "Main",
+                    "viewId": "main",
+                    "viewLevel": 1
+                },
+                "detail": {
+                    "viewName": "Detail",
+                    "viewId": "detail",
+                    "viewLevel": 2
+                },
+                "input": {
+                    "viewName": "Input",
+                    "viewId": "input",
+                    "viewLevel": 2
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        }
+    }
+}
