@@ -1,0 +1,488 @@
+<core:View xmlns:l="sap.ui.layout"
+           xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core"
+           xmlns:mvc="sap.ui.core.mvc"
+           xmlns="sap.m"
+           xmlns:semantic="sap.f.semantic"
+       controllerName="cj.mm0010.controller.Detail"
+       xmlns:html="http://www.w3.org/1999/xhtml">
+	
+<Page id="PoDetail" title="{i18n>CreatePo_title}" showNavButton="true" navButtonPress="onNavBack">	
+	     <headerContent>
+	          <Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+	    </headerContent>   
+<f:SimpleForm 
+			layout="ResponsiveGridLayout"
+			labelSpanL="1"
+			labelSpanM="1"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" 
+			backgroundDesign="sap.ui.layout.BackgroundDesign.Solid">  
+   	<f:content>	
+          <Label text="{i18n>lblBuyer}"  class="sapUiTinyMarginTop" required="true" >
+          	<layoutData>
+          		<l:GridData span="L1 M1 S3" />
+          	</layoutData>
+          </Label>
+		  <ComboBox id="ekgrp" required="true" selectedKey="{PoHeader>/Ekgrp}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+           <layoutData>
+          		<l:GridData span="L3 M3 S9" />
+          	</layoutData>
+ 		  </ComboBox>
+          <Label text="{i18n>lblPoNumber}"  class="sapUiTinyMarginTop" visible="{screenMode>/isvisible}">      
+           <layoutData>
+          		<l:GridData span="L1 M1 S3" />
+          	</layoutData>
+          </Label>
+		  <Input id="ebeln" value="{PoHeader>/Ebeln}" editable="false" visible="{screenMode>/isvisible}">
+           <layoutData>
+          		<l:GridData span="L3 M3 S9" />
+          	</layoutData>
+ 		  </Input> 	   	
+   	</f:content>
+   	</f:SimpleForm>	
+   	
+	<f:SimpleForm 
+				layout="ResponsiveGridLayout"
+				labelSpanL="1"
+				labelSpanM="1"
+				labelSpanS="2"
+				adjustLabelSpan="false"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="1"
+				columnsM="1"
+				singleContainerFullSize="false" 
+				backgroundDesign="sap.m.BackgroundDesign.Translucent">  
+	
+	   	<f:content>	
+	          <Label text="{i18n>lblMaterial}"  class="sapUiTinyMarginTop" required="true">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>	          
+	          </Label>         
+			  <ComboBox id="matnr" required="true" selectedKey="{PoItem>/Matnr}" 
+			  					   selectionChange="onSelChange"  editable="{screenMode>/dispMode}">
+	           <layoutData>
+	          		<l:GridData span="L3 M3 S9" />
+	          	</layoutData>
+	 		  </ComboBox>   
+	 		  
+	          <Label text="{i18n>lblQuantity}"  class="sapUiTinyMarginTop" required="true">
+	            <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>	          
+	          </Label>         
+	          <Input id="menge" required="true" change="onSelChange" editable="{screenMode>/editMode}" textAlign="Right"
+	                            value="{path:'PoItem>/Menge', 
+								type:'sap.ui.model.type.Float',
+								formatOptions: { decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : true
+												}
+								}">                          
+         
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S3" />
+	          	</layoutData>
+	          </Input>  	   	
+	          <Label text="{i18n>lblUnit}"  class="sapUiTinyMarginTop" required="true">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S2" />
+	          	</layoutData>
+	          </Label>         
+			  <ComboBox id="meins" required="true"  selectedKey="{PoItem>/Meins}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S4" />
+	          	</layoutData>
+	 		  </ComboBox>   	
+	          <Label text="{i18n>lblSafra}" required="true" class="sapUiTinyMarginTop">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>
+	          </Label>         
+<!--
+ 	          <Input id="zzcttxt01" value="{PoHeader>/Zzcttxt01}"  required="true" change="onSelChange" editable="{screenMode>/editMode}">          
+	          	<layoutData>
+	          		<l:GridData span="L3 M3 S10" />
+	          	</layoutData>
+	          </Input>
+	           -->
+			  <ComboBox id="zzcttxt01" selectedKey="{PoHeader>/Zzcttxt01}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	           <layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	 		  </ComboBox> 	          
+	          
+	          <Label text="{i18n>lblPrice}"  class="sapUiTinyMarginTop" required="true">
+    	           <layoutData>
+		          		<l:GridData span="L1 M1 S3" />
+		          	</layoutData>
+	          </Label>         
+      	      <Input id="netpr" required="true" change="onSelChange" editable="{screenMode>/editMode}" textAlign="Right"
+      					value="{
+						          parts:[
+						               {path:'PoItem>/Netpr'},
+						               {path:'PoItem>/Waers'}
+						          ],
+						          type:'sap.ui.model.type.Currency',
+								formatOptions: { decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : false,
+												showMeasure: true
+												}						          
+				    }" >          
+
+												    
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	          </Input>
+	          <Label text="{i18n>lblCurrency}" required="true" class="sapUiTinyMarginTop">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>
+	          </Label>         
+			  <ComboBox id="waers" required="true" selectedKey="{PoHeader>/Waers}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	            <items>
+                	<core:Item key="BRL" text="BRL" />
+                	<core:Item key="USD" text="USD" />
+               	</items>
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S5" />
+	          	</layoutData>
+	          </ComboBox>			  
+<!-- 	          <Label text=""  class="sapUiTinyMarginTop">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S2" />
+	          	</layoutData>
+	          </Label> 	 	 -->	
+			  <ComboBox id="bprme" required="true" selectedKey="{PoItem>/Bprme}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S4" />
+	          	</layoutData>
+	          </ComboBox>
+			<RadioButtonGroup id="Zzcttxt02" columns="2" class="sapUiTinyMarginTop" select="onRdoSelect" editable="{screenMode>/dispMode}">
+				<buttons>
+					<RadioButton id="fixed" text="{i18n>lblFixed}"/>
+					<RadioButton id="notfixed" text="{i18n>lblNotFixed}"/>
+				</buttons>
+	        	<layoutData>
+	          		<l:GridData span="L3 M3 S12" />
+	          	</layoutData>
+			</RadioButtonGroup>
+<!-- 	        <Label text="{i18n>lblZzclmdb}"  class="sapUiTinyMarginTop">	 -->
+<!-- 	          <layoutData><l:GridData span="L1 M1 S3" /></layoutData>	          		           -->
+<!-- 	        </Label> -->
+<!-- 		  	<ComboBox id="Zzclmdb" selectedKey="{PoHeader>/Zzclmdb}" selectionChange="onSelChange"  editable="{screenMode>/editMode}"> -->
+<!-- 	         	<layoutData> -->
+<!-- 	         		<l:GridData span="L2 M2 S9" /> -->
+<!-- 	         	</layoutData> -->
+<!-- 			</ComboBox> -->
+	   	</f:content>
+  	</f:SimpleForm>   	
+  	
+	<f:SimpleForm 
+				layout="ResponsiveGridLayout"
+				labelSpanL="1"
+				labelSpanM="1"
+				labelSpanS="3"
+				adjustLabelSpan="false"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="1"
+				columnsM="1"
+				singleContainerFullSize="false" 
+				backgroundDesign="sap.m.BackgroundDesign.Transparent">  
+		   	<f:content>	
+		   	
+	          <Label text="{i18n>lblPlant}"  class="sapUiTinyMarginTop" required="true">	
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>	          		          
+	          </Label>         
+			  <ComboBox id="werks" required="true" selectedKey="{PoItem>/Werks}" selectionChange="onSelChange"  editable="{screenMode>/dispMode}">
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	 		  </ComboBox> 	          
+	 		  <Label text="{i18n>lblLocation}"  class="sapUiTinyMarginTop" required="true">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>
+	          </Label>         
+			  <ComboBox id="lgort" required="true"  selectedKey="{PoItem>/Lgort}" selectionChange="onSelChange" editable="{screenMode>/editMode}">
+	           <layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	 		  </ComboBox> 
+	          <Label text="{i18n>lblFixStartDate}"  class="sapUiTinyMarginTop">
+ 	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>
+	          </Label>      
+				<DatePicker
+					id="zzaddi2"
+					placeholder="{i18n>lblEnterDate}"
+					value="{PoItem>/Zzaddi2}"
+					change="onHandleDateChange" 
+					editable="{screenMode>/editMode}">
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+				</DatePicker>
+	          <Label text="{i18n>lblFixEndDate}"  class="sapUiTinyMarginTop">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>
+	          </Label>      
+				<DatePicker
+					id="zzaddi3"
+					placeholder="{i18n>lblEnterDate}"
+					value="{PoItem>/Zzaddi3}"
+					change="onHandleDateChange" 
+					editable="{screenMode>/editMode}">
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+				</DatePicker>					 		  
+	          <Label text="{i18n>lblExpDelivDate}"  class="sapUiTinyMarginTop" required="true">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>
+	          </Label>      
+				<DatePicker
+					id="eindt"
+					placeholder="{i18n>lblEnterDate}"
+					required="true"
+					value="{PoItem>/Eindt}"
+					change="onHandleDateChange" 
+					editable="{screenMode>/editMode}">
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+				</DatePicker>
+	             
+	   	</f:content>
+  	</f:SimpleForm>   	
+  	
+	<f:SimpleForm 
+				layout="ResponsiveGridLayout"
+				labelSpanL="1"
+				labelSpanM="1"
+				labelSpanS="3"
+				adjustLabelSpan="false"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="1"
+				columnsM="1"
+				singleContainerFullSize="false" 
+				backgroundDesign="sap.m.BackgroundDesign.Transparent">  
+		   	<f:content>	
+	          <Label text="{i18n>lblVendor}"  class="sapUiTinyMarginTop" required="true">
+	          </Label>         
+	          <Input id="lifnr" value="{PoHeader>/Lifnr}" required="true" showValueHelp="true" 
+	          			 valueHelpRequest="onValueHelpRequest" change="onChange" editable="{screenMode>/dispMode}">
+    	      	<layoutData>
+        	  		<l:GridData span="L2 M2 S9" />
+          		</layoutData>
+          	  </Input>     
+        	  <Text id="lifnrT" text="{PoHeader>/LifnrT}" class="sapUiTinyMarginTop">
+		        	<layoutData>
+		          		<l:GridData span="L3 M3 S12" />
+		          	</layoutData>
+	          </Text>		
+	          <Label text="{i18n>lblPaymentDate}"  class="sapUiTinyMarginTop" required="true">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>
+	          </Label>      
+				<DatePicker
+					id="slfdt"
+					placeholder="{i18n>lblEnterDate}"
+					required="true"
+					value="{PoItem>/Slfdt}"
+					change="onHandleDateChange" 
+					editable="{screenMode>/editMode}">
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+				</DatePicker>
+					          	    
+<!-- 	          <Label text="{i18n>lblPayment}"  class="sapUiTinyMarginTop" required="true">
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>	          			          
+	          </Label>         
+			  <ComboBox id="zterm" required="true" selectionChange="onZtermSelect">
+	           <layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	 		  </ComboBox>    -->
+	          <Label text="{i18n>lblRegion}"  class="sapUiTinyMarginTop">			          
+<!-- 	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData> -->	          			          
+	          </Label>         
+			  <ComboBox id="zzaddi1" selectedKey="{PoItem>/Zzaddi1}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	           <layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	 		  </ComboBox>  	 		  
+	          <Label text="{i18n>lblIncoterm}"  class="sapUiTinyMarginTop">			          
+ 	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>	          			          
+	          </Label>         
+			  <ComboBox id="inco1" selectedKey="{PoHeader>/Inco1}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	           <layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	 		  </ComboBox>  	 		  
+	 		  
+	          <Input id="inco2l" value="{PoHeader>/Inco2L}" editable="{screenMode>/editMode}">
+    	      	<layoutData>
+        	  		<l:GridData span="L2 M2 S12" />
+          		</layoutData>
+          	  </Input> 	 		  
+	          <Label text="{i18n>lblTaxCode}" required="true" class="sapUiTinyMarginTop">			          
+ 	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData>	          			          
+	          </Label>         
+			  <ComboBox id="mwskz" required="true" selectedKey="{PoItem>/Mwskz}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	           <layoutData>
+	          		<l:GridData span="L2 M2 S9" />
+	          	</layoutData>
+	 		  </ComboBox>  	          	  
+	   		</f:content>
+  	</f:SimpleForm>  
+  	
+	<f:SimpleForm 
+				layout="ResponsiveGridLayout"
+				labelSpanL="1"
+				labelSpanM="1"
+				labelSpanS="3"
+				adjustLabelSpan="false"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="1"
+				columnsM="1"
+				singleContainerFullSize="false" 
+				backgroundDesign="sap.m.BackgroundDesign.Translucent">  
+		   	<f:content>	
+	          <Label text="{i18n>lblCustoAgente}"  class="sapUiTinyMarginTop">
+	          </Label>         
+	          <Input id="zblc" onChange="onInputChange" editable="{screenMode>/editMode}" textAlign="Right"
+	                            value="{path:'PoItem>/Zblc', 
+								type:'sap.ui.model.type.Float',
+								formatOptions: { decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : false
+												}
+								          }" >	                            
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S5" />
+	          	</layoutData>
+	          </Input>  
+			  <ComboBox id="zblcWaers" selectedKey="{PoItem>/ZblcWaers}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	            <items>
+                	<core:Item key="BRL" text="BRL/TO" />
+                	<core:Item key="PER" text="%" />
+               	</items>				  
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S4" />
+	          	</layoutData>
+	 		  </ComboBox> 	          
+	          <Label text="{i18n>lblFrete}"  class="sapUiTinyMarginTop">
+<!-- 	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData> -->	          			          
+	          </Label>         
+	          <Input id="zfc4" editable="{screenMode>/editMode}" textAlign="Right"
+	                            value="{path:'PoItem>/Zfc4', 
+								type:'sap.ui.model.type.Float',
+								formatOptions: { decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : false
+												}	
+								          }">	                            
+        
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S5" />
+	          	</layoutData>
+	          </Input>   
+			  <ComboBox id="zfc4Waers" selectedKey="{PoItem>/Zfc4Waers}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	            <items>
+                	<core:Item key="BRL" text="BRL/TO" />
+               	</items>				  
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S4" />
+	          	</layoutData>
+	 		  </ComboBox> 	          	
+	          <Label text="{i18n>lblOverhead}"  class="sapUiTinyMarginTop">			          
+<!-- 	           <layoutData>
+	          		<l:GridData span="L1 M1 S3" />
+	          	</layoutData> -->	          			          
+	          </Label>         
+	          <Input id="zbal" editable="{screenMode>/editMode}" textAlign="Right"
+	                            value="{path:'PoItem>/Zbal', 
+								type:'sap.ui.model.type.Float',
+								formatOptions: { decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : false
+												}	
+								          }">	  	                            
+	          	<layoutData>
+	          		<l:GridData span="L2 M2 S5" />
+	          	</layoutData>
+	          </Input>  
+			  <ComboBox id="zbalWaers" selectedKey="{PoItem>/ZbalWaers}" selectionChange="onSelChange"  editable="{screenMode>/editMode}">
+	            <items>
+                	<core:Item key="BRL" text="BRL/TO" />
+               	</items>			  
+	           <layoutData>
+	          		<l:GridData span="L1 M1 S4" />
+	          	</layoutData>
+	 		  </ComboBox> 	  
+		     <Label text="{i18n>lblShortText}" class="sapUiTinyMarginTop">
+			 </Label>						          
+	     	 <TextArea id="Ltext" rows="5" value="{PoHeader>/LongTxt}" editable="{screenMode>/editMode}">
+	        	<layoutData>
+	          		<l:GridData span="L8 M8 S12" />
+	          	</layoutData>
+	         </TextArea>    	 		          
+	   	</f:content>
+  	</f:SimpleForm>  	
+  	 	
+<!-- 	<l:VerticalLayout id="containerLayout" width="100%" >
+		<l:BlockLayout id="BlockLayout" background="Dashboard">
+			<l:BlockLayoutRow accentCells="Accent1">
+				<l:BlockLayoutCell id="Accent1">
+					<MessageStrip text="You can use the cells with 100% width, if you set the vertical property of the row to true" />
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+		</l:BlockLayout>
+	</l:VerticalLayout>		
+   -->
+		<footer>
+			<Bar>
+				<contentRight>
+				    <Button id="save" text="{i18n>save}" press="onSave" visible="{screenMode>/visiMode}"/>
+				    <Button id="cancel" text="{i18n>back}" press="onNavBack" />
+				</contentRight>
+			</Bar>
+		</footer>			
+	</Page>
+</core:View>

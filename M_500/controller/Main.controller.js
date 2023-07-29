@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(t){"use strict";return t.extend("zcoui0001.controller.Main",{onInit:function(){},getRouter:function(){return this.getOwnerComponent().getRouter()},onNavToChartContainer:function(){this.getRouter().navTo("Chart")}})});

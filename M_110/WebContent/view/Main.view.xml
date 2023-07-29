@@ -1,0 +1,195 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m110.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" title="" class="sapUiContentPadding">
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                        columnsM="12"
+                        columnsS="12"  
+						>
+   			<Label 	text="{i18n>lblPlant}"  class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L1 M2 S4"/>
+         		</layoutData>
+         	</Label>
+ 		  	<Select id="Werks" forceSelection="false" change="onChangePlant" required="true">
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+       		</Select>
+   			<Label 	text="{i18n>lblLocation}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L1 M2 S4"/>
+         		</layoutData>
+         	</Label>
+ 		  	<ComboBox id="Lgort" forceSelection="false" change="">
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+       		</ComboBox>
+   			<Label 	text="{i18n>lblMaterial}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L1 M2 S4"/>
+         		</layoutData>
+         	</Label>
+       		<Input 	id="Matnr"
+       		        editable="{screenMode>/matnr}">
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+       		</Input>
+   			<Label 	text="{i18n>lblGrade}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L1 M2 S4"/>
+         		</layoutData>
+         	</Label>
+		  	<ComboBox id="Maabc">
+				<items>
+					<core:Item key="A" text="A" />
+					<core:Item key="B" text="B" />
+					<core:Item key="C" text="C" />
+					<core:Item key="N" text="N/A" />
+				</items>
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+       		</ComboBox>
+    	</f:SimpleForm>
+		
+		<t:Table id="listTable" 
+				rowHeight="30px"
+				columnHeaderHeight="30px"
+				 
+		         selectionMode="MultiToggle"
+		         visibleRowCountMode="Auto">
+ 			<t:toolbar>
+				<Toolbar>
+					<Button icon="sap-icon://excel-attachment"
+							tooltip="{i18n>lblDownloadExcel}"
+							press="onDownloadExcel"/>
+					<Button
+						icon="sap-icon://decline"
+						tooltip="{i18n>lblClearAllSortings}"
+						press="onClearAllSortings"/>
+					<Button
+						icon="sap-icon://clear-filter"
+						tooltip="{i18n>lblClearAllFilters}"
+						press="onClearAllFilters"/>
+                	<ToggleButton
+                			id="filter"	
+                			icon="sap-icon://print"
+                        	text="{i18n>onlyFirst}" 
+                        	press="onFilterSelection" 
+                        	visible="true" />
+
+					<RadioButtonGroup id="GroupA" columns="2" select="onFilterSelection">
+						<RadioButton text="All" width="2rem" selected="true"/>
+						<RadioButton text="0 Stock exclude" width="7rem"/>
+					</RadioButtonGroup>	
+					
+					<ToolbarSpacer /> 
+
+
+                	<Button	icon="sap-icon://search" 
+                        	text="{i18n>search}"
+                        	press="onBtnSearch" 
+                        	visible="true" />
+                    <Button	icon="sap-icon://print" 
+                        	text="{i18n>qrPrintM}"
+                        	press="onBtnPrint" 
+                        	visible="true" />
+                    <Button	icon="sap-icon://print" 
+                        	text="{i18n>qrPrintS}"
+                        	press="onBtnPrint" 
+                        	visible="true" />                        	
+				</Toolbar>
+			</t:toolbar>
+
+			<t:columns>
+				<t:Column width="10%" sortProperty="Lgort" filterProperty="Lgort" hAlign="Center">
+               		<Label text="{i18n>lblLocation}"/>
+                   	<t:template><Text text="{Lgort}"/></t:template>
+               	</t:Column>
+               	<t:Column width="20%" sortProperty="Lgobe" filterProperty="Lgobe">
+               		<Label text="{i18n>lblLocationTxt}" />
+               		<t:template><Text text="{Lgobe}"/></t:template>
+               	</t:Column>
+              	<t:Column width="10%" sortProperty="Matnr" filterProperty="Matnr" hAlign="Center">
+               		<Label text="{i18n>lblMaterial}" />
+               		<t:template><Text text="{Matnr}"/></t:template>
+               	</t:Column>
+               	<t:Column width="35%" sortProperty="Maktx" filterProperty="Maktx">
+               		<Label text="{i18n>lblMaterialDesc}" />
+               		<t:template><Text text="{Maktx}"/></t:template>
+               	</t:Column>
+				<t:Column width="20%" sortProperty="Rackno" filterProperty="Rackno" hAlign="Center">
+               		<Label text="{i18n>lblRackno}"/>
+                   	<t:template><Text text="{Rackno}"/></t:template>
+               	</t:Column>
+				<t:Column width="10%" sortProperty="Erdat" filterProperty="Erdat" hAlign="Center">
+               		<Label text="{i18n>lblCreateDate}"/>
+                   	<t:template><Text text="{Erdat}"/></t:template>
+               	</t:Column>				
+               	<t:Column width="10%" sortProperty="Matkl" filterProperty="Matkl" hAlign="Center">
+               		<Label text="{i18n>lblMatkl}" />
+               		<t:template><Text text="{Matkl}"/></t:template>
+               	</t:Column>
+              	<t:Column width="10%" sortProperty="Maabc" filterProperty="Maabc" hAlign="Center">
+               		<Label text="{i18n>lblGrade}" />
+               		<t:template><Text text="{Maabc}"/></t:template>
+               	</t:Column>
+               	<t:Column width="10%" sortProperty="Labst" filterProperty="Labst" hAlign="Right">
+               		<Label text="{i18n>lblStock}" />
+               		<t:template><Text text="{Labst}"/></t:template>
+               	</t:Column>
+               	<t:Column width="10%" sortProperty="Eisbe" filterProperty="Eisbe" hAlign="Right">
+               		<Label text="{i18n>lblSafetyStock}" />
+               		<t:template><Text text="{Eisbe}"/></t:template>
+               	</t:Column>
+              	<t:Column width="10%" sortProperty="Meins" filterProperty="Meins" hAlign="Center">
+               		<Label text="{i18n>lblMeins}" />
+               		<t:template><Text text="{Meins}"/></t:template>
+               	</t:Column>
+               	<t:Column width="10%" sortProperty="Qrcnt" filterProperty="Qrcnt" hAlign="Right">
+               		<Label text="{i18n>lblQrcnt}" />
+               		<t:template><Text text="{Qrcnt}"/></t:template>
+               	</t:Column>
+			</t:columns>
+		</t:Table>		
+<!-- 		<footer>
+			<Bar> -->
+<!-- 				<contentLeft> -->
+<!-- 					<Button id="orderDisp" text="{i18n>display}" press="onPress_disp" /> -->
+<!-- 				</contentLeft> -->
+
+<!-- 				<contentMiddle>
+					<Button id="Search"
+							type="Accept"
+							text="{i18n>lblSearch}"
+							visible="{screenMode>/Search}" 	
+							press="onBtnSearch" />
+					<Button id="GoodIssue"
+							type="Accept"
+							text="{i18n>lblGoodIssue}"  
+							visible="{screenMode>/GoodIssue}" 	
+							press="onBtnGoodIssue" />
+					<Button id="Cancel"
+							type="Reject"
+							text="{i18n>lblCancel}" 	
+							visible="{screenMode>/Cancel}" 	
+							press="onBtnCancel" />
+		 		</contentMiddle> -->
+
+<!-- 				<contentRight> -->
+<!-- 					<Button id="workAssign"   text="{i18n>workAssign}"   press="onPress_wkassign" />			 -->
+<!-- 				</contentRight> -->
+<!-- 			</Bar>
+		</footer>    	 -->
+	</Page>
+</core:View>

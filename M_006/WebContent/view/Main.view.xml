@@ -1,0 +1,554 @@
+<core:View xmlns:core="sap.ui.core" 
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns="sap.m"
+          xmlns:f="sap.ui.layout.form"
+	      xmlns:l="sap.ui.layout"
+	      xmlns:t="sap.ui.table"
+	      xmlns:viz="sap.viz.ui5.controls" 
+	      xmlns:viz.data="sap.viz.ui5.data" 
+	      xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+		  controllerName="cj.pm_m060.controller.Main" 
+		  xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage">
+		<content>
+ 	    	<f:SimpleForm
+	    	    layout="ResponsiveGridLayout"
+	    	    columnsS="12" 
+				columnsL="12"
+				columnsM="12">
+    			<f:content>
+          			<Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop" required="true">
+          				<layoutData>
+			          		<l:GridData span="L1 M1 S1" />
+			          	</layoutData> 
+          			</Label>
+          			<Select id="Gsber" change="onChangeGsber" required="true">
+			           <layoutData>
+			          		<l:GridData span="L2 M2 S2" />
+			          	</layoutData>
+	         	    </Select>
+	         	    <Text>
+			        	<layoutData>
+			          		<l:GridData span="L3 M3 S3"/>
+			          	</layoutData>
+			        </Text>
+    				<Label text="{i18n>lblSpmon}" class="sapUiTinyMarginTop" required="true">
+			           	 <layoutData>
+			          		<l:GridData span="L2 M2 S2" />
+			          	</layoutData>
+			        </Label>
+
+			        <Select id="Spmon" width="150px" required="true" >
+					    <layoutData>
+	          				<l:GridData span="L4 M4 S4" />
+	          			</layoutData>
+	          		</Select>
+      	    
+			        <Text>
+			        	<layoutData>
+			          		<l:GridData span="L8 M8 S8"/>
+			          	</layoutData>
+			        </Text>
+			        <Button text="{i18n>reqapprv}" press="onReqApprove" enabled="{screenMode>/approve}">
+			            <layoutData>
+			          		<l:GridData span="L2 M2 S2"/>
+			          	</layoutData>
+			        </Button>			        
+			        <Button text="{i18n>search}" press="onSearch">
+			            <layoutData>
+			          		<l:GridData span="L2 M2 S2"/>
+			          	</layoutData>
+			        </Button>
+	    		</f:content>
+	    	</f:SimpleForm> 
+	        	
+
+		  	
+	       <t:Table id="table"
+			 visibleRowCount="8"
+			 selectionMode="None"
+			 title="{i18n>lblAuditSummary}"
+			 class="sapUiResponsiveMargin">
+			 	<t:toolbar>
+                 	<Toolbar>
+                    	<content>
+                    		<title text="{i18n>lblSummaryAmt}" />
+	                         <Button
+	                         	icon="sap-icon://excel-attachment"
+	                         	tooltip="{i18n>lblDownloadExcel}"
+	                         	press="onDownloadExcel"/>
+	                         <Button
+	                             icon="sap-icon://decline"
+	                             tooltip="{i18n>lblClearAllSortings}"
+	                             press="onClearAllSortings"/>
+	                         <Button
+	                             icon="sap-icon://clear-filter"
+	                             tooltip="{i18n>lblClearAllFilters}"
+	                             press="onClearAllFilters"/>                             	                            
+                             <ToolbarSpacer/>
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>
+                 <t:columns>
+              	 	<t:Column width="9rem" 
+                       sortProperty="Anlkl"
+                       filterProperty="Anlkl">
+                        <Label text="{i18n>lblAssetClas}"/>
+                        <t:template>
+                            <Text text="{Anlkl}" wrapping="false"/>    
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="15rem"
+                       sortProperty="Txk50"
+                       filterProperty="Txk50">
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Txk50}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Amt_sap"
+                       filterProperty="Amt_sap" hAlign="End">
+                        <Label text="{i18n>lblAmt_sap}" />
+                        <t:template>
+							<Text text="{ parts:[
+							               {path:'Amt_sap'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                                                       
+                        </t:template>                        
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Amt_real"
+                       filterProperty="Amt_real" hAlign="End">
+                        <Label text="{i18n>lblAmt_real}" />
+                        <t:template>
+                            <!-- <Text text="{path:'Amt_real',type:'sap.ui.model.type.Float'}" wrapping="false"/> -->
+                            <Text text="{ parts:[
+							               {path:'Amt_real'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Amt_diff"
+                       filterProperty="Amt_diff" hAlign="End">
+                        <Label text="{i18n>lblAmt_diff}" />
+                        <t:template>
+                            <!-- <Text text="{path:'Amt_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/> -->
+                            <Text text="{ parts:[
+							               {path:'Amt_diff'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Amt_idle"
+                       filterProperty="Amt_idle" hAlign="End">
+                        <Label text="{i18n>lblAmt_idle}" />
+                        <t:template>
+                            <!-- <Text text="{path:'Amt_idle',type:'sap.ui.model.type.Float'}" wrapping="false"/> -->
+                             <Text text="{ parts:[
+							               {path:'Amt_idle'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Amt_poor"
+                       filterProperty="Amt_poor" hAlign="End">
+                        <Label text="{i18n>lblAmt_poor}" />
+                        <t:template>
+                            <!-- <Text text="{path:'Amt_poor',type:'sap.ui.model.type.Float'}" wrapping="false"/> -->
+                            <Text text="{ parts:[
+							               {path:'Amt_poor'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>                    
+            	</t:columns>
+    		</t:Table> 
+    		
+	       <t:Table id="table2"
+			 visibleRowCount="8"
+			 selectionMode="None"
+			 class="sapUiResponsiveMargin">
+			 	<t:toolbar>
+                 	<Toolbar>
+                    	<content>
+                    		<title text="{i18n>lblSummaryQty}" />
+	                         <Button
+	                         	icon="sap-icon://excel-attachment"
+	                         	tooltip="{i18n>lblDownloadExcel}"
+	                         	press="onDownloadExcel2"/>
+	                         <Button
+	                             icon="sap-icon://decline"
+	                             tooltip="{i18n>lblClearAllSortings}"
+	                             press="onClearAllSortings2"/>
+	                         <Button
+	                             icon="sap-icon://clear-filter"
+	                             tooltip="{i18n>lblClearAllFilters}"
+	                             press="onClearAllFilters2"/>                             	                            
+                             <ToolbarSpacer/>
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>
+                 <t:columns>
+              	 	<t:Column width="9rem" 
+                       sortProperty="Anlkl"
+                       filterProperty="Anlkl">
+                        <Label text="{i18n>lblAssetClas}"/>
+                        <t:template>
+                            <Text text="{Anlkl}" wrapping="false"/>    
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="15rem"
+                       sortProperty="Txk50"
+                       filterProperty="Txk50">
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Txk50}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Qty_sap"
+                       filterProperty="Qty_sap" hAlign="End">
+                        <Label text="{i18n>lblQty_sap}" />
+                        <t:template>
+                            <Text text="{path:'Qty_sap',type:'sap.ui.model.type.Float'}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Qty_real"
+                       filterProperty="Qty_real" hAlign="End">
+                        <Label text="{i18n>lblQty_real}" />
+                        <t:template>
+                            <Text text="{path:'Qty_real',type:'sap.ui.model.type.Float'}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Qty_diff"
+                       filterProperty="Qty_diff" hAlign="End">
+                        <Label text="{i18n>lblQty_diff}" />
+                        <t:template>
+                            <Text text="{path:'Qty_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Qty_idle"
+                       filterProperty="Qty_idle" hAlign="End">
+                        <Label text="{i18n>lblQty_idle}" />
+                        <t:template>
+                            <Text text="{Qty_idle}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Qty_poor"
+                       filterProperty="Qty_poor" hAlign="End">
+                        <Label text="{i18n>lblQty_poor}" />
+                        <t:template>
+                            <Text text="{Qty_poor}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                    
+            	</t:columns>
+    		</t:Table>     		
+    		
+
+	    
+	
+    	
+	       <t:Table id="table3"
+			 visibleRowCount="8"
+			 title="{i18n>lblAuditDiffWhy}"			 
+			 selectionMode="None"
+			 class="sapUiResponsiveMargin">
+			 	<t:toolbar>
+                 	<Toolbar>
+                    	<content>
+                    		<title text="{i18n>lblSummaryDiff}" />
+	                         <Button
+	                         	icon="sap-icon://excel-attachment"
+	                         	tooltip="{i18n>lblDownloadExcel}"
+	                         	press="onDownloadExcel3"/>
+	                         <Button
+	                             icon="sap-icon://decline"
+	                             tooltip="{i18n>lblClearAllSortings}"
+	                             press="onClearAllSortings3"/>
+	                         <Button
+	                             icon="sap-icon://clear-filter"
+	                             tooltip="{i18n>lblClearAllFilters}"
+	                             press="onClearAllFilters3"/>                             	                            
+                             <ToolbarSpacer/>
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>
+                 <t:columns>
+              	 	<t:Column width="10rem" 
+                       sortProperty="Anln1"
+                       filterProperty="Anln1">
+                        <Label text="{i18n>lblAsset}"/>
+                        <t:template>
+                            <Text text="{Anln1}" wrapping="false"/>    
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="13rem"
+                       sortProperty="Txt50"
+                       filterProperty="Txt50">
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Txt50}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="7rem"
+                       sortProperty="Qty_diff"
+                       filterProperty="Qty_diff" hAlign="End">
+                        <Label text="{i18n>lblQty_diff}" />
+                        <t:template>
+                            <Text text="{path:'Qty_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="9rem"
+                       sortProperty="Amt_diff"
+                       filterProperty="Amt_diff" hAlign="End">
+                        <Label text="{i18n>lblAmt_diff}" />
+                        <t:template>
+                            <!-- <Text text="{path:'Amt_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/> -->
+                            <Text text="{ parts:[
+							               {path:'Amt_diff'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>                    
+                    <t:Column width="17rem"
+                       sortProperty="Reason"
+                       filterProperty="Reason">
+                        <Label text="{i18n>lblReason}" />
+                        <t:template>
+                            <Text text="{Reason}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="17rem"
+                       sortProperty="Measure"
+                       filterProperty="Measure">
+                        <Label text="{i18n>lblMeasure}" />
+                        <t:template>
+                            <Text text="{Measure}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                
+            	</t:columns>
+    		</t:Table> 
+    		
+	       <t:Table id="table4"
+			 visibleRowCount="8"
+			 selectionMode="None"
+			 class="sapUiResponsiveMargin">
+			 	<t:toolbar>
+                 	<Toolbar>
+                    	<content>
+                    		<title text="{i18n>lblSummaryidle}" />
+	                         <Button
+	                         	icon="sap-icon://excel-attachment"
+	                         	tooltip="{i18n>lblDownloadExcel}"
+	                         	press="onDownloadExcel4"/>
+	                         <Button
+	                             icon="sap-icon://decline"
+	                             tooltip="{i18n>lblClearAllSortings}"
+	                             press="onClearAllSortings4"/>
+	                         <Button
+	                             icon="sap-icon://clear-filter"
+	                             tooltip="{i18n>lblClearAllFilters}"
+	                             press="onClearAllFilters4"/>                             	                            
+                             <ToolbarSpacer/>
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>
+                 <t:columns>
+              	 	<t:Column width="10rem" 
+                       sortProperty="Anlkl"
+                       filterProperty="Anlkl">
+                        <Label text="{i18n>lblAssetClas}"/>
+                        <t:template>
+                            <Text text="{Anlkl}" wrapping="false"/>    
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="13rem"
+                       sortProperty="Txk50"
+                       filterProperty="Txk50">
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Txk50}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="7rem"
+                       sortProperty="Qty_diff"
+                       filterProperty="Qty_diff" hAlign="End">
+                        <Label text="{i18n>lblQty}" />
+                        <t:template>
+                            <Text text="{path:'Qty_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="9rem"
+                       sortProperty="Amt_diff"
+                       filterProperty="Amt_diff" hAlign="End">
+                        <Label text="{i18n>lblAmt}" />
+                        <t:template>
+                            <!-- <Text text="{path:'Amt_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/> -->
+                            <Text text="{ parts:[
+							               {path:'Amt_diff'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>                    
+                    <t:Column width="17rem"
+                       sortProperty="Reason"
+                       filterProperty="Reason">
+                        <Label text="{i18n>lblReason}" />
+                        <t:template>
+                            <Text text="{Reason}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="17rem"
+                       sortProperty="Measure"
+                       filterProperty="Measure">
+                        <Label text="{i18n>lblMeasure}" />
+                        <t:template>
+                            <Text text="{Measure}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                
+            	</t:columns>
+    		</t:Table>   		
+    		
+	       <t:Table id="table5"
+			 visibleRowCount="8"
+			 selectionMode="None"
+			 class="sapUiResponsiveMargin">
+			 	<t:toolbar>
+                 	<Toolbar>
+                    	<content>
+                    		<title text="{i18n>lblSummarypoor}" />
+	                         <Button
+	                         	icon="sap-icon://excel-attachment"
+	                         	tooltip="{i18n>lblDownloadExcel}"
+	                         	press="onDownloadExcel5"/>
+	                         <Button
+	                             icon="sap-icon://decline"
+	                             tooltip="{i18n>lblClearAllSortings}"
+	                             press="onClearAllSortings5"/>
+	                         <Button
+	                             icon="sap-icon://clear-filter"
+	                             tooltip="{i18n>lblClearAllFilters}"
+	                             press="onClearAllFilters5"/>                             	                            
+                             <ToolbarSpacer/>
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>
+                 <t:columns>
+              	 	<t:Column width="10rem" 
+                       sortProperty="Anln1"
+                       filterProperty="Anln1">
+                        <Label text="{i18n>lblAsset}"/>
+                        <t:template>
+                            <Text text="{Anln1}" wrapping="false"/>    
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="13rem"
+                       sortProperty="Txt50"
+                       filterProperty="Txt50">
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Txt50}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="7rem"
+                       sortProperty="Qty_diff"
+                       filterProperty="Qty_diff" hAlign="End">
+                        <Label text="{i18n>lblQty}" />
+                        <t:template>
+                            <Text text="{path:'Qty_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="9rem"
+                       sortProperty="Amt_diff"
+                       filterProperty="Amt_diff" hAlign="End">
+                        <Label text="{i18n>lblAmt}" />
+                        <t:template>
+                            <!-- <Text text="{path:'Amt_diff',type:'sap.ui.model.type.Float'}" wrapping="false"/> -->
+                            <Text text="{ parts:[
+							               {path:'Amt_diff'},
+							               {path:'Waers'}
+								          ],
+								          type:'sap.ui.model.type.Currency',
+								          formatOptions:{
+								               showMeasure: false
+								          }
+								}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>                    
+                    <t:Column width="17rem"
+                       sortProperty="Reason"
+                       filterProperty="Reason">
+                        <Label text="{i18n>lblReason}" />
+                        <t:template>
+                            <Text text="{Reason}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="17rem"
+                       sortProperty="Measure"
+                       filterProperty="Measure">
+                        <Label text="{i18n>lblMeasure}" />
+                        <t:template>
+                            <Text text="{Measure}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                
+            	</t:columns>
+    		</t:Table>   	
+    		
+	    
+	      		
+		</content>
+	<!-- 	<footer>
+			<Bar>
+				<contentRight>
+				    <Button id="DetailNoti" text="{i18n>lblDisplayNoti}" press="onPress_detail" />
+					<Button id="createNoti" text="{i18n>lblCreateNoti}" press="onPress_noti" />
+					<Button id="assignOrd" text="{i18n>lblAssignOrder}" press="onPress_order" />
+				</contentRight>
+			</Bar>
+		</footer> -->
+	</Page>
+</core:View>

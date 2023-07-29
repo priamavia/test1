@@ -1,0 +1,34 @@
+{	
+	"ManagerByKostl" : [
+    	{
+    		"Key"			: "600021",
+    		"KeyName"		: "KT)Fermentation Broth(OAHS)",
+    		"ManagerId"		: "AAA",
+    		"NamagerName"	: "Mr.Bang"
+    	},
+    	{
+    		"Key"			: "600053",
+    		"KeyName"		: "KT)Refinery C2 - Crystal",
+    		"ManagerId"		: "ABC",
+    		"NamagerName"	: "Crystal"
+    	},
+    	{
+    		"Key"			: "600106",
+    		"KeyName"		: "KT)Engineering Team",
+    		"ManagerId"		: "CCC",
+    		"NamagerName"	: "Mr.Engin"
+    	},
+    	{
+    		"Key"			: "600018",
+    		"KeyName"		: "KT)Utility-Process",
+    		"ManagerId"		: "KKK",
+    		"NamagerName"	: "Mr.Utility"
+    	},
+    	{
+    		"Key"			: "600003",
+    		"KeyName"		: "KT)Finance Dept",
+    		"ManagerId"		: "FFF",
+    		"NamagerName"	: "Mr.Finance"
+    	}		
+	]
+}

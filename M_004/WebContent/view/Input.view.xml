@@ -1,0 +1,250 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc"
+           xmlns="sap.m"
+		   controllerName="cj.pm_m040.controller.Input" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" title="{header>/Txt50}" showNavButton="true" 
+			navButtonPress="onNavBack" >
+<!-- 		<headerContent>
+	    	<Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+	    </headerContent>    -->
+		
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+			    	    columnsL="12"
+                        columnsM="12"
+                        columnsS="12"
+						class="sapUiSizeCompact"
+						>
+        	<Label text="{i18n>lblBusinessAreaShort}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="GsberFull" value="{header>/GsberFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S10" />
+          		</layoutData>
+ 		  	</Input>
+        	<Label text="{i18n>lblKostl}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="KostlFull" value="{header>/KostlFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S10" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblAnlklShort}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="AnlklFull" value="{header>/AnlklFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S10" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblAsset}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="AnlnrFull" value="{header>/AnlnrFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S10" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblEqunr}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="EqunrFull" value="{header>/EqunrFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S10" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblAktiv}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="Aktiv" value="{header>/Aktiv}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblNdjar}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="NdjarFull" value="{header>/NdjarFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Input>
+		</f:SimpleForm>
+    
+		<Table 	id="inputTable"
+				inset="false"
+				mode="SingleSelectMaster"
+				growing="true"			 
+				growingThreshold="11"
+				growingScrollToLoad="true"
+				items="{ path: 'QtyList>/results' }" >
+ 			<columns>
+				<Column id="colQtyTitle" width="50px" hAlign="Center" ><Text text=""/></Column>
+				<Column id="colMenge" width="50px" hAlign="Center"><Text text="{i18n>lblSapQty}"/></Column>
+				<Column id="colMengeChk" 	width="50px" hAlign="Center" visible="{header>/Edit}"><Text text="{i18n>lblQuantity}"/></Column>
+				<Column id="colDiffChk" 	width="50px" hAlign="Center" visible="{header>/Edit}"><Text text="{i18n>lblGap}"/></Column>
+				<Column id="colUnit" 	width="50px" hAlign="Center"><Text text="{i18n>lblUnit}"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active">		 
+			    	<cells>
+						<Text text="Qty"/>
+						<Text id="SapQty" text="{QtyList>Menge}"/>
+						<Input 	value="{QtyList>MengeChk}"
+								textAlign="Center"
+          				       	enabled="{QtyList>Edit}"
+								visible="{header>/Edit}"
+          				       	class="sapUiNoContentPadding"
+          				       	change="onQtyChange"
+          		       	/>
+   						<Text id="QtyDiff" text="{QtyList>DiffChk}" visible="{header>/Edit}"/>
+   						<Text id="Meins" text="{QtyList>Meins}"/>
+					<!-- <ObjectNumber
+						number="{path:'PoList>Zblc', 
+								type:'sap.ui.model.type.Float',
+								formatOptions: {decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : true}
+												}"
+						unit="{PoList>ZblcWaers}" /> -->   						
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+       	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                        columnsM="12"
+                        columnsS="12"
+						>
+		 	<Label text="{i18n>lblStatus}" class="sapUiTinyMarginTop"  visible="{header>/Edit}">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+			<SegmentedButton id="Btn01" selectedKey="{header>/UsageChk}" class="sapUiSmallMarginBottom"  
+  							visible="{header>/Edit}" select="onSelectionChange" width="100%">
+				<items>
+					<SegmentedButtonItem text="Use"    key="Y"/>
+					<SegmentedButtonItem text="Un-use" key="N" />
+				</items>
+        		<layoutData>
+          			<l:GridData span="L5 M4 S10" />
+          		</layoutData>				
+			</SegmentedButton>
+			
+			<Label text="{i18n>lblStatus2}" class="sapUiTinyMarginTop" visible="{header>/Edit2}">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+
+			<SegmentedButton id="Btn02" selectedKey="{header>/StatuChk}"  visible="{header>/Edit2}" width="100%">
+				<items>
+					<SegmentedButtonItem text="SparePart" key="1"/>
+					<SegmentedButtonItem text="Repair"    key="2"/>
+					<SegmentedButtonItem text="Defective" key="3"/>
+				</items>
+        		<layoutData>
+          			<l:GridData span="L5 M4 S10" />
+          		</layoutData>				
+			</SegmentedButton>
+		</f:SimpleForm>
+
+		<l:VerticalLayout class="sapUiContentPadding" width="100%">
+			<Image
+				src="{header>/ImageSrc}" 
+				decorative="false"
+				width="100%"
+				visible="{header>/ImageFlag}"
+				densityAware="false">
+<!-- 				<detailBox>
+					<LightBox>
+						<LightBoxItem
+							imageSrc="/sap/opu/odata/sap/ZPM_GW_MDMS_SRV/InputSet(Doknr='AA3020202207001400001479',Dokar='PM4',Dokvr='01',Doktl='000')/$value"
+							alt="Beamer"
+							title="This is a beamer"
+							subtitle="This is beamer's description" />
+					</LightBox>
+				</detailBox> -->
+					<!-- Fixes HBox layout on Android Stock Browser for Android 5.0 -->
+				<layoutData>
+					<FlexItemData growFactor="1" shrinkFactor="0" />
+				</layoutData>
+			</Image>
+			<u:FileUploader id="fileUploader" width="100%"
+				sameFilenameAllowed="false"
+				placeholder="{i18n>fileselect}" 
+				uploadComplete="handleUploadComplete"
+				change="handleValueChange"
+				afterDialogClose="handleFileDialogClose"
+				typeMissmatch="handleTypeMissmatch"
+				maximumFileSize="10.000"
+				additionalData="Upload"
+				uploadOnChange="false"
+				uploadProgress="uploadProgress"
+				sendXHR="true"
+				visible="true"
+				useMultipart="false"
+				style="Emphasized"
+				fileType="jpg,gif,png,jpeg,heif"
+				icon="sap-icon://attachment"
+				value="{File}">	
+			</u:FileUploader>
+<!-- 			<html:div style="font-size: 0.875rem">
+				<html:p>
+					<html:input id="fileDirect" type="file" accept="image/*" capture="camera" />
+				</html:p>
+			</html:div> -->
+		</l:VerticalLayout>
+
+
+
+		<footer>
+			<Bar>
+<!--  				<contentLeft>
+ 					<Button id="orderDisp" 
+ 					        text="{i18n>lblOtherAsset}"
+ 					        press="onPress_otherAsset" />
+  				</contentLeft> -->
+
+ 				<contentMiddle>
+					<Button id="AuditInput"
+							type="Accept"
+							icon="sap-icon://save"
+							visible="{header>/Edit}" 	
+							press="onPress_auditInput" />
+					<Button id="FileOnly"
+							type="None"
+							icon="sap-icon://upload-to-cloud"
+							visible="{header>/Edit3}" 	
+							press="onPress_fileUpload" />
+		 		</contentMiddle>
+
+ 				<contentRight>
+<!--  					<Button id="assetHistory"
+ 					        text="{i18n>lblAssetSubList}"
+							press="onPressSubAsset" /> -->
+ 				</contentRight>
+			</Bar>
+		</footer>    	
+	</Page>
+</core:View>

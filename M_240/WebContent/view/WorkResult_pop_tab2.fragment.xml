@@ -1,0 +1,120 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	
+   	<f:SimpleForm
+   	    title="{i18n>measuring_group}"
+   	    id = "SimpleForm_measure"
+   	    layout="ResponsiveGridLayout"
+   	  	labelSpanL="0"
+		labelSpanM="0"
+		emptySpanL="0"
+		emptySpanM="0"
+		emptySpanS="0"
+		columnsL="5"
+		columnsM="5"
+		editable="true">
+   	<f:content>		    
+     <t:Table id="table_measure"
+         selectionMode="None"
+		 selectionBehavior="Row"
+		 visibleRowCount="5">
+             <t:columns>
+                   <t:Column width="6rem" hAlign="Center">
+                       <Label text="{i18n>lblMeasurePoint}"/>
+                       <t:template>
+						<Text text="{Point}"
+						      textAlign="Center"/>
+                       </t:template>
+                   </t:Column>	
+                   <t:Column width="19rem" hAlign="Center">
+                       <Label text="{i18n>lblDescription}"/>
+                       <t:template>
+						<Text text="{Pttxt}"  wrapping="false"/>
+                       </t:template>
+                   </t:Column>
+                   <t:Column width="5rem"  hAlign="Center">
+                       <Label text="{i18n>lblUnit}"/>
+                       <t:template>
+						<Text text="{Mseht}"
+							  textAlign="Center"  wrapping="false"/>
+                       </t:template>
+                   </t:Column>
+                   <t:Column width="8rem" hAlign="Center">
+                       <Label text="{i18n>lblMeasureValue}"/>
+                       <t:template>
+                          <Input 
+                              id="Recdc_wr"
+                              value="{ path : 'Recdc' }"
+                              textAlign="Right" 
+                              enabled="{Enable}"/>				                        
+                       </t:template>
+                   </t:Column> 
+                   <t:Column width="10rem">
+                       <Label text="{i18n>lblCode}"  hAlign="Center"/>
+                       <t:template>  
+					<Select id="Vlcod_wr" selectedKey="{Vlcod}" forceSelection="false"
+					          items="{path:'ListDeep/results', templateShareable:false}"
+					          change="onChangeVlcod"
+					          enabled="{Enable}">
+				     <items> 
+					    <core:Item key="{Key}" text="{KeyName}"/> 
+					  </items>
+		            <layoutData>
+		          		<l:GridData span="L2 M1 S1" />
+		          	</layoutData>								   
+					</Select>
+                       </t:template>
+                   </t:Column>	                     
+                               
+                   <t:Column width="9rem" hAlign="Center">
+                       <Label text="{i18n>lblDate}"/>
+                       <t:template>
+					<DatePicker
+						id="Idate_wr"
+						placeholder="{i18n>lblEnterDate}"
+                              value="{ path : 'Idate' }"
+						change="handleChangeIdate"
+						enabled="{Enable}">
+					</DatePicker>	                       	                                                
+                       </t:template>
+                   </t:Column>	
+                   <t:Column width="8rem"  hAlign="Center">
+                       <Label text="{i18n>lblTime}"/>
+                       <t:template>
+					<TimePicker
+						id="Itime_wr"
+						placeholder="{i18n>lblEnterTime}"
+						 value="{
+                                   path : 'Itime'
+                                   }"
+				        displayFormat="HH.mm.ss"
+				        valueFormat="HHmmss"	
+						change="handleChangeItime"
+						enabled="{Enable}">
+					</TimePicker>
+                                                  
+                       </t:template>
+                   </t:Column>
+                   <t:Column width="10rem" hAlign="Center">
+                       <Label text="{i18n>lblMeasuredBy}"/>
+                       <t:template>
+                          <Input 
+                              id="Readr_wr"
+                              value="{
+                                   path : 'Readr'
+                                   }"
+                              wrapping="false"
+                              enabled="{Enable}"/>				                        
+                       </t:template>
+                   </t:Column>			                    		                    
+             </t:columns>
+    </t:Table>    	
+  	</f:content>
+  	</f:SimpleForm>  
+  	
+</core:FragmentDefinition>

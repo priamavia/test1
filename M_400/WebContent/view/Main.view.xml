@@ -1,0 +1,270 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.mm0010.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+  <Page id="mainpage" title="{i18n>title}">
+	     <headerContent>
+	          <Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+	    </headerContent>   
+    	<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="1"
+			labelSpanM="1"
+			labelSpanS="12"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="5"
+			columnsM="5">
+    	<f:content>	
+          <Label text="{i18n>lblBuyer}"  class="sapUiTinyMarginTop" required="true" >      
+          </Label>
+		  <ComboBox id="ekgrp" change="onSelChange" required="true">
+           <layoutData>
+          		<l:GridData span="L3 M3 S12" />
+          	</layoutData>
+ 		  </ComboBox> 		  
+ 		  
+          <Label text="{i18n>lblVendor}"  class="sapUiTinyMarginTop" >
+            <layoutData>
+          		<l:GridData span="L1 M1 S12" />
+          	</layoutData>            
+          </Label>      
+          <MultiInput id="lifnr" valueHelpRequest="onValueHelpRequest" >
+          	<layoutData>
+          		<l:GridData span="L3 M3 S12" />
+          	</layoutData>
+          </MultiInput>              
+<!-- 		  <ComboBox id="lifnr" selectionChange="onLifnrSelect">
+           <layoutData>
+          		<l:GridData span="L3 M3 S12" />
+          	</layoutData>
+ 		  </ComboBox>   -->		  
+          <Label text="{i18n>lblMaterial}"  class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S12" />
+          	</layoutData>            
+          </Label>         
+		  <ComboBox id="matnr" selectionChange="onSelChange">
+           <layoutData>
+          		<l:GridData span="L3 M3 S12" />
+          	</layoutData>
+ 		  </ComboBox>   
+          <Label text="{i18n>lblPlant}"  class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S12" />
+          	</layoutData>          
+          </Label>
+		  <ComboBox id="werks" selectionChange="onSelChange">
+           <layoutData>
+          		<l:GridData span="L3 M3 S12" />
+          	</layoutData>
+ 		  </ComboBox>
+          <Label text="{i18n>lblLocation}"  class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S12" />
+          	</layoutData>          
+          </Label>
+		  <ComboBox id="lgort" selectionChange="onSelChange">
+           <layoutData>
+          		<l:GridData span="L3 M3 S12" />
+          	</layoutData>
+ 		  </ComboBox> 		  
+<!--            <ComboBox id="werks" selectionChange="onSwerkSelect" required="true">
+           <layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+           </ComboBox> --> 
+           
+          <Label text="{i18n>lblEntyDate}"  class="sapUiTinyMarginTop" required="true">
+            <layoutData>
+          		<l:GridData span="L1 M1 S12" />
+          	</layoutData>            
+          </Label>
+        <HBox>
+          <items>    	
+			<DatePicker
+				id="bedat_from"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"
+				required="true"
+				change="handleDateChangeFrom">
+			</DatePicker>
+          <Label text="~"  wdth="10px" class="sapUiTinyMarginTop">
+          </Label>
+			<DatePicker
+				id="bedat_to"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"
+				required="true"
+				change="handleDateChangeTo">
+			</DatePicker>
+          	</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S12" />
+          	</layoutData>
+	      </HBox>
+          <Text id="spaeText" text=""  class="sapUiTinyMarginTop">
+				<layoutData>
+					<l:GridData span="L11 M11 S12" />
+				</layoutData>  
+          </Text>		      
+          <Button icon="sap-icon://search" text="{i18n>search}" press="onBtnSearch">
+				<layoutData>
+					<l:GridData span="L1 M1 S12" />
+          	</layoutData>
+          </Button>
+    	</f:content>
+    	</f:SimpleForm>
+    	
+		 <ScrollContainer  vertical="true" sticky="sap.m.Sticky.ColumnHeaders">		 
+		 <!-- 
+			sap.m.ListMode.Delete
+			sap.m.ListMode.MultiSelect
+			sap.m.ListMode.None
+			sap.m.ListMode.SingleSelect
+			sap.m.ListMode.SingleSelectLeft
+			sap.m.ListMode.SingleSelectMaster
+		 -->
+		
+		<Table id="listTable"
+			inset="false"
+			mode="SingleSelectMaster"
+			growing="true"			 
+			growingThreshold="10"
+			growingScrollToLoad="true"
+      		itemPress="onItemPress"
+			items="{
+				path: 'PoList>/ResultList/results',
+				sorter: {
+					path: 'Ebeln',
+					descending: true
+				}
+			}">	
+		  <headerToolbar>
+			<Toolbar>
+<!--                   <Button
+                  	icon="sap-icon://excel-attachment"
+                  	tooltip="{i18n>lblDownloadExcel}"
+                  	press="downloadExcel"/>
+                  <Button
+                      icon="sap-icon://decline"
+                      tooltip="{i18n>lblClearAllSortings}"
+                      press="clearAllSortings"/>
+                  <Button
+                      icon="sap-icon://clear-filter"
+                      tooltip="{i18n>lblClearAllFilters}"
+                      press="clearAllFilters"/> -->
+					<ToolbarSpacer />                      
+                 <Button
+                        icon="sap-icon://add-document" 
+                        text="{i18n>lblCreatePo}"
+                        press="onCreatePo" 
+                        visible="true" />
+<!--                     <Button
+                        icon="sap-icon://delete"
+                        text="{i18n>lblDeletePo}"
+           				  press="onDeletePo"
+             			  visible="true"  />  -->                            
+			</Toolbar>
+		</headerToolbar>  
+ 		<columns> 		
+			<Column id="Frgzu" width="53px" hAlign="Center" ><Text text="{i18n>lblReleaseTitle}"/></Column>
+			<Column id="Ebeln" width="100px" hAlign="Center"><Text text="{i18n>lblPurchaseNo}"/></Column>
+			<Column id="Lifnr" width="80px" hAlign="Center"><Text text="{i18n>lblVendor}"/></Column>
+			<Column id="Zterm" width="70px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblPaymentTerms}"/></Column>
+			<Column id="Zzcttxt02" width="50px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblFixed}"/></Column>
+			<Column id="Zzcttxt01" width="80px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblSafra}"/></Column>
+			<Column id="Ekgrp" width="70px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblPurchaseGroup}"/></Column>
+			<Column id="Inc01" width="80px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblIncoterm}"/></Column>
+			<Column id="Inc02l" width="80px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblIncotermLocation}"/></Column>
+			<Column id="Maktx" width="200px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblMaterialDesc}"/></Column>
+			<Column id="Werks" width="70px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblPlant}"/></Column>
+			<Column id="Lgort" width="75px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblLocation}"/></Column>
+			<Column id="Menge" width="120px" hAlign="End" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true" vAlign= "Right" ><Text text="{i18n>lblOrderQty}"/></Column>
+			<!-- <Column id="Meins" width="50px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblOrderUnit}"/></Column> -->
+			<Column id="Netpr" width="150px" hAlign="End" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblAmount}"/></Column>
+			<!-- <Column id="Waers" width="60px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblCurrency}"/></Column> -->
+			<Column id="Bprme" width="50px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblPriceUnit}"/></Column>
+			<Column id="Eindt" width="100px" hAlign="Center" minScreenWidth="Tablet"><Text text="{i18n>lblDeliveryDate}"/></Column>
+			<Column id="Mwskz" width="50px" hAlign="Center" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblTaxCode}"/></Column>
+			<Column id="Zblc" width="100px" hAlign="End" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblCustoAgenteTitle}"/></Column>
+			<Column id="Zfc4" width="80px" hAlign="End" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblFreteTitle}"/></Column>
+			<Column id="Zbal" width="90px" hAlign="End" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblOverheadTitle}"/></Column>
+		 </columns>
+		<items>
+		      <ColumnListItem vAlign="Middle" type="Navigation"  mode="Active">		 
+		        <cells>
+					<Text text="{PoList>Frgzu}"  />				
+					<Text text="{PoList>Ebeln}"/>
+					<Text text="{PoList>Lifnr}" />
+					<Text text="{PoList>Zterm}"     />
+					<Text text="{PoList>Zzcttxt02}" />
+					<Text text="{PoList>Zzcttxt01}" />
+					<Text text="{PoList>Ekgrp}" />
+					<Text text="{PoList>Inco1}"  />
+					<Text text="{PoList>Inco2L}"  />
+					<Text text="{PoList>Maktx}" />
+					<Text text="{PoList>Werks}" />
+					<Text text="{PoList>Lgort}"  />
+					<ObjectNumber
+						number="{path:'PoList>Menge', 
+								type:'sap.ui.model.type.Float',
+								formatOptions: {decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : true}
+												}"
+						unit="{PoList>Meins}" />
+					<!-- <Text text="{PoList>Meins}"  /> -->
+					<ObjectNumber
+							number="{
+								parts:[{path:'PoList>Netpr'},{path:'PoList>Waers'}],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : true,
+												showMeasure: false}
+							}"
+							unit="{PoList>Waers}" />	
+					<!-- <Text text="{PoList>Waers}"  /> -->
+					<Text text="{PoList>Bprme}"  />
+		            <Text text="{path : 'PoList>Eindt',
+			                       formatter : '.formatter.dateToFormatStr'}" wrapping="false" />
+				<Text text="{PoList>Mwskz}"  />							
+					<ObjectNumber
+						number="{path:'PoList>Zblc', 
+								type:'sap.ui.model.type.Float',
+								formatOptions: {decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : true}
+												}"
+						unit="{PoList>ZblcWaers}" />
+					<ObjectNumber
+						number="{path:'PoList>Zfc4',
+								type:'sap.ui.model.type.Float',
+								formatOptions: {decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : true}
+												}"
+						unit="{PoList>Zfc4Waers}" />
+					<ObjectNumber
+						number="{path:'PoList>Zbal',
+								type:'sap.ui.model.type.Float',
+								formatOptions: {decimalSeparator : ',', 
+												groupingSeparator : '.', 
+												groupingEnalbed : true}
+												}"
+						unit="{PoList>ZbalWaers}" />					
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+	</ScrollContainer>
+	</Page>
+</core:View>
+
+

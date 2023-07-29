@@ -1,0 +1,297 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m210.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+  <Page id="mainpage" title="">
+		<f:SimpleForm   layout="ResponsiveGridLayout"
+						columnsL="12"
+						columnsM="12"
+						columnsS="12">
+    	
+			<Label text="{i18n>lblPlanDate}"  class="sapUiSmallMarginTop" required="true">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Label>
+<!-- 			<HBox>
+				<items> -->
+					<DatePicker	id="nplda_from"
+								placeholder="{i18n>lblEnterDate}"
+								width="100%"
+								required="true"
+								change="handleDateChangeFrom">
+				<layoutData>
+					<l:GridData span="L3 M4 S1" />
+				</layoutData>
+					</DatePicker>
+<!-- 					<Label text="~"  width="10px" class="sapUiSmallMarginTop"/>
+					<DatePicker	id="nplda_to"
+								placeholder="{i18n>lblEnterDate}"
+								width="100%"
+								required="true"
+								change="handleDateChangeTo"/> -->
+<!-- 				</items> -->
+
+<!-- 			</HBox> -->
+
+			<Label text="{i18n>lblMaintPlant}"  class="sapUiSmallMarginTop"  required="true" >
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Label>
+			<Select id="swerk" forceSelection="false" change="onSwerkSelect" required="true">
+				<layoutData>
+					<l:GridData span="L3 M4 S1" />
+				</layoutData>
+			</Select>
+			<Label text="{i18n>lblEquipment}" class="sapUiSmallMarginTop">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Label>
+			<MultiInput id="equnr" valueHelpRequest="onValueHelpRequest" >
+				<layoutData>
+					<l:GridData span="L3 M4 S1" />
+				</layoutData>
+			</MultiInput> 
+			<Label text="{i18n>lblWorkCenter}" class="sapUiSmallMarginTop">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Label>
+			<ComboBox id="arbpl">
+				<layoutData>
+					<l:GridData span="L3 M4 S1" />
+				</layoutData>
+			</ComboBox>
+			<Label text="{i18n>lblPG}" class="sapUiSmallMarginTop">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Label>
+			<ComboBox  id="ingrp" >
+				<layoutData>
+					<l:GridData span="L3 M4 S1" />
+				</layoutData>
+			</ComboBox>
+			<Label text="{i18n>lblPlanCategory}" class="sapUiSmallMarginTop">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Label>
+			<ComboBox id="mityp">
+				<layoutData>
+					<l:GridData span="L3 M4 S1" />
+				</layoutData>
+			</ComboBox>
+			
+			<Label text="{i18n>lblStatus}" class="sapUiSmallMarginTop">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Label>
+			<HBox class="sapUiResponsiveContentPadding">
+<!-- 				<items> -->
+					<CheckBox id="scheduled" text="{i18n>lblScheduled}"  width="100px" selected="true"/>
+					<CheckBox id="completed" text="{i18n>lblCompleted}" width="100px" selected="true"/>
+					<CheckBox id="delayed" text="{i18n>lblDelayed}"  width="100px" selected="true"/>
+<!-- 				</items> -->
+				<layoutData>
+					<l:GridData span="L6 M10 S3" />
+				</layoutData> 
+			</HBox>
+			<Text text="">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData> 				
+			</Text>
+			<HBox class="sapUiResponsiveContentPadding">
+				<items>
+					<CheckBox id="assing" text="{i18n>lblAssigned}"  width="100px" selected="true"/>
+					<CheckBox id="notass" text="{i18n>lblNotAssigned}" width="100px" selected="true"/>
+				</items>
+				<layoutData>
+					<l:GridData span="L3 M8 S1" />
+				</layoutData> 
+			</HBox>
+			<Button text="{i18n>search}" press="onBtnSearch">
+				<layoutData>
+					<l:GridData span="L1 M2 S1" />
+				</layoutData>
+			</Button>
+		</f:SimpleForm>
+
+<!-- 		<t:Table id="table"
+				selectionMode="None"
+				selectionBehavior="Row"
+				minAutoRowCount="3"
+				visibleRowCount="17"
+				visibleRowCountMode="Auto"
+				showNoData = "false"
+				enableCellFilter="{ui>/cellFilterOn}"
+				class="sapUiResponsiveMargin"> 
+	        <t:toolbar>
+                 <Toolbar>
+                     <content>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters"/>
+                     </content>
+                 </Toolbar>
+             </t:toolbar>
+                
+             <t:columns>
+				<t:Column id="CZicon" width="60px"
+				   sortProperty="Zicon"
+				   filterProperty="Zicon"
+				   hAlign="Center">
+					<Label text="{i18n>lblStatus}" />
+					<t:template>
+						<core:Icon id="Zicon" src="{Zicon}" color="{Color}"/>
+					</t:template>
+				</t:Column>	     
+				<t:Column id="CMpIcon" width="45px"
+				   sortProperty="MpIcon"
+				   filterProperty="MpIcon"
+				   hAlign="Center">
+					<Label text="{i18n>lblMP}" />
+					<t:template>
+						<core:Icon id="MpIcon" src="{MpIcon}" color="{MpColor}"/>
+					</t:template>
+				</t:Column>
+				<t:Column id="CNplda" width="89px"
+				   sortProperty="Nplda"
+				   filterProperty="Nplda">
+					<Label text="{i18n>lblPlannedDate}" />
+					<t:template>
+						<Text id="Nplda" text="{ path : 'Nplda',
+									  formatter : '.formatter.strToFormatDate' }"
+						 />                             
+					</t:template>
+				</t:Column>	
+				<t:Column id="CAufnr" width="80px"
+				   sortProperty="Aufnr"
+				   filterProperty="Aufnr">
+					<Label text="{i18n>lblOrder}" />
+					<t:template>
+						<Link id="Aufnr" text="{Aufnr}" press="onSelectPress"/>
+					</t:template>
+				</t:Column>		
+				<t:Column id="CAufnrT" width="100%"
+				   sortProperty="AufnrT"
+				   filterProperty="AufnrT">
+					<Label text="{i18n>lblDescription}" />
+					<t:template>
+						<Text id="AufnrT" text="{AufnrT}"/>
+					</t:template>
+				</t:Column>
+				<t:Column id="CInvnr" width="85px"
+				   sortProperty="Invnr"
+				   filterProperty="Invnr">
+					<Label text="{i18n>lblTag}" />
+					<t:template>
+						<Text id="Invnr" text="{Invnr}" wrapping="false"/>
+					</t:template>
+				</t:Column>	
+				<t:Column id="CArbpl" width="80px"
+				   sortProperty="Arbpl"
+				   filterProperty="Arbpl"
+				   hAlign="Center">
+					<Label text="{i18n>lblMaintWC}" />
+					<t:template>
+						<Text id="Arbpl" text="{Arbpl}" wrapping="false"/>
+					</t:template>
+				</t:Column>   
+				<t:Column id="CAbckz" width="30px"
+				   sortProperty="Abckz"
+				   filterProperty="Abckz">
+					<Label text="{i18n>lblA}" />
+					<t:template>
+						<Text id="Abckz" text="{Abckz}"/>
+					</t:template>
+				</t:Column>	                                
+				<t:Column id="CLrmdt" width="92px"
+				   sortProperty="Lrmdt"
+				   filterProperty="Lrmdt">
+					<Label text="{i18n>lblCompletionDate}" />
+					<t:template>
+						<Text id="Lrmdt" text="{ path : 'Lrmdt',
+									  formatter : '.formatter.strToFormatDate' }"
+							  wrapping="false"/>                               
+					</t:template>
+				</t:Column>	  
+	        </t:columns>
+	    </t:Table> -->
+
+		<Table 	id="listTable"
+				inset="false"
+				mode="SingleSelectMaster"
+				itemPress="onSelectPress"
+				growing="true"			 
+				growingThreshold="10"
+				growingScrollToLoad="true"
+				items="{ path: 'ResList>/ResultList/results'
+						}" >
+
+ 			<columns>
+				<Column width="60px" hAlign="Center">
+					<Text text="{i18n>lblStatus}"/>
+				</Column>
+				<Column width="45px" hAlign="Center">
+					<Text text="{i18n>lblMP}"/>
+				</Column>
+				<Column width="89px">
+					<Text text="{i18n>lblPlannedDate}"/>
+				</Column>
+				<Column width="80px" hAlign="Center">
+					<Text text="{i18n>lblOrder}"/>
+				</Column>
+				<Column width="200px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Desktop" demandPopin="true">
+					<Text text="{i18n>lblDescription}"/>
+				</Column>
+				<Column width="85px" hAlign="Center">
+					<Text text="{i18n>lblTag}"/>
+				</Column>
+				<Column width="80px" hAlign="Center">
+					<Text text="{i18n>lblMaintWC}"/>
+				</Column>
+				<Column width="30px" hAlign="Center">
+					<Text text="{i18n>lblA}"/>
+				</Column>
+				<Column width="92px" hAlign="Center">
+					<Text text="{i18n>lblCompletionDate}"/>
+				</Column>
+			</columns>
+ 			<items>
+				<ColumnListItem vAlign="Middle" mode="Active" type="Active">
+			    	<cells>
+						<core:Icon src="{ResList>Zicon}"  color="{ResList>Color}"/>
+						<core:Icon src="{ResList>MpIcon}" color="{ResList>MpColor}"/>
+						<Text text="{ path : 'ResList>Nplda',
+									formatter : '.formatter.strToFormatDate' }" />
+						<Text text="{ResList>Aufnr}"/>
+						<Text text="{ResList>AufnrT}"/>
+						<Text text="{ResList>Invnr}"/>
+						<Text text="{ResList>Arbpl}"/>
+						<Text text="{ResList>Abckz}"/>
+						<Text text="{ path : 'ResList>Lrmdt',
+									formatter : '.formatter.strToFormatDate' }" />
+
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</core:View>
+
+

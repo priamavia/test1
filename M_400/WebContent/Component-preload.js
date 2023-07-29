@@ -1,0 +1,1 @@
+jQuery.sap.declare("cj.mm0010.Component-preload");

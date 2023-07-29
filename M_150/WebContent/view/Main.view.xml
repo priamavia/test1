@@ -1,0 +1,317 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+		   xmlns:c="sap.ui.unified.calendar"
+		   xmlns:com="sap.ui.commons"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:ux="sap.uxap"           
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m150.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml"
+		   height="100%">
+	<Page id="mainpage" title="{i18n>title}" class="sapUiContentPadding">
+	<!-- Page : class="sapUiContentPadding" 페이지 패딩 설정  --> 
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                     	columnsM="12"
+                     	columnsS="12"
+                     	class="sapUiSmallPaddingTop sapUiSmallPaddingBottom">
+			<Label text="{i18n>lblPlant}" class="sapUiTinyMarginTop">
+			 	<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+		  	<ComboBox id="Werks" forceSelection="false" required="true" change="onChangeWerks"
+		  	        editable="{screenMode>/werks}">
+          		<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+		  	</ComboBox>
+		  	<Label text="{i18n>lblSpmon}" class="sapUiTinyMarginTop">
+		 		<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+		  	<ComboBox id="Spmon" forceSelection="false" required="true" change="onChangeSpmon"
+		  	        editable="{screenMode>/spmon}">
+          		<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+		  	</ComboBox>
+			<Label text="{i18n>lblLocation}" class="sapUiTinyMarginTop">
+				<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+		  	<ComboBox id="Lgort" forceSelection="true" required="true" change="onChangeLgort"
+		  	        editable="{screenMode>/lgort}">
+          		<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+		  	</ComboBox>
+
+			<Label text="{i18n>lblGrade}" class="sapUiTinyMarginTop">
+		 		<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+		  	<ComboBox id="Maabc">
+				<items>
+					<core:Item key="A" text="A" />
+					<core:Item key="B" text="B" />
+					<core:Item key="C" text="C" />
+				</items>
+          		<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+		  	</ComboBox>
+			<Label text="{i18n>lblSubtype}" class="sapUiTinyMarginTop">
+		 		<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+ 			<ComboBox id="Subtype">
+ 				<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+         	</ComboBox>
+         	<Label text="{i18n>lblMatkl}" class="sapUiTinyMarginTop">
+		 		<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+ 			<Input id="Matkl">
+ 				<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+         	</Input>
+         	<Label text="{i18n>lblRackNo}" class="sapUiTinyMarginTop">
+		 		<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+ 			<Input id="RackNo">
+ 				<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+         	</Input>			
+         	<Label text="{i18n>lblMatnr}" class="sapUiTinyMarginTop">
+		 		<layoutData><l:GridData span="L1 M2 S4" /></layoutData>
+			</Label>
+ 			<Input id="Matnr">
+ 				<layoutData><l:GridData span="L2 M2 S8" /></layoutData>
+         	</Input>
+        </f:SimpleForm>
+
+		<t:Table id="detailList" 
+				 class="sapUiSizeCompact"
+		         editable="{screenMode>/save}"
+		         visibleRowCountMode="Auto"
+		         >
+<!-- 			<t:plugins>
+				<t:plugins:MultiSelectionPlugin
+					enableNotification="true"
+					selectionChange="onSelectionChange"/>
+			</t:plugins> -->
+	        <t:toolbar>
+            	<Toolbar>
+						<Button icon="sap-icon://excel-attachment"
+                         		tooltip="{i18n>lblDownloadExcel}"
+                         		press="onDownloadExcel"/>
+						<ProgressIndicator  id="progress"
+							                visible="false"
+											showValue="true"
+											displayOnly="true"
+											width="200px"/>
+                        <ToolbarSpacer/>
+                        <Button id="btnExam"
+							    text="{i18n>examineeConfirm}"
+                         		icon="sap-icon://employee-approvals"
+							    visible="false"
+                         		tooltip="{i18n>examineeConfirm}"
+                         		press="onBtnConfirm"/>
+                        <Button id="btnExamCancel"
+							    text="{i18n>examineeConfirmCancel}"
+                         		icon="sap-icon://employee-approvals"
+							    visible="false"
+                         		tooltip="{i18n>examineeConfirmCancel}"
+                         		press="onBtnConfirm"/>
+			           	<Button	id="btnInsp"
+							    text="{i18n>inspectorConfirm}"
+			                  	icon="sap-icon://employee-approvals"
+								visible="false"
+			                  	tooltip="{i18n>inspectorConfirm}" 
+			                  	press="onBtnConfirm"/>
+			           	<Button	id="btnInspCancel"
+							    text="{i18n>inspectorConfirmCancel}"
+			                  	icon="sap-icon://employee-approvals"
+								visible="false"
+			                  	tooltip="{i18n>inspectorConfirmCancel}" 
+			                  	press="onBtnConfirm"/>
+<!--                         <Button id="btnJoin"
+							    text="{i18n>joinerComment}"
+                         		icon="sap-icon://approvals"
+								visible="false"
+                         		tooltip="{i18n>joinerComment}"
+                         		press="onBtnComment"/> -->
+                        <Button id="btnSave"
+							    text="{i18n>Save}"
+                         		icon="sap-icon://save"
+								visible="false"
+                         		tooltip="{i18n>Save}"
+                         		press="onBtnSave"/>                         
+                        <Button text="{i18n>Search}"
+                         		icon="sap-icon://search"
+                         		tooltip="{i18n>Search}"
+                         		press="onBtnSearch"/>
+            	</Toolbar>					
+            </t:toolbar>
+
+			<t:columns>
+				<t:Column width="4rem" sortProperty="Light" filterProperty="Light" hAlign="Center">
+               		<Label text="{i18n>lblDetailStatus}"/>
+					<t:template><core:Icon id="Light" src="{Light}" color="{Color}" tooltip="{Tooltip}"/></t:template>
+          		</t:Column>
+            	<t:Column width="5rem" sortProperty="ExamcIcon" filterProperty="ExamcIcon" hAlign="Center">
+               		<Label text="{i18n>lblExaminee}" />
+					<t:template><core:Icon id="ExamcIcon" src="{ExamcIcon}" color="green"/></t:template>
+          		</t:Column>
+            	<t:Column width="5rem" sortProperty="InspcIcon" filterProperty="InspcIcon" hAlign="Center">
+               		<Label text="{i18n>lblInspector}" />
+					<t:template><core:Icon id="InspcIcon" src="{InspcIcon}" color="green"/></t:template>
+          		</t:Column>
+
+               	<t:Column width="4rem" sortProperty="Lgort" filterProperty="Lgort" hAlign="Center">
+               		<Label text="{i18n>lblLgort}" />
+               		<t:template><Text text="{Lgort}"/></t:template>
+               	</t:Column>
+               	<t:Column width="10rem" sortProperty="Lgobe" filterProperty="Lgobe">
+               		<Label text="{i18n>lblLgobe}" />
+               		<t:template><Text text="{Lgobe}"/></t:template>
+               	</t:Column>
+				<t:Column width="5rem" sortProperty="Matnr" filterProperty="Matnr" hAlign="Center">
+               		<Label text="{i18n>lblMatnr}" />
+               		<t:template><Text text="{Matnr}"/></t:template>
+               	</t:Column>
+               	<t:Column width="18rem" sortProperty="Maktx" filterProperty="Maktx">
+               		<Label text="{i18n>lblMaktx}" />
+               		<t:template><Text text="{Maktx}"/></t:template>
+               	</t:Column>
+               	<t:Column width="5.4rem" sortProperty="Maabc" filterProperty="Maabc" hAlign="Center">
+               		<Label text="{i18n>lblGrade}" />
+               		<t:template><Text text="{Maabc}"/></t:template>
+               	</t:Column>
+               	<t:Column width="7rem" sortProperty="RackNo" filterProperty="RackNo" hAlign="Center">
+               		<Label text="{i18n>lblRackNo}" />
+               		<t:template><Text text="{RackNo}"/></t:template>
+               	</t:Column>
+				<t:Column width="4rem" sortProperty="Device" filterProperty="Device" hAlign="Center">
+               		<Label text="{i18n>lblDevice}" />
+               		<t:template><Text text="{Device}" textAlign="Center"/></t:template>
+             	</t:Column>
+				<t:Column width="5.3rem" sortProperty="AuditChk" filterProperty="AuditChk" hAlign="Center" 
+					visible="false">
+               		<Label text="{i18n>lblAuditCheck}" />
+               		<t:template>
+                    	<Select id="AuditChk" selectedKey="{AuditChk}" width="100%"
+ 	                          	enabled="false" editable="false">
+                           	<items>
+                            	<core:Item key="Y" text="Y" />
+                            	<core:Item key="N" text="N" />
+                           	</items>					   		
+	                    </Select>
+               		</t:template>
+               	</t:Column>
+               	<t:Column width="3.3em" sortProperty="Meins" filterProperty="Meins" hAlign="Center">
+               		<Label text="{i18n>lblMeins}" />
+               		<t:template><Text text="{Meins}"/></t:template>
+               	</t:Column>
+               	<t:Column width="5.4rem" sortProperty="Labst" filterProperty="Labst" hAlign="Right">
+               		<Label text="{i18n>lblSapQty}" />
+               		<t:template><Text text="{Labst}"/></t:template>
+               	</t:Column>
+           		<t:Column width="5.4rem" sortProperty="Menge" filterProperty="Menge" hAlign="Right">
+               		<Label text="{i18n>lblAuditQty}" />
+					<t:template><Input id="Menge" editable="{AuditSuper}" value="{Menge}" textAlign="Right" change="onQtyChange"/></t:template>
+             	</t:Column>
+               	<t:Column width="5.4rem" sortProperty="GapQty" filterProperty="GapQty" hAlign="Right">
+               		<Label text="{i18n>lblGapQty}" />
+               		<t:template><Text text="{GapQty}"/></t:template>
+               	</t:Column>
+           		<t:Column width="5.4rem" sortProperty="BadMenge" filterProperty="BadMenge" hAlign="Right">
+               		<Label text="{i18n>lblBadMenge}" />
+					<t:template><Input id="BadMenge" editable="{AuditSuper}" value="{BadMenge}" textAlign="Right"/></t:template>
+             	</t:Column>
+<!--            		<t:Column width="14rem" sortProperty="StatuChk" filterProperty="StatuChk" hAlign="Center">
+               		<Label text="{i18n>lblStatuCheck}" />
+               		<t:template>
+                    	<Select id="StatuChk" selectedKey="{StatuChk}" width="100%"
+	                          	enabled="{AuditSuper}" forceSelection="false">
+                           	<items>
+                            	<core:Item key="1" text="공간분리(O) 정리상태(O)" />
+                            	<core:Item key="2" text="공간분리(O) 정리상태(X)" />
+                            	<core:Item key="3" text="공간분리(X) 정리상태(O)" />
+                            	<core:Item key="4" text="공간분리(X) 정리상태(X)" />
+                           	</items>
+	                    </Select>
+               		</t:template>
+             	</t:Column> -->
+           		<t:Column width="13rem" sortProperty="Reason" filterProperty="Reason" >
+               		<Label text="{i18n>lblReason}" />
+               		<t:template><Input id="Reason" editable="{ExConf}" value="{Reason}" maxLength="100"/></t:template>
+             	</t:Column>
+<!--              	<t:Column width="10rem" sortProperty="Measure" filterProperty="Measure" >
+               		<Label text="{i18n>lblMeasure}" />
+               		<t:template><Input id="Measure" editable="{ExConf}" value="{Measure}" maxLength="100"/></t:template>
+             	</t:Column> -->
+				<t:Column width="4rem" sortProperty="Waers" filterProperty="Waers" hAlign="Center">
+               		<Label text="{i18n>lblWaers}"/>
+                   	<t:template><Text text="{Waers}"/></t:template>
+               	</t:Column>
+				<t:Column width="6rem" sortProperty="Verpr" filterProperty="Verpr" hAlign="Right">
+               		<Label text="{i18n>lblMAP}" />
+					<t:template><Text text="{Verpr}"/></t:template>
+             	</t:Column>
+				<t:Column width="7rem" sortProperty="LastDate" filterProperty="LastDate" hAlign="Center">
+               		<Label text="{i18n>lblLastDate}" />
+					<t:template><Text text="{LastDate}"/></t:template>
+             	</t:Column>
+				<t:Column width="6rem" sortProperty="LastPrice" filterProperty="LastPrice" hAlign="Right">
+               		<Label text="{i18n>lblLastPrice}" />
+					<t:template><Text text="{LastPrice}"/></t:template>
+             	</t:Column>
+				
+				<t:Column width="8rem" sortProperty="Subtyp" filterProperty="Subtyp">
+               		<Label text="{i18n>lblSubtype}"/>
+                   	<t:template><Text text="{Subtyp}"/></t:template>
+               	</t:Column>
+               	<t:Column width="6rem" sortProperty="Matkl" filterProperty="Matkl" hAlign="Center">
+               		<Label text="{i18n>lblMatkl}" />
+               		<t:template><Text text="{Matkl}"/></t:template>
+               	</t:Column>
+              	<t:Column width="18rem" sortProperty="Wgbez" filterProperty="Wgbez">
+               		<Label text="{i18n>lblMatklDesc}" />
+               		<t:template><Text text="{Wgbez}"/></t:template>
+               	</t:Column>
+<!--                	<t:Column width="5.4rem" sortProperty="Labst_N" filterProperty="Labst_N" hAlign="Right">
+               		<Label text="{i18n>lblLabstN}" />
+               		<t:template><Text text="{Labst_N}"/></t:template>
+               	</t:Column>
+               	<t:Column width="5.4rem" sortProperty="Labst_O" filterProperty="Labst_O" hAlign="Right">
+               		<Label text="{i18n>lblLabstO}" />
+               		<t:template><Text text="{Labst_O}"/></t:template>
+               	</t:Column> -->
+
+               	<t:Column width="5.4rem" sortProperty="Eisbe" filterProperty="Eisbe" hAlign="Right">
+               		<Label text="{i18n>lblEisbe}" />
+               		<t:template><Text text="{Eisbe}"/></t:template>
+               	</t:Column>
+<!--                	<t:Column width="5.4rem" sortProperty="Oneuse" filterProperty="Oneuse" hAlign="Right">
+               		<Label text="{i18n>lblOneuse}" />
+               		<t:template><Text text="{Oneuse}"/></t:template>
+               	</t:Column> -->
+               	<t:Column width="8rem" sortProperty="Cuser" filterProperty="Cuser" hAlign="Center">
+               		<Label text="Auditor" /><t:template><Text text="{Cuser}"/></t:template>
+               	</t:Column>          		
+               	<t:Column width="8rem" sortProperty="Cdate" filterProperty="Cdate" hAlign="Center">
+               		<Label text="Audit Date" /><t:template><Text text="{Cdate}"/></t:template>
+               	</t:Column>
+               	<t:Column width="8rem" sortProperty="Ctime" filterProperty="Ctime" hAlign="Center">
+               		<Label text="Audit Time" /><t:template><Text text="{Ctime}"/></t:template>
+               	</t:Column>
+<!--                	<t:Column width="8rem">
+               		<Label text="{i18n>lblUuser}" /><t:template><Text text="{Uuser}"/></t:template>
+               	</t:Column>          		
+               	<t:Column width="8rem">
+               		<Label text="{i18n>lblUdate}" /><t:template><Text text="{Udate}"/></t:template>
+               	</t:Column>
+               	<t:Column width="8rem">
+               		<Label text="{i18n>lblUtime}" /><t:template><Text text="{Utime}"/></t:template>
+               	</t:Column> -->
+               	<t:Column width="8rem" sortProperty="Quser" filterProperty="Quser" hAlign="Center">
+               		<Label text="{i18n>lblQuser}" /><t:template><Text text="{Quser}"/></t:template>
+               	</t:Column>          		
+               	<t:Column width="8rem" sortProperty="Qdate" filterProperty="Qdate" hAlign="Center">
+               		<Label text="{i18n>lblQdate}" /><t:template><Text text="{Qdate}"/></t:template>
+               	</t:Column>
+               	<t:Column width="8rem" sortProperty="Qtime" filterProperty="Qtime" hAlign="Center">
+               		<Label text="{i18n>lblQtime}" /><t:template><Text text="{Qtime}"/></t:template>
+               	</t:Column>				
+			</t:columns>
+		</t:Table> 
+	</Page>
+</core:View>

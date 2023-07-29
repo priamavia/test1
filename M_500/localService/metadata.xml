@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZCO_GW_0001_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Chart" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Gjahr"/>
+                </Key>
+                <Property Name="Gjahr" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Year" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bukrs" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Perde" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Month" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Count" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="0" sap:unicode="false" sap:label="Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bgcam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Beginning Inventory Comp. Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bgwam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Beginning WIP Comp. Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Rcuam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Production Use Comp. Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Rccam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Production Input Comp. Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cncam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Consumption Comp. Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cnnam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Not Include(CKM3)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Movam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Moving Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Encam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Ending Inventory Comp. Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Enwam" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:unit="Waers" sap:label="Ending WIP Comp. Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Waers" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityContainer Name="ZCO_GW_0001_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ChartSet" EntityType="ZCO_GW_0001_SRV.Chart" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://gerpapd.cjwise.net:8020/sap/opu/odata/sap/ZCO_GW_0001_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://gerpapd.cjwise.net:8020/sap/opu/odata/sap/ZCO_GW_0001_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,115 @@
+{
+	"AssetListKostl" : [
+		{
+			"Kostl" : "600021",
+			"Ktext" : "KT)Fermentation Broth(OAHS)",
+			"Inspd" : "",
+			"Inspu" : "",
+			"Inspn" : "",
+			"Examd" : "",
+			"Examu" : "",
+			"Examn" : "",
+			"Joind" : "",
+			"Joinu" : "",
+			"Joinn" : "",
+			"Asset" : [
+						{
+							"Anlkl" : "1200",
+							"Txk20" : "Building",
+							"Menge"	: "2",
+							"Meins"	: "EA"						
+						},
+						{
+							"Anlkl" : "1300",
+							"Txk20" : "Structure",
+							"Menge"	: "4",
+							"Meins"	: "EA"						
+						},
+						{
+							"Anlkl" : "1400",
+							"Txk20" : "Machinery",
+							"Menge"	: "889",
+							"Meins"	: "EA"						
+						},
+						{
+							"Anlkl" : "1700",
+							"Txk20" : "Office Equip&Frnitr",
+							"Menge"	: "25",
+							"Meins"	: "EA"						
+						}
+					  ]
+		},
+		{
+			"Kostl" : "600053",
+			"Ktext" : "KT)Refinery C2 - Crystal",
+			"Inspd" : "",
+			"Inspu" : "",
+			"Inspn" : "",
+			"Examd" : "",
+			"Examu" : "",
+			"Examn" : "",
+			"Joind" : "",
+			"Joinu" : "",
+			"Joinn" : "",
+			"Asset" : [
+						{
+							"Anlkl" : "1200",
+							"Txk20" : "Building",
+							"Menge"	: "2",
+							"Meins"	: "EA"						
+						},
+						{
+							"Anlkl" : "1300",
+							"Txk20" : "Structure",
+							"Menge"	: "4",
+							"Meins"	: "EA"						
+						},
+						{
+							"Anlkl" : "1400",
+							"Txk20" : "Machinery",
+							"Menge"	: "20",
+							"Meins"	: "EA"						
+						},
+						{ 
+							"Anlkl" : "1700",
+							"Txk20" : "Office Equip&Frnitr",
+							"Menge"	: "589",
+							"Meins"	: "EA"						
+						}
+					  ]
+		},
+		{
+			"Kostl" : "600106",
+			"Ktext" : "KT)Engineering Team",
+			"Inspd" : "",
+			"Inspu" : "",
+			"Inspn" : "",
+			"Examd" : "",
+			"Examu" : "",
+			"Examn" : "",
+			"Joind" : "",
+			"Joinu" : "",
+			"Joinn" : "",
+			"Asset" : [
+						{
+							"Anlkl" : "1300",
+							"Txk20" : "Structure",
+							"Menge"	: "1",
+							"Meins"	: "EA"						
+						},
+						{
+							"Anlkl" : "1400",
+							"Txk20" : "Machinery",
+							"Menge"	: "89",
+							"Meins"	: "EA"						
+						},
+						{											
+							"Anlkl" : "1700",
+							"Txk20" : "Office Equip&Frnitr",
+							"Menge"	: "589",
+							"Meins"	: "EA"						
+						}
+					  ]
+		}		
+	]
+}

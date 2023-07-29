@@ -1,0 +1,80 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+<t:Table id="table_schedule" 
+				  			visibleRowCount="{header>/schSize}"
+							editable="{screenMode>/scheduleList}"
+				  			selectionMode="None">
+
+                    <t:columns>
+              	 	  <t:Column width="16%">
+                        <Label text="{i18n>lblCostCenter}"/>
+                        <t:template>
+							<Text text="{Ktext}"/>
+                        </t:template>
+                      </t:Column>
+                      <t:Column width="16%">
+                        <Label text="{i18n>lblAnlkl}" />
+                        <t:template>
+							<Text text="{Txk20}"/>
+                        </t:template>
+                      </t:Column>
+                      <t:Column width="8%" hAlign="Right" summed="true">
+                        <Label text="{i18n>lblMenge}" />
+                        <t:template>
+                            <Text text="{Menge}" />
+                        </t:template>
+                      </t:Column>
+                      <t:Column width="20%">
+                        <Label text="{i18n>lblExaminee}" />
+                        <t:template>
+                          	<Input 	id="SchExamu" editable="{screenMode>/scheduleList}"
+ 	  			  		   			selectedKey="{Examm}"
+						   			showSuggestion="true" 
+ 	  			  		   			suggestionItemSelected=".onScheduleItemSelected"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}"
+													text="{User>EmpName}"/>		
+								</suggestionItems>
+		          			</Input>                        
+                        </t:template>
+		              </t:Column>
+                      <t:Column width="20%">
+                        <Label text="{i18n>lblInspector}" />
+                        <t:template>
+                          	<Input 	id="SchInspu" editable="{screenMode>/scheduleList}"
+ 	  			  		   			selectedKey="{Inspm}"
+						   			showSuggestion="true" 
+ 	  			  		   			suggestionItemSelected=".onScheduleItemSelected"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}"
+													text="{User>EmpName}"/>		
+								</suggestionItems>
+		          			</Input>                        
+                        </t:template>
+                      </t:Column>
+                      <t:Column width="20%">
+                        <Label text="{i18n>lblJoiner}" />
+                        <t:template>
+                          	<Input 	id="SchJoinu" editable="{screenMode>/scheduleList}"
+ 	  			  		   			selectedKey="{Joinm}"
+						   			showSuggestion="true" 
+ 	  			  		   			suggestionItemSelected=".onScheduleItemSelected"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}"
+													text="{User>EmpName}"/>		
+								</suggestionItems>
+		          			</Input>                        
+                        </t:template>
+                      </t:Column>
+		            </t:columns>
+		    	  </t:Table>
+
+</core:FragmentDefinition>

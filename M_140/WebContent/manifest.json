@@ -1,0 +1,192 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "cj.pm_m140",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_M140_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+            "userInfo" : {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_CM001_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+             "possible" : {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_CM002_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+            "fileUpload": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_MGOS_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            }              
+                        
+        }
+    },
+    "sap.ui": {
+        "_version": "1.1.0",
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_bluecrystal"
+        ]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "rootView": {
+            "viewName": "cj.pm_m140.view.App",
+            "type": "XML"
+        },
+        "dependencies": {
+            "minUI5Version": "1.38.0",
+            "libs": {
+                "sap.ui.core": {  },
+                "sap.m": {  },
+                "sap.ui.layout": {  },
+                "sap.ui.comp" : {  }
+            },
+            "components": {
+           		"cj.pm_m140": {
+	                "minVersion": "1.1.0"
+	            }
+            } 
+        },
+                
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings" : {
+                    "bundleName": "cj.pm_m140.i18n.i18n"
+                }
+            },
+            "":{
+                "dataSource": "mainService"
+            },
+            "userInfo":{
+                "dataSource": "userInfo"
+            },
+            "possible":{
+                "dataSource": "possible"
+            },
+            "fileUpload":{
+                "dataSource": "fileUpload"
+            }
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "cj.pm_m140.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "main",
+                    "target": [
+                        "main"
+                    ]
+                },
+				{
+                    "pattern": "input",
+                    "name": "input",
+                    "target": [
+                        "input"
+                    ]
+                },
+                {
+                    "pattern": "detail",
+                    "name": "detail",
+                    "target": [
+                        "detail"
+                    ]
+                } 
+            ],
+            "targets": {
+                "main": {
+                    "viewName": "Main",
+                    "viewId": "main",
+                    "viewLevel": 1
+                },
+                "input": {
+                    "viewName": "Input",
+                    "viewId": "input",
+                    "viewLevel": 2
+                },
+                "detail": {
+                    "viewName": "Detail",
+                    "viewId": "detail",
+                    "viewLevel": 2
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ],
+            "js": [
+            	{ "uri": "js/grid.js" },
+            	{ "uri": "js/version.js" },
+            	{ "uri": "js/detector.js" },
+            	{ "uri": "js/formatinf.js" },
+            	{ "uri": "js/errorlevel.js" },
+            	{ "uri": "js/bitmat.js" },
+            	{ "uri": "js/datablock.js" },
+            	{ "uri": "js/bmparser.js" },
+            	{ "uri": "js/datamask.js" },
+            	{ "uri": "js/rsdecoder.js" },
+            	{ "uri": "js/gf256poly.js" },
+            	{ "uri": "js/gf256.js" },
+            	{ "uri": "js/decoder.js" },
+            	{ "uri": "js/qrcode.js" },
+            	{ "uri": "js/findpat.js" },
+            	{ "uri": "js/alignpat.js" },
+            	{ "uri": "js/databr.js" }
+            ]
+        }
+    }
+}

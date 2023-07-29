@@ -1,0 +1,20 @@
+<mvc:View
+    controllerName="zcoui0001.controller.Chart"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+   	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:microchart="sap.suite.ui.microchart">
+
+    <Shell id="shell">
+        <App id="app">
+            <Page id="page" title="{i18n>title}"
+                    		showNavButton="true"
+		navButtonPress="onNavButtonPressed">
+                <Input  value="{reviews>user}"
+                        visible="{reviews>template}"
+                        placeholder="{i18n>newReviewUserNameHint}" />
+            </Page>
+        </App>
+    </Shell>
+</mvc:View>

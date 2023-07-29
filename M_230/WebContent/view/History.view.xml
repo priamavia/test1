@@ -1,0 +1,159 @@
+<core:View xmlns:l="sap.ui.layout"
+           xmlns:u="sap.ui.unified"
+           xmlns:t="sap.ui.table"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core"
+           xmlns:mvc="sap.ui.core.mvc"
+           xmlns="sap.m"
+           xmlns:semantic="sap.f.semantic"
+	       controllerName="cj.pm_m230.controller.History"
+	       xmlns:html="http://www.w3.org/1999/xhtml">
+	
+	<Page 	id="History" 
+			title="{i18n>equipmentHistory}" 
+			showNavButton="true" 
+			navButtonPress="onNavBack" >
+<!-- 		<headerContent>
+			<Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+		</headerContent> -->
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                        columnsM="12"
+			    	  	labelSpanL="2"
+						labelSpanM="2"
+						labelSpanS="3"
+						>
+			<Label text="{i18n>lblEqunr}" class="sapUiSmallMarginTop"/>
+	  		<Input id="Equnr" editable="false" value="{header>/Equnr}" >
+				<layoutData>
+					<l:GridData span="L3 M3 S3" />
+				</layoutData>
+			</Input>
+          	<Input id="Eqktx" editable="false" value="{header>/Eqktx}" >
+				<layoutData>
+					<l:GridData span="L7 M7 S6" />
+				</layoutData>
+			</Input>
+		</f:SimpleForm>
+
+<!-- 		<t:Table  id="Table"
+                    rows="{path:'HistoryList>/ResultList/results'}"
+                    selectionMode="None"
+                    ariaLabelledBy="title"
+					visibleRowCountMode="Auto">
+			<t:columns>
+	            <t:Column width="50%">
+					<Label text="Item"/>
+					<t:template>
+						<Text text="{HistoryList>Aufnr}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="11%" hAlign="Right">
+					<Label text="{i18n>lblQuantity}"/>
+					<t:template>
+						<Text text="{HistoryList>Objnr}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7%" hAlign="Center">
+					<Label text="{i18n>lblUnit}"/>
+					<t:template>
+						<Text text="{HistoryList>Ilart}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="11%" hAlign="Right">
+					<Label text="{i18n>lblSapStock}"/>
+					<t:template>
+						<Text text="{HistoryList>Auart}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7%" hAlign="Center">
+					<Label text="{i18n>lblUnit}"/>
+					<t:template>
+						<Text text="{HistoryList>Equnr}"/>
+					</t:template>
+				</t:Column>
+			</t:columns>
+		</t:Table> -->
+		
+		<Table 	id="Table"
+				inset="false"
+				mode="SingleSelectMaster"
+				itemPress="onHistoryPress"
+				growing="true"			 
+				growingThreshold="30"
+				growingScrollToLoad="true"
+				items="{ path: 'HistoryList>/ResultList/results' }" >
+ 			<columns>
+				<Column id="Gstrp" 	width="13px" hAlign="Center">
+					<Text text="{i18n>lblStartDate}"/>
+				</Column>
+<!-- 				<Column id="Gltrp" 	width="13px" hAlign="Center">
+					<Text text="{i18n>lblEndDate}"/>
+				</Column>				 -->
+				<Column id="Auart" 	width="6px" hAlign="Center">
+					<Text text="{i18n>lblOrderType}"/>
+				</Column>
+				<Column id="Aufnr" 	width="13px" hAlign="Center">
+					<Text text="{i18n>lblOrderNo}"/>
+				</Column>
+				<Column id="Ktext" 	width="40px" hAlign="Left"
+						popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true">
+					<Text text="{i18n>lblDescription}"/>
+				</Column>
+				<Column id="Zname" 	width="10px" hAlign="Center">
+					<Text text="{i18n>lblWorker}"/>
+				</Column>
+
+				<!-- 				<Column id="Arbei" 	width="10px" hAlign="Right">
+					<Text text="{i18n>lblDuration}"/>
+				</Column> -->
+				<Column id="Ismnw"  width="10px" hAlign="Right">
+					<Text text="{i18n>lblWorkTime}"/>
+				</Column>
+				<Column id="Arbeh" 	width="10px" hAlign="Center">
+					<Text text="{i18n>lblUnit}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active" type="Active">		 
+			    	<cells>
+						<Text text="{ path : 'HistoryList>Gstrp',
+									  formatter : '.formatter.strToFormatDate' }"/>
+<!-- 						<Text text="{ path : 'HistoryList>Gltrp',
+									  formatter : '.formatter.strToFormatDate' }"/> -->
+						<Text text="{HistoryList>Auart}"/>
+						<Text text="{HistoryList>Aufnr}"/>
+						<Text text="{HistoryList>Ktext}"/>
+						<Text text="{HistoryList>Zname}"/>
+<!-- 						<Text text="{HistoryList>Arbei}"/> -->
+						<Text text="{HistoryList>Ismnw}"/>
+						<Text text="{HistoryList>Arbeh}"/>
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+
+
+<!-- 		<footer>
+			<Bar>
+				<contentMiddle>
+					<Button id="Record"
+							type="Accept"
+							text="{i18n>lblSave}"
+							visible="{screenMode>/Record}" 	
+							press="onBtnRecord" />
+					<Button id="Cancel"
+							type="Reject"
+							text="{i18n>lblCancel}"
+							visible="{screenMode>/Cancel}"
+							press="onBtnCancel" />							
+					<Button id="Complete"
+							type="Accept"
+							text="{i18n>lblComplete}"
+							visible="{screenMode>/Complete}" 	
+							press="onComplete" />							
+		 		</contentMiddle>
+			</Bar>
+		</footer> -->
+	</Page>
+</core:View>

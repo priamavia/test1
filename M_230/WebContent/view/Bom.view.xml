@@ -1,0 +1,152 @@
+<core:View xmlns:l="sap.ui.layout"
+           xmlns:u="sap.ui.unified"
+           xmlns:t="sap.ui.table"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core"
+           xmlns:mvc="sap.ui.core.mvc"
+           xmlns="sap.m"
+           xmlns:semantic="sap.f.semantic"
+	       controllerName="cj.pm_m230.controller.Bom"
+	       xmlns:html="http://www.w3.org/1999/xhtml">
+	
+	<Page 	id="Bom" 
+			title="{i18n>equipmentBOM}" 
+			showNavButton="true" 
+			navButtonPress="onNavBack" >
+<!-- 		<headerContent>
+			<Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+		</headerContent> -->
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                        columnsM="12"
+			    	  	labelSpanL="2"
+						labelSpanM="2"
+						labelSpanS="3"
+						>
+			<Label text="{i18n>lblEqunr}" class="sapUiSmallMarginTop"/>
+	  		<Input id="Equnr" editable="false" value="{header>/Equnr}" >
+				<layoutData>
+					<l:GridData span="L3 M3 S3" />
+				</layoutData>
+			</Input>
+          	<Input id="Eqktx" editable="false" value="{header>/Eqktx}" >
+				<layoutData>
+					<l:GridData span="L7 M7 S6" />
+				</layoutData>
+			</Input>
+		</f:SimpleForm>
+
+		<t:TreeTable  id="TreeTableBasic"
+                    rows="{path:'BomList>/', parameters: {arrayNames:['categories']}}"
+                    selectionMode="None"
+                    ariaLabelledBy="title"
+					visibleRowCountMode="Auto">
+			<t:columns>
+	            <t:Column width="50%">
+					<Label text="Item"/>
+					<t:template>
+						<Text text="{BomList>Content}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="11%" hAlign="Right">
+					<Label text="{i18n>lblQuantity}"/>
+					<t:template>
+						<Text text="{BomList>Mngko}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7%" hAlign="Center">
+					<Label text="{i18n>lblUnit}"/>
+					<t:template>
+						<Text text="{BomList>MeinsB}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="11%" hAlign="Right">
+					<Label text="{i18n>lblSapStock}"/>
+					<t:template>
+						<Text text="{BomList>Labst}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7%" hAlign="Center">
+					<Label text="{i18n>lblUnit}"/>
+					<t:template>
+						<Text text="{BomList>MeinsM}"/>
+					</t:template>
+				</t:Column>
+			</t:columns>
+		</t:TreeTable>
+		
+<!-- 		<Table 	id="bomTable"
+				inset="false"
+				mode="SingleSelectMaster"
+				growing="true"			 
+				growingThreshold="30"
+				growingScrollToLoad="true"
+				items="{ path: 'BomList>/results' }" >
+ 			<columns>
+				<Column id="Matnr" 	width="13px" hAlign="Center" mergeDuplicates="true">
+					<Text text="{i18n>lblMaterial}"/>
+				</Column>
+				<Column id="Maktx" 	width="40px" hAlign="Left" mergeDuplicates="true"
+						popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true">
+					<Text text="{i18n>lblDescription}"/>
+				</Column>
+				<Column id="Mngko" 	width="10px" hAlign="Right" mergeDuplicates="true">
+					<Text text="{i18n>lblQuantity}"/>
+				</Column>
+				<Column id="MeinsB" width="10px" hAlign="Center" mergeDuplicates="true">
+					<Text text="{i18n>lblUnit}"/>
+				</Column>
+				<Column id="Lgort" 	width="10px" hAlign="Center">
+					<Text text="{i18n>lblSLoc}"/>
+				</Column>
+				<Column id="Lgobe" 	width="14px" hAlign="Left"
+						popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true">
+					<Text text="{i18n>lblSLocDesc}"/>
+				</Column>
+				<Column id="Labst" 	width="4px" hAlign="Right">
+					<Text text="{i18n>lblSapStock}"/>
+				</Column>
+				<Column id="MeinsM" width="6px" hAlign="Center">
+					<Text text="{i18n>lblUnit}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active">		 
+			    	<cells>
+						<Text text="{BomList>Matnr}"/>
+						<Text text="{BomList>Maktx}"/>
+						<Text text="{BomList>Mngko}"/>
+						<Text text="{BomList>MeinsB}"/>
+						<Text text="{BomList>Lgort}"/>
+						<Text text="{BomList>Lgobe}"/>
+						<Text text="{BomList>Labst}"/>
+						<Text text="{BomList>MeinsM}"/>
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table> -->
+
+
+<!-- 		<footer>
+			<Bar>
+				<contentMiddle>
+					<Button id="Record"
+							type="Accept"
+							text="{i18n>lblSave}"
+							visible="{screenMode>/Record}" 	
+							press="onBtnRecord" />
+					<Button id="Cancel"
+							type="Reject"
+							text="{i18n>lblCancel}"
+							visible="{screenMode>/Cancel}"
+							press="onBtnCancel" />							
+					<Button id="Complete"
+							type="Accept"
+							text="{i18n>lblComplete}"
+							visible="{screenMode>/Complete}" 	
+							press="onComplete" />							
+		 		</contentMiddle>
+			</Bar>
+		</footer> -->
+	</Page>
+</core:View>
