@@ -1,0 +1,64 @@
+<mvc:View
+    controllerName="zcoui0001.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+   	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:microchart="sap.suite.ui.microchart">
+
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <layout:VerticalLayout class="sapUiResponsiveMargin">
+                        <layout:HorizontalLayout id="hl01" allowWrapping="true">
+                            <GenericTile id="gt01"
+                                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                                header="{
+                                    parts: [
+                                        'i18n>startpageCCTileTitle',
+                                        'business>/year',
+                                        'business>/currency'
+                                    ],
+                                    formatter: 'jQuery.sap.formatMessage'
+                                }"
+                                press="onNavToChartContainer">
+                                <tileContent>
+                                    <TileContent id="tc01">
+                                        <content>
+                                            <microchart:BulletMicroChart id="bc"
+                                                targetValue="{business>/plannedExpenses}"
+                                                targetValueLabel="{
+                                                    path: 'business>/plannedExpenses',
+                                                    formatter: '.formatNumber'
+                                                }"
+                                                actualValueLabel="{
+                                                    path: 'business>/expenses',
+                                                    formatter: '.formatNumber'
+                                                }"
+                                                minValue="0">
+                                                <microchart:actual>
+                                                    <microchart:BulletMicroChartData id="bmcd01"
+                                                        value="{business>/expenses}"
+                                                        color="Critical" />
+                                                </microchart:actual>
+                                                <microchart:thresholds>
+                                                    <microchart:BulletMicroChartData id="bmcd02"
+                                                        value="{business>/expensesCritical}"
+                                                        color="Critical" />
+                                                    <microchart:BulletMicroChartData id="bmcd03"
+                                                        value="{business>/budget}"
+                                                        color="Error" />
+                                                </microchart:thresholds>
+                                            </microchart:BulletMicroChart>
+                                        </content>
+                                    </TileContent>
+                                </tileContent>
+                            </GenericTile>        
+                        </layout:HorizontalLayout>
+                    </layout:VerticalLayout>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>

@@ -1,0 +1,153 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m140.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" title="{i18n>title}">
+
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+			    	    columnsL="12"
+                        columnsM="12"
+                        columnsS="12"
+						>
+        	<Label textAlign="Left" text="{i18n>lblPlant}" class="sapUiSmallMarginTop">
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+            </Label>
+		  	<ComboBox id="Werks" forceSelection="false" required="true" change="onChangeWerks">
+          		<layoutData><l:GridData span="L4 M4 S4" /></layoutData>
+		  	</ComboBox>
+        	<Label textAlign="Left" text="{i18n>lblSloc}" class="sapUiSmallMarginTop">
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+            </Label>
+		  	<ComboBox id="Lgort" forceSelection="false" required="true" change="onChangeLgort">
+          		<layoutData><l:GridData span="L4 M4 S4" /></layoutData>
+		  	</ComboBox>
+        	<Label textAlign="Left" text="{i18n>lblSpmon}" class="sapUiSmallMarginTop">
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+            </Label>
+		  	<ComboBox id="Spmon" forceSelection="false" required="true" change="onChangeSpmon">
+          		<layoutData><l:GridData span="L4 M4 S4" /></layoutData>
+		  	</ComboBox>
+        	<Label textAlign="Left" text="{i18n>lblSubtyp}" class="sapUiSmallMarginTop">
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+            </Label>
+		  	<ComboBox id="Subtyp" forceSelection="false">
+          		<layoutData><l:GridData span="L4 M4 S4" /></layoutData>
+		  	</ComboBox>
+        	<Label textAlign="Left" text="{i18n>lblMatkl}" class="sapUiSmallMarginTop">
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+            </Label>
+		  	<ComboBox id="Matkl" forceSelection="false">
+          		<layoutData><l:GridData span="L4 M4 S4" /></layoutData>
+		  	</ComboBox>
+			<Label textAlign="Left" text="{i18n>lblRackNo}" class="sapUiSmallMarginTop">
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+            </Label>
+		  	<Input id="RackNo">
+          		<layoutData><l:GridData span="L4 M4 S4" /></layoutData>
+		  	</Input>
+			<Label text="{i18n>lblMaabc}" class="sapUiTinyMarginTop">
+   			   	<layoutData><l:GridData span="L2 M2 S2"/></layoutData>
+         	</Label>
+           	<ComboBox id="Maabc" forceSelection="false">
+               	<items>
+                	<core:Item key="A" text="A" />
+                	<core:Item key="B" text="B" />
+                	<core:Item key="C" text="C" />
+               	</items>
+	  			<layoutData><l:GridData span="L4 M4 S4" /></layoutData>
+	        </ComboBox>
+ 		  	<Label text="{i18n>lblFilter}" class="sapUiSmallMarginTop">
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+            </Label>
+			<ToggleButton id="filterO" icon="sap-icon://sys-enter-2" enabled="true" pressed="true" press="onFilterPress" >
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+			</ToggleButton>
+			<ToggleButton id="filterX" icon="sap-icon://sys-cancel" enabled="true" pressed="true" press="onFilterPress" >
+        		<layoutData><l:GridData span="L2 M2 S2" /></layoutData>
+			</ToggleButton>
+		</f:SimpleForm>
+    
+		<Table 	id="listTable"
+				inset="false"
+				mode="SingleSelectMaster"
+				growing="true"
+				itemPress="iconLink"
+				growingThreshold="15"
+				growingScrollToLoad="true"
+				items="{ path: 'MainList>/results' }" >
+ 			<columns>
+ 				<Column id="colLight" 	width="2px" 	hAlign="Left" >
+					<Text text=""/>
+				</Column>
+<!-- 				<Column id="colLgort" 	width="5px" 	hAlign="Center">
+					<Text text="{i18n>lblSloc}"/>
+				</Column>
+				<Column id="colLgobe" 	width="100px" 	hAlign="Left" 	popinDisplay="Inline"	minScreenWidth="Desktop"	demandPopin="true">
+					<Text text="{i18n>lblStext}"/>
+				</Column> -->
+				<Column id="colMatnr" 	width="22px" 	hAlign="Center">
+					<Text text="{i18n>lblMatnr}"/>
+				</Column>
+				<Column id="colMaktx" 	width="100px" 	hAlign="Left"	popinDisplay="Inline"	minScreenWidth="Desktop"	demandPopin="true">
+					<Text text="{i18n>lblMaktx}"/>
+				</Column>
+				<Column id="colSubtyp" 	width="10px" 	hAlign="Center">
+					<Text text="{i18n>lblSubtyp}"/>
+				</Column>
+				<Column id="colRackNo" 	width="20px" 	hAlign="Left"	popinDisplay="Inline"	minScreenWidth="Desktop"	demandPopin="true">
+					<Text text="{i18n>lblRackNo}"/>
+				</Column>				
+				<Column id="colStock" 	width="10px" 	hAlign="Right">
+					<Text text="{i18n>lblStock}"/>
+				</Column>
+				<Column id="colMenge"	width="10px" 	hAlign="Right">
+					<Text text="{i18n>lblMenge}"/>
+				</Column>
+				<Column id="colMeins"	width="3px" 	hAlign="Center">
+					<Text text="{i18n>lblUnit}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active" type="Active">		 
+			    	<cells>
+						<core:Icon src="{MainList>Light}"/>
+<!-- 						<Text text="{MainList>Lgort}"/>
+						<Text text="{MainList>Lgobe}"/> -->
+						<Text text="{MainList>Matnr}"/>
+						<Text text="{MainList>Maktx}"/>
+						<Text text="{MainList>Subtype}"/>
+						<Text text="{MainList>RackNo}"/>
+						<Text text="{MainList>Labst}"/>
+						<Text text="{MainList>Menge}"/>
+						<Text text="{MainList>Meins}"/>						
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+		
+		
+		<footer>
+			<Bar>
+<!--  					<Button id="orderDisp" 
+ 					        text="{i18n>lblOtherAsset}"
+ 					        press="onPress_otherAsset" /> -->
+				<contentMiddle>
+					<Button id="Search"
+							type="Accept"
+							icon="sap-icon://search"
+							press="onPressSearch" />
+				</contentMiddle>
+
+				<contentRight>
+					<Button id="scrollTop"
+ 					        icon="sap-icon://back-to-top"
+							press="onPressTop" />
+				</contentRight>
+			</Bar>
+		</footer>    	
+	</Page>
+</core:View>

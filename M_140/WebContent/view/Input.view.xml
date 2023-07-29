@@ -1,0 +1,213 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m140.controller.Input" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" title="{header>/Maktx}" showNavButton="true" 
+			navButtonPress="onNavBack" >
+
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+			    	    columnsL="12"
+                        columnsM="12"
+                        columnsS="12"
+						class="sapUiSizeCompact"
+						>
+        	<Label text="{i18n>lblSloc}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S3" />
+          		</layoutData>
+            </Label>
+        	<Input id="LgortFull" value="{header>/LgortFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S9" />
+          		</layoutData>
+ 		  	</Input>
+
+			<Label text="{i18n>lblMatnr}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S3" />
+          		</layoutData>
+            </Label>
+        	<Input id="MatnrFull" value="{header>/MatnrFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S9" />
+          		</layoutData>
+ 		  	</Input>
+			<Label text="{i18n>lblRackNo}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S3" />
+          		</layoutData>
+            </Label>
+        	<Input id="RackNo" value="{header>/RackNo}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S3" />
+          		</layoutData>
+ 		  	</Input>
+			<Label text="{i18n>lblMaabc}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S3" />
+          		</layoutData>
+            </Label>
+        	<Input id="Maabc" value="{header>/Maabc}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S3" />
+          		</layoutData>
+ 		  	</Input>
+			<Label text="{i18n>lblEisbe}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S3" />
+          		</layoutData>
+            </Label>
+        	<Input id="Eisbe" value="{header>/Eisbe}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S3" />
+          		</layoutData>
+ 		  	</Input>
+			<Label text="{i18n>lblUnit}" class="sapUiTinyMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S3" />
+          		</layoutData>
+            </Label>
+        	<Input id="Meins" value="{header>/Meins}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S3" />
+          		</layoutData>
+ 		  	</Input>
+		</f:SimpleForm>
+    
+		<Table 	id="inputTable"
+				inset="false"
+			sticky="ColumnHeaders"
+				mode="SingleSelectMaster"
+				growing="true"			 
+				growingThreshold="11"
+				growingScrollToLoad="true"
+				items="{ path: 'QtyList>/results' }" >
+ 			<columns>
+<!-- 				<Column id="colQtyTitle" width="15%" hAlign="Center" ><Text text=""/></Column> -->
+				<Column id="colMenge"    width="20%" hAlign="Center"><Text text="{i18n>lblStock}"/></Column>
+				<Column id="colMengeChk" width="26%" hAlign="Center" visible="{header>/Visible}"><Text text="{i18n>lblMenge}"/></Column>
+				<Column id="colDiffChk"  width="18%" hAlign="Center" visible="{header>/Visible}"><Text text="{i18n>lblGap}"/></Column>
+				<Column id="colBadQty" 	 width="20%" hAlign="Center" visible="{header>/Visible}"><Text text="Defective"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active">		 
+			    	<cells>
+<!-- 						<Text text="Qty"/> -->
+						<Text id="SapQty" text="{QtyList>Labst}"/>
+						<Input 	value="{QtyList>Menge}"
+								textAlign="Center"
+          				       	enabled="{header>/Edit}"
+								visible="{header>/Visible}"
+          				       	class="sapUiNoContentPadding"
+          				       	change="onQtyChange"
+          		       	/>
+   						<Text id="QtyDiff" text="{QtyList>DiffChk}" visible="{header>/Visible}"/>
+						<Input 	value="{QtyList>BadMenge}"
+								textAlign="Center"
+          				       	enabled="{header>/Edit}"
+								visible="{header>/Visible}"
+          				       	class="sapUiNoContentPadding"
+          		       	/>
+<!-- 						<ToggleButton id="Stat2" text="OK" enabled="{header>/Edit}" pressed="{QtyList>Stat2}" press="onStat2Press" visible="{header>/Visible}"/> -->
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+		<Table 	id="stockTable"
+				inset="false"
+				sticky="ColumnHeaders"
+				mode="SingleSelectMaster"
+				growing="true"			 
+				growingThreshold="11"
+				growingScrollToLoad="true"
+				items="{ path: 'StockList>/results' }" >
+			<headerToolbar>
+				<OverflowToolbar>
+					<content>
+						<Title text="-Other Stock(s)"/>
+					</content>
+				</OverflowToolbar>
+			</headerToolbar>
+ 			<columns>
+				<Column id="colLgortStock"  width="20%" hAlign="Center" ><Text text="S.Loc"/></Column>
+				<Column id="colRackNoStock" width="20%" hAlign="Center" ><Text text="Rack No."/></Column>
+				<Column id="colMengeStock"  width="20%" hAlign="Center"><Text text="{i18n>lblStock}"/></Column>
+				<Column id="colMengeReal"   width="20%" hAlign="Center" visible="{header>/Visible}"><Text text="{i18n>lblMenge}"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active">		 
+			    	<cells>
+						<Text text="{StockList>Lgort}"/>
+						<Text text="{StockList>RackNo}"/>
+						<Text text="{StockList>Labst}"/>
+						<Text text="{StockList>Menge}" visible="{header>/Visible}"/>
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+
+		<Table 	id="documentTable"
+				inset="false"
+				sticky="ColumnHeaders"
+				mode="SingleSelectMaster"
+				growing="true"			 
+				growingThreshold="11"
+				growingScrollToLoad="true"
+				items="{ path: 'DocumentList>/results' }" >
+			<headerToolbar>
+				<OverflowToolbar>
+					<content>
+						<Title text="-Latest Document" level="H6"/>
+					</content>
+				</OverflowToolbar>
+			</headerToolbar>
+			
+ 			<columns>
+				<Column id="colBudatDocu" width="30%" hAlign="Center"><Text text="P.Date"/></Column>
+				<Column id="colBwartDocu" width="10%" hAlign="Center"><Text text="Mvt."/></Column>
+				<Column id="colMengeDocu" width="20%" hAlign="Center"><Text text="Qty"/></Column>
+				<Column id="colMeinsDocu" width="20%" hAlign="Center"><Text text="{i18n>lblUnit}"/></Column>
+				<Column id="colUmlgoDocu" width="20%" hAlign="Center"><Text text="{i18n>lblSlocPartner}"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active">		 
+			    	<cells>
+						<Text text="{DocumentList>Budat}"/>
+						<Text text="{DocumentList>Bwtar}"/>
+						<Text text="{DocumentList>Menge}"/>
+						<Text text="{DocumentList>Meins}"/>
+   						<Text text="{DocumentList>Umlgo}"/>
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+		
+		<footer>
+			<Bar>
+<!--  				<contentLeft>
+ 					<Button id="orderDisp" 
+ 					        text="{i18n>lblOtherAsset}"
+ 					        press="onPress_otherAsset" />
+  				</contentLeft> -->
+
+ 				<contentMiddle>
+					<Button id="AuditInput"
+							type="Accept"
+							icon="sap-icon://save"
+							visible="{header>/Edit}" 	
+							press="onPress_auditInput" />
+		 		</contentMiddle>
+
+ 				<contentRight>
+<!--  					<Button id="assetHistory"
+ 					        text="{i18n>lblAssetSubList}"
+							press="onPressSubAsset" /> -->
+ 				</contentRight>
+			</Bar>
+		</footer>    	
+	</Page>
+</core:View>

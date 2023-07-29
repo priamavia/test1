@@ -1,0 +1,63 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pdf.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+ 	<Page id="main" >
+	<VBox>
+    	<items>
+    	<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="2"
+			labelSpanM="2"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="5"
+			columnsM="5"
+			title="Invoice Details for Customer">
+    	<f:content>	
+          <Label text="Maint. Plant"  class="sapUiTinyMarginTop"  required="true" >
+          </Label>
+           <ComboBox id="swerk" selectionChange="onSwerkSelect"  required="true" editable="true" >
+           <layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+           </ComboBox>       	
+          <Label text="Customer Number"  class="sapUiTinyMarginTop"  required="true" >
+          	 <layoutData>
+          		<l:GridData span="L2 M1 S1" />
+          	</layoutData>
+          </Label>
+
+			<Input id="lifnr" valueHelpRequest="onValueHelpRequest" required="true">           
+			<layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+           </Input>          
+            <Label text="" class="sapUiTinyMarginTop">
+          	 <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Label>          
+          <Button text="PDF Download" press="onBtnSearch">
+            <layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+          </Button> 
+           <core:HTML id="pdfContainer" content="">
+           </core:HTML>         
+          
+    	</f:content>
+    	</f:SimpleForm>
+    		
+    </items>	    
+	</VBox>
+	</Page>
+</core:View>
+
+

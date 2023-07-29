@@ -1,0 +1,157 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+		   xmlns:c="sap.ui.unified.calendar"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m120.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml"
+		   height="100%">
+	<Page id="mainpage" title="{i18n>title}" class="sapUiContentPadding">
+	<!-- Page : class="sapUiContentPadding" 페이지 패딩 설정  --> 
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                        columnsM="12"
+                        columnsS="12"  
+						>
+   			<Label 	text="{i18n>lblPlant}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L3 M3 S3"/>
+         		</layoutData>
+         	</Label>
+ 		  	<Select id="Werks" forceSelection="false" change="" required="true">
+		  		<layoutData>
+          			<l:GridData span="L3 M3 S9" />
+          		</layoutData>
+       		</Select>
+   			<Label 	text="{i18n>lblAuditYear}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L3 M3 S3"/>
+         		</layoutData>
+         	</Label>
+ 		  	<Select id="frYear" forceSelection="false" change="onYearSelect" required="true">
+           		<layoutData>
+          			<l:GridData span="L3 M3 S9" />
+          		</layoutData>
+ 		  	</Select>
+    	</f:SimpleForm>
+
+		<Table 	id="listTable"
+				inset="false"
+				mode="MultiSelect"
+				growing="true"			 
+				growingThreshold="50"
+				growingScrollToLoad="true"				
+				items="{ path: 'ResList>/results' }">
+				<!-- itemPress="iconLink" -->
+  			<headerToolbar>
+				<Toolbar>
+				<ToolbarSpacer />
+		           	<Button	id="BtnCreate"
+							icon="sap-icon://sys-add" 
+		                   	text="{i18n>create}"
+		                   	press="iconLink" 
+		                   	visible="true" />	
+		           	<Button	id="BtnDelete"
+							icon="sap-icon://sys-minus" 
+		                   	text="{i18n>delete}"
+		                   	press="iconLink" 
+		                   	visible="true" />			                   				
+		            <Button	id="BtnSearch"
+							icon="sap-icon://search" 
+		                   	text="{i18n>search}"
+		                   	press="onBtnSearch" 
+		                   	visible="true" />
+				</Toolbar>
+			</headerToolbar>
+ 			<columns>
+				<Column id="colPdate" width="30px" hAlign="Center">
+					<Text text="{i18n>lblPlanDate}"/>
+				</Column>
+				<Column id="colStockDate" width="25px" hAlign="Center">
+					<Text text="{i18n>lblStockDate}"/>
+				</Column>
+				<Column id="colStockTime" width="25px" hAlign="Center">
+					<Text text="{i18n>lblStockTime}"/>
+				</Column>				
+				<Column id="colPstat" width="15px" hAlign="Center">
+					<Text text="{i18n>lblPlanStatus}"/>
+				</Column>
+ 				<Column id="colPldoc" width="50px" hAlign="Left">
+					<Text text="{i18n>lblPlanDoc}"/>
+				</Column>
+<!--  				<Column id="colDrfid" width="50px" hAlign="Left" 
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblUserDraft}"/>
+				</Column>
+				<Column id="colDrfdt" width="30px" hAlign="Left">
+					<Text text="{i18n>lblDateDraft}"/>
+				</Column>				 -->
+				<Column id="colCnfid" width="45px" hAlign="Left"
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblUserApprove}"/>
+				</Column>
+				<Column id="colCnfdt" width="35px" hAlign="Left" 
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblDateApprove}"/>
+				</Column>
+				<Column id="colRstat" width="20px" hAlign="Center">
+					<Text text="{i18n>lblResultStatus}"/>
+				</Column>
+ 				<Column id="colRsdoc" width="50px" hAlign="Left">
+					<Text text="{i18n>lblResultDoc}"/>
+				</Column>								
+				<Column id="colCnfidR" width="50px" hAlign="Left"
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblUserApproveResult}"/>
+				</Column>
+				<Column id="colCnfdtR" width="25px" hAlign="Left" 
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblDateApproveResult}"/>
+				</Column>
+				<Column id="colCrtid" width="40px" hAlign="Left" 
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblUserCreate}"/>
+				</Column>
+				<Column id="colCrtdt" width="25px" hAlign="Left">
+					<Text text="{i18n>lblDateCreate}"/>
+				</Column>
+			</columns>
+ 			<items>
+				<ColumnListItem vAlign="Middle" mode="Active" type="Active">
+			    	<cells>
+<!-- 						<Link text="{ResList>Spmon}" press="iconLink"/> -->
+						<Link text="{ResList>PlanDate}" press="iconLink"/>
+						<Text text="{ResList>StockDate}"/>
+						<Text text="{ResList>StockTime}"/>
+						<core:Icon src="{ResList>Pstat}" color="{ResList>Pcolor}"/>
+ 						<Link text="{ResList>PlanDoc}" press="onPressPortal_P"/>
+<!-- 						<Text text="{ResList>Drafter}"/>
+						<Text text="{ResList>DraftOn}"/> -->
+						<Text text="{ResList>Approver}"/>
+						<Text text="{ResList>ApproveOn}"/>
+						<core:Icon src="{ResList>Rstat}" color="{ResList>Rcolor}"/>
+						<Link text="{ResList>ResultDoc}" press="onPressPortal_R"/>
+						<Text text="{ResList>ApproverR}"/>
+						<Text text="{ResList>ApproveOnR}"/>
+						<Text text="{ResList>Creater}"/>
+						<Text text="{ResList>CreateOn}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</core:View>

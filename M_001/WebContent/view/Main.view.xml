@@ -1,0 +1,280 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m010.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" class="sapUiContentPadding">
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                        columnsM="12"
+                        columnsS="12"  
+						>
+   			<Label 	text="{i18n>lblBusinessArea}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L2 M2 S4"/>
+         		</layoutData>
+         	</Label>
+ 		  	<Select id="gsber" change="onChangeBA" required="true">
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+       		</Select>
+
+   			<Label 	text="{i18n>lblCostCenter}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L2 M2 S4"/>
+         		</layoutData>
+         	</Label>
+ 		  	<Select id="kostl" change="" forceSelection="true" required="true">
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+       		</Select>
+   			<Label 	text="{i18n>lblEquipment}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L2 M2 S4"/>
+         		</layoutData>
+         	</Label>
+       		<Input 	id="equnr"
+       		        editable="{screenMode>/equnr}">
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+       		</Input>
+   			<Label 	text="{i18n>lblAssetClass}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L2 M2 S4"/>
+         		</layoutData>
+         	</Label>
+         	<!-- 
+ 	  			  	<Input id="anlkl" 
+ 	  			  		   textFormatMode="KeyValue"
+ 	  			  		   editable="{screenMode>/admin}"
+						   selectedKey="{header>/AdminUser}"
+ 	  			  		   showSuggestion="true" 
+ 	  			  		   suggestionItemSelected=".onSuggestionItemSelected"
+ 	  			  		   suggestionItems="{Anlkl>/results}">
+ 						<suggestionItems>
+							<core:ListItem
+								key="{Anlkl>Key}"
+								text="{Anlkl>KeyName}"
+								additionalText="{Anlkl>Name}" />	
+						</suggestionItems>
+ 	  			  		<layoutData>
+		          			<l:GridData span="L2 M4 S8" />
+		          		</layoutData>
+		          	</Input> -->
+		          	         	
+       		<MultiInput id="anlkl"
+       		        	editable="{screenMode>/anlkl}"
+						showValueHelp="false"
+						showSuggestion="true" 
+						suggestionItems="{ path: 'Anlkl>/results'}">
+				<core:Item 	key="{Anlkl>Key}"
+							text="{Anlkl>KeyName}"
+							/>
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+          	</MultiInput>
+   			<Label 	text="{i18n>lblAsset}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L2 M2 S4"/>
+         		</layoutData>
+         	</Label>
+       		<Input 	id="anln1"
+      		        editable="{screenMode>/anln1}">
+		  		<layoutData>
+          			<l:GridData span="L2 M4 S8" />
+          		</layoutData>
+          	</Input>
+   			<Label 	text="{i18n>lblFunctionalLoc}" class="sapUiTinyMarginTop">
+   			   	<layoutData>
+         			<l:GridData span="L2 M2 S4"/>
+         		</layoutData>
+         	</Label>
+       		<MultiInput	id="tplnr" showValueHelp="false">
+		  		<layoutData>
+	       			<l:GridData span="L2 M4 S8" />
+	       		</layoutData>
+	       	</MultiInput>
+
+<!--     			<Label 	text="{i18n>lblGoodIssueDate}" -->
+<!--     					width="70px"  -->
+<!--     					/> -->
+<!--           		<DatePicker	id="budat" 
+          		        editable="{screenMode>/budat}"
+          		        valueFormat="yyyy.MM.dd"
+         				change="handleDateChangeFrom">
+          		 </DatePicker> -->
+<!--     		<f:content> -->
+<!--     			<Label 	text="{i18n>lblReservationNo}"  -->
+<!--     					/> -->
+<!--           		<Input 	id="rsnum"  -->
+<!--           		        required="true" -->
+<!--           		        editable="{screenMode>/rsnum}" -->
+<!--           		        /> -->
+<!--     		</f:content>    		 -->
+    	</f:SimpleForm>
+
+		<Table 	id="listTable"
+				inset="false"
+				mode="MultiSelect"
+				fixedLayout="Strict"
+				autoPopinMode="true"
+				hiddenInPopin="true"
+				growing="true"			 
+				growingThreshold="99999"
+				growingScrollToLoad="true"				
+				items="{ path: 'ResList>/results'
+						}">
+ 			<headerToolbar>
+				<Toolbar>
+                	<ToggleButton
+                			id="filter"	
+                			icon="sap-icon://filter"
+                        	text="{i18n>onlyFirst}"
+                        	press="onFilterSelection" 
+                        	visible="true" />
+
+					<RadioButtonGroup id="GroupA" columns="2" select="onFilterSelection">
+						<RadioButton text="All" width="2rem" selected="true"/>
+						<RadioButton text="0 Stock exclude" width="7rem"/>
+					</RadioButtonGroup>	
+			
+					<ToolbarSpacer /> 
+
+                	<Button	icon="sap-icon://search"
+                        	text="{i18n>search}"
+                        	press="onBtnSearch" 
+                        	visible="true" />
+                    <Button	icon="sap-icon://print" 
+                        	text="{i18n>qrPrintM}"
+                        	press="onBtnPrint" 
+                        	visible="true" />
+                    <Button	icon="sap-icon://print" 
+                        	text="{i18n>qrPrintS}"
+                        	press="onBtnPrint" 
+                        	visible="true" />                        	
+				</Toolbar>
+			</headerToolbar>
+<!-- 			<infoToolbar>
+				<OverflowToolbar id="vsdFilterBar" visible="false">
+					<Text id="vsdFilterLabel" />
+				</OverflowToolbar>
+			</infoToolbar>			
+ --> 			<columns>
+				<Column id="colKostl" width="50px" hAlign="Left">
+					<Text text="{i18n>lblCctr}"/>
+				</Column>
+				<Column id="colKtext" width="150px" hAlign="Left" 
+						popinDisplay="Inline"
+						minScreenWidth="Tablet" 
+						demandPopin="true">
+					<Text text="{i18n>lblCctrDesc}"/>
+				</Column>
+				<Column id="colAlnl1" width="80px" hAlign="Left">
+					<Text text="{i18n>lblAsset}"/>
+				</Column>
+<!-- 				<Column id="colAlnl2" width="50px" hAlign="Left">
+					<Text text="{i18n>lblAssetSub}"/>
+				</Column> -->
+				<Column id="colTxt50" width="200px" hAlign="Left" 
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblAssetDesc}"/>
+				</Column>
+				<Column id="colErdat" width="60px" hAlign="Center">
+					<Text text="{i18n>lblErdat}"/>
+				</Column>
+				<Column id="colEqunr" width="50px" hAlign="Left">
+					<Text text="{i18n>lblEquipment}"/>
+				</Column>
+				<Column id="colInvnr" width="100px" hAlign="Left">
+					<Text text="{i18n>lblInventory}"/>
+				</Column>				
+				<Column id="colTplnr" width="100px" hAlign="Left"
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblFunctionalLoc}"/>
+				</Column>
+				<Column id="colPltxt" width="150px" hAlign="Left" 
+						popinDisplay="Inline"
+						minScreenWidth="Desktop" 
+						demandPopin="true">
+					<Text text="{i18n>lblPltxt}"/>
+				</Column>
+				<Column id="colMenge" width="50px" hAlign="Right">
+					<Text text="{i18n>lblQuantity}"/>
+				</Column>
+				<Column id="colMeins" width="50px" hAlign="Center">
+					<Text text="{i18n>lblUnit}"/>
+				</Column>
+				<Column id="colAnlkl" width="50px" hAlign="Center">
+					<Text text="{i18n>lblAssetClass}"/>
+				</Column>
+				<Column id="colQrcnt" width="30px" hAlign="Right">
+					<Text text="{i18n>lblQrcnt}"/>
+				</Column>				
+			</columns>
+ 			<items>
+				<ColumnListItem vAlign="Middle" mode="Active">
+			    	<cells>
+						<Text text="{ResList>Kostl}"/>
+						<Text text="{ResList>Ktext}"/>
+						<Text text="{ResList>Asset}"/>
+<!-- 						<Text text="{ResList>Anln2}"/> -->
+						<Text text="{ResList>Txt50}"/>
+						<Text text="{ResList>Erdat}"/>
+						<Text text="{ResList>Equnr}"/>
+						<!-- <Text text="{ResList>Eqtxt}"/> -->
+						<Text text="{ResList>Invnr}"/>
+						<Text text="{ResList>Tplnr}"/>
+						<Text text="{ResList>Pltxt}"/>
+						<Text text="{ResList>Menge}"/>
+						<Text text="{ResList>Meins}"/>
+						<Text text="{ResList>Anlkl}"/>
+						<!-- <core:Icon id="Zicon" src="{ResList>Zicon}" color="green" tooltip="{text : 'ResList>Ztool'}"/> -->
+						<Text text="{ResList>Qrcnt}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+    
+<!-- 		<footer>
+			<Bar> -->
+<!-- 				<contentLeft> -->
+<!-- 					<Button id="orderDisp" text="{i18n>display}" press="onPress_disp" /> -->
+<!-- 				</contentLeft> -->
+
+<!-- 				<contentMiddle>
+					<Button id="Search"
+							type="Accept"
+							text="{i18n>lblSearch}"
+							visible="{screenMode>/Search}" 	
+							press="onBtnSearch" />
+					<Button id="GoodIssue"
+							type="Accept"
+							text="{i18n>lblGoodIssue}"  
+							visible="{screenMode>/GoodIssue}" 	
+							press="onBtnGoodIssue" />
+					<Button id="Cancel"
+							type="Reject"
+							text="{i18n>lblCancel}" 	
+							visible="{screenMode>/Cancel}" 	
+							press="onBtnCancel" />
+		 		</contentMiddle> -->
+
+<!-- 				<contentRight> -->
+<!-- 					<Button id="workAssign"   text="{i18n>workAssign}"   press="onPress_wkassign" />			 -->
+<!-- 				</contentRight> -->
+<!-- 			</Bar>
+		</footer>    	 -->
+	</Page>
+</core:View>

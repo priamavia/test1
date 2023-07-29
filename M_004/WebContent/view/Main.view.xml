@@ -1,0 +1,181 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm_m040.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" title="{i18n>title}">
+
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+			    	    columnsL="12"
+                        columnsM="12"
+                        columnsS="12"
+						>
+        	<Label textAlign="Left" text="{i18n>lblBusinessAreaShort}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="GsberFull" value="{header>/GsberFull}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Input>
+        	<Label text="{i18n>lblKostl}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Select id="Kostl" change="onFilterPress" selectedKey="{header>/Kostl}"
+        			items="{ path: 'DeptList>/results' }">
+				<core:ListItem key="{DeptList>Kostl}" text="{DeptList>Ktext}"/>
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Select>
+			<Label text="{i18n>lblJoiner}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="Joinn" value="{header>/Joinn}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblExaminee}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="Examn" value="{header>/Examn}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblGjahr}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="Gjahr" value="{header>/Gjahr}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblMonth}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Input id="Month" value="{header>/Month}" editable="false">
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Input>
+ 		  	<Label text="{i18n>lblClass}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+        	<Select id="Anlkl" change="onFilterPress"
+        			items="{ path: 'ClassList>/results' }">
+				<core:ListItem key="{ClassList>Anlkl}" text="{ClassList>AnlklFull}"/>
+           		<layoutData>
+          			<l:GridData span="L5 M4 S4" />
+          		</layoutData>
+ 		  	</Select>
+ 		  	<Label text="{i18n>lblFilter}" class="sapUiSmallMarginTop">
+        		<layoutData>
+          			<l:GridData span="L1 M2 S2" />
+          		</layoutData>
+            </Label>
+			<ToggleButton id="filterO" icon="sap-icon://sys-enter-2" enabled="true" pressed="true" press="onFilterPress" >
+        		<layoutData>
+          			<l:GridData span="L2 M2 S2" />
+          		</layoutData>
+			</ToggleButton>
+			<ToggleButton id="filterX" icon="sap-icon://sys-cancel" enabled="true" pressed="true" press="onFilterPress" >
+        		<layoutData>
+          			<l:GridData span="L2 M2 S2" />
+          		</layoutData>
+			</ToggleButton>
+		</f:SimpleForm>
+    
+		<Table 	id="listTable"
+				inset="false"
+				mode="SingleSelectMaster"
+				growing="true"
+				itemPress="iconLink"
+				growingThreshold="15"
+				growingScrollToLoad="true"
+				items="{ path: 'MainList>/results' }" >
+ 			<columns>
+				<Column id="colLight" 	width="2px" 	hAlign="Left" >
+					<Text text=""/>
+				</Column>
+				<Column id="colAnlkl" 	width="5px" 	hAlign="Center">
+					<Text text="{i18n>lblClass}"/>
+				</Column>
+				<Column id="colTxk50" 	width="100px" 	hAlign="Left" 	popinDisplay="Inline"	minScreenWidth="Desktop"	demandPopin="true">
+					<Text text="{i18n>lblAnlkl}"/>
+				</Column>
+				<Column id="colAnln1" 	width="22px" 	hAlign="Conter">
+					<Text text="{i18n>lblAsset}"/>
+				</Column>
+				<Column id="colTxt50" 	width="100px" 	hAlign="Conter"	popinDisplay="Inline"	minScreenWidth="Desktop"	demandPopin="true">
+					<Text text="{i18n>lblTxt50}"/>
+				</Column>
+				<Column id="colSapQty" 	width="10px" 	hAlign="Right">
+					<Text text="{i18n>lblSapQty}"/>
+				</Column>
+				<Column id="colInputQty"	width="8px" 	hAlign="Right">
+					<Text text="{i18n>lblQuantity}"/>
+				</Column>
+				<Column id="colMeins"	width="3px" 	hAlign="Center" visible="false">
+					<Text text="{i18n>lblUnit}"/>
+				</Column>				
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active" type="Active">		 
+			    	<cells>
+						<core:Icon src="{MainList>Light}"/>
+						<Text text="{MainList>Anlkl}"/>
+						<Text text="{MainList>Txk50}"/>
+						<Text text="{MainList>Anln1}"/>
+						<Text text="{MainList>Txt50}"/>
+						<Text text="{MainList>SapQty}"/>
+						<Text text="{MainList>InputQty}"/>
+						<Text text="{MainList>Meins}"/>						
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+		
+		
+		<footer>
+			<Bar>
+			<!-- <OverflowToolbar> -->
+<!--  					<Button id="orderDisp" 
+ 					        text="{i18n>lblOtherAsset}"
+ 					        press="onPress_otherAsset" /> -->
+				<!-- <ToolbarSpacer/> -->
+				<contentMiddle>
+					<Button id="Refresh"
+							type="Accept"
+							icon="sap-icon://refresh"
+							press="onPressRefresh" />
+				</contentMiddle>							
+				<!-- <ToolbarSpacer/> -->
+				<contentRight>
+ 					<Button id="scrollTop"
+ 					        icon="sap-icon://back-to-top"
+							press="onPressTop" />
+				</contentRight>
+			<!-- </OverflowToolbar> -->
+			</Bar>
+		</footer>    	
+	</Page>
+</core:View>

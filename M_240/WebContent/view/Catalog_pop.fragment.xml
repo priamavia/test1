@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table"
+	>
+	<Dialog id="dialog_catalog" title="{i18n>catalog_title}" 
+	        resizable="true" 
+	        contentWidth="40rem" 
+	        contentHeight="35rem"
+	        draggable = "true"
+	        >
+		<content>
+<!-- 			<HBox class="sapUiResponsiveMargin">
+				<Label id="catalogProfileLbl" text="Catalog Profile" class="sapUiSmallMarginTop"/>
+				<Input id="Qkatart" class="sapUiSmallMarginBeginEnd" width="6rem" editable="false"/>
+                <Text id="Rbnr" text="" class="sapUiSmallMarginTop" />
+			</HBox> -->
+		    <t:TreeTable id="Catalog_tree"
+		          selectionMode="Single"
+		          selectionBehavior="Row"
+		          visibleRowCount="13"
+		          columnHeaderVisible="false"
+                  rowSelectionChange="onSelectTree_catalog"
+                  rememberSelections="false"
+                  useGroupMode="true"
+                  groupHeaderProperty="Id"
+		          class="sapUiResponsiveMargin">
+		        <t:toolbar>
+			       <Toolbar>
+			          <content>
+			             <ToolbarSpacer/>
+			             <Button icon="sap-icon://collapse-group" id="collapse" press="onCollapse" />
+		                 <Button icon="sap-icon://expand-group"  id="expand" press="onExpand" /> 
+			          </content>
+			       </Toolbar>
+			    </t:toolbar>	     	
+		     	<t:columns>
+		           <t:Column label="{i18n>lblCode}" width="10rem">
+		               <t:template>
+		                   <Text text="{catalog>Id}"/>
+		               </t:template>
+		           </t:Column>
+		           <t:Column label="{i18n>lblDescription}" width="21rem">
+		               <t:template>
+		                   <Text text="{catalog>Name}"/>
+		               </t:template>
+		           </t:Column>			           		     	
+		       </t:columns>
+		     </t:TreeTable>
+		</content>
+		<HBox id="hbox" class="sapUiResponsiveMargin">
+			<Label id="itemTextLbl" text="" labelFor="itemText" class="sapUiSmallMarginTop"/>
+			<Input id="itemText" class="sapUiSmallMarginBeginEnd" width="30rem" maxLength="40"/> 
+		</HBox>		
+		
+         <buttons>
+             <Button id="select" text = "{i18n>select}" press = "onConfirmDialog_Catalog" enabled="{}"></Button>
+             <Button id="adopt" text = "{i18n>adopt}" press = "onAdoptDialog_Catalog" enabled="{}"></Button>             
+             <Button id="cancel" text = "{i18n>cancel}"   press = "onCloseDialog_Catalog"></Button>
+         </buttons>
+     </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,372 @@
+<core:View xmlns:l="sap.ui.layout"
+           xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core"
+           xmlns:mvc="sap.ui.core.mvc"
+           xmlns="sap.m"
+           xmlns:ux="sap.uxap"
+           xmlns:semantic="sap.f.semantic"
+       controllerName="cj.pm_m120.controller.Detail"
+       xmlns:html="http://www.w3.org/1999/xhtml">
+	
+  <Page 	id="Detail" 
+			title="{i18n>detailTitle}" 
+			showNavButton="true" 
+			navButtonPress="onNavBack">
+<!-- 		<headerContent>
+			<Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+		</headerContent> -->
+    <content>		
+      <ux:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true">
+        <ux:sections>
+          <ux:ObjectPageSection title="{i18n>lblHeader}">
+            <ux:subSections>
+              <ux:ObjectPageSubSection title=" ">
+                <f:SimpleForm	layout="ResponsiveGridLayout"
+                                columnsL="12"
+                        		columnsM="12"
+                        		columnsS="12"                     
+								>            
+					<Label text="{i18n>lblPlant}" class="sapUiTinyMarginTop">
+					 	<layoutData>
+		          			<l:GridData span="L1 M2 S2" />
+		          		</layoutData>
+					</Label>
+ 	  			  	<Input id="Werks" editable="false" value="{header>/Werks}" required="true">
+ 	  			  		<layoutData>
+		          			<l:GridData span="L1 M2 S2" />
+		          		</layoutData>
+		          	</Input>
+					<Label text="{i18n>lblPlanDate}" class="sapUiTinyMarginTop">
+						<layoutData>
+		          			<l:GridData span="L1 M2 S2" />
+		          		</layoutData>
+					</Label>
+					<DatePicker	id="PlanDate"
+								placeholder="{i18n>lblEnterDate}"
+								width="100%"
+								required="true"
+								value="{header>/Pdate}"
+								editable="{screenMode>/save}"
+								change="handleDateChangeFrom">
+						<layoutData>
+							<l:GridData span="L1 M4 S1" />
+						</layoutData>
+					</DatePicker>
+
+					<Label text="{i18n>lblDeptCrg}" class="sapUiTinyMarginTop">
+					 	<layoutData>
+		          			<l:GridData span="L2 M2 S2" />
+		          		</layoutData>
+					</Label>
+ 	  			  	<Input id="DeptCrg" editable="{screenMode>/deptCrg}" value="{header>/DeptCrg}">
+ 	  			  		<layoutData>
+		          			<l:GridData span="L2 M2 S2" />
+		          		</layoutData>
+		          	</Input>
+					<Label text="{i18n>lblAdminTop}" class="sapUiTinyMarginTop">
+					 	<layoutData>
+		          			<l:GridData span="L2 M2 S2" />
+		          		</layoutData>
+					</Label>
+ 	  			  	<Input id="Admin" 
+ 	  			  		   textFormatMode="KeyValue"
+ 	  			  		   editable="{screenMode>/admin}"
+						   selectedKey="{header>/AdminUser}"
+ 	  			  		   showSuggestion="true" 
+ 	  			  		   suggestionItemSelected=".onSuggestionItemSelected"
+ 	  			  		   suggestionItems="{User>/results}">
+ 						<suggestionItems>
+							<core:ListItem
+								key="{User>EmpId}"
+								text="{User>EmpNameEn}"
+								additionalText="{User>DeptCode}" />	
+						</suggestionItems>
+ 	  			  		<layoutData>
+		          			<l:GridData span="L2 M2 S2" />
+		          		</layoutData>
+		          	</Input>
+					<Text text=" " class="sapUiTinyMarginTop">
+					 	<layoutData>
+		          			<l:GridData span="L10 M10 S8" />
+		          		</layoutData>
+					</Text>	
+
+		            <Button	icon="sap-icon://hr-approval" 
+		                   	text="{i18n>approve}"
+		                   	press="onBtnApprove"
+		                   	enabled="{screenMode>/approve}" >
+		            	<layoutData>
+		          			<l:GridData span="L1 M1 S2" />
+		          		</layoutData>
+		            </Button>
+		           	<Button	id="saveButton"
+							icon="sap-icon://save" 
+		                   	text="{i18n>save}"
+		                   	press="onBtnSave" 
+		                   	enabled="{screenMode>/save}" >
+		            	<layoutData>
+		          			<l:GridData span="L1 M1 S2" />
+		          		</layoutData>
+		            </Button>
+
+				</f:SimpleForm>	
+              </ux:ObjectPageSubSection>
+            </ux:subSections>
+          </ux:ObjectPageSection>
+                   
+          <ux:ObjectPageSection title="{i18n>lblAuditSchedule}">
+            <ux:subSections>
+			  <ux:ObjectPageSubSection title=" ">
+ 			    <VBox>
+				  <t:Table id="table_schedule" 
+				  			visibleRowCount="{header>/schSize}"
+							editable="{screenMode>/slocList}"
+				  			selectionMode="None"
+						  firstVisibleRowChanged="onScroll"
+						  fixedColumnCount="5"
+					  columnMove="CalcMengeList"
+					  rowsUpdated="onRefresh">
+			        <t:toolbar>
+		            	<Toolbar>
+								<Button icon="sap-icon://excel-attachment"
+		                         		tooltip="{i18n>lblDownloadExcel}"
+		                         		press="onDownloadExcel"/>
+			                	<ToggleButton
+			                			id="includeA"	
+			                			icon="sap-icon://sys-enter"
+			                        	text="A"
+										enabled="{screenMode>/slocList}"
+										pressed="{header>/Agrade}"
+			                        	press="CalcMengeList"/>
+			                	<ToggleButton
+			                			id="includeB"	
+			                			icon="sap-icon://sys-enter"
+			                        	text="B" 
+										enabled="{screenMode>/slocList}"
+										pressed="{header>/Bgrade}"
+			                        	press="CalcMengeList"/>
+			                	<ToggleButton
+			                			id="includeC"	
+			                			icon="sap-icon://sys-enter"
+			                        	text="C" 
+										enabled="{screenMode>/slocList}"
+										pressed="{header>/Cgrade}"
+			                        	press="CalcMengeList"/>
+			                	<ToggleButton
+			                			id="includeN"
+			                        	text="N/A" 
+										enabled="{screenMode>/slocList}"
+										pressed="{header>/NotAss}"
+			                        	press="CalcMengeList"/>
+								<Text   text="{header>/StockInfo}" />
+		                        <ToolbarSpacer/>
+								<Button icon="sap-icon://copy"
+		                         		tooltip="{Sync.}"
+										enabled="{screenMode>/copy}"
+										visible="{screenMode>/copy}"
+		                         		press="onBtnCopy"/>
+		            	</Toolbar>					
+		            </t:toolbar>			  
+                    <t:columns>
+						<t:Column width="5rem" hAlign="Center">
+							<Label text="{i18n>lblSelected}"/>
+							<t:template>
+								<Switch state="{AdtFlag}" customTextOn="Yes" customTextOff="No" 
+									enabled="{screenMode>/slocList}" change="CalcMengeList"/>
+							</t:template>
+						</t:Column>
+						
+              	 	  <t:Column width="12rem">
+                        <Label text="{i18n>lblLocation}"/>
+                        <t:template>
+							<Text text="{Lgobe}"/>
+                        </t:template>
+                      </t:Column>
+
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblChief}" />
+                        <t:template>
+                          	<Input 	id="SchChief" editable="{screenMode>/slocList}"
+ 	  			  		   			selectedKey="{Chiefm}"
+						   			showSuggestion="true" 
+									suggest="handleSuggestEmpId"
+ 	  			  		   			suggestionItemSelected=".onScheduleItemSelected"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}"
+													text="{User>EmpNameEn}"/>		
+								</suggestionItems>
+		          			</Input>  
+                        </t:template>
+                      </t:Column>												
+						
+                      <t:Column width="4rem" hAlign="Right">
+                        <Label text="{i18n>lblMenge}" />
+                        <t:template>
+                            <Text text="{Menge}" />
+                        </t:template>
+                      </t:Column>
+                      <t:Column id="ActMenge" width="4rem" hAlign="Right"> 
+                        <Label text="{i18n>lblMengeAudit}" />
+                        <t:template>
+                            <Text text="{ActMenge}" />
+                        </t:template>
+                      </t:Column>
+<!-- 01 --> 
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblExaminee01}" />
+                        <t:template>
+                          	<Input 	id="SchExam01u" editable="{screenMode>/slocList}" selectedKey="{Exam01m}"
+						   			showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>		
+								</suggestionItems>
+		          			</Input>                        
+                        </t:template>
+		              </t:Column>
+						
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblInspector01}" />
+                        <t:template>
+							<Input 	id="SchInsp01u" editable="{screenMode>/slocList}" selectedKey="{Insp01m}"
+									showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+									suggestionItems="{path : 'User>/results', templateShareable:false}">
+								<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>		
+								</suggestionItems>
+							</Input>
+                        </t:template>
+                      </t:Column>
+<!-- 02 --> 
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblExaminee02}" />
+                        <t:template>
+                          	<Input 	id="SchExam02u" editable="{screenMode>/slocList}" selectedKey="{Exam02m}"
+						   			showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>		
+								</suggestionItems>
+		          			</Input>                        
+                        </t:template>
+		              </t:Column>
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblInspector02}" />
+                        <t:template>
+							<Input 	id="SchInsp02u" editable="{screenMode>/slocList}" selectedKey="{Insp02m}"
+									showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+									suggestionItems="{path : 'User>/results', templateShareable:false}">
+								<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>
+								</suggestionItems>
+							</Input>
+                        </t:template>
+                      </t:Column>
+<!-- 03 --> 
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblExaminee03}" />
+                        <t:template>
+                          	<Input 	id="SchExam03u" editable="{screenMode>/slocList}" selectedKey="{Exam03m}"
+						   			showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>
+								</suggestionItems>
+		          			</Input>                        
+                        </t:template>
+		              </t:Column>
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblInspector03}" />
+                        <t:template>
+							<Input 	id="SchInsp03u" editable="{screenMode>/slocList}" selectedKey="{Insp03m}"
+									showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+									suggestionItems="{path : 'User>/results', templateShareable:false}">
+								<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>
+								</suggestionItems>
+							</Input>
+                        </t:template>
+                      </t:Column>
+<!-- 04 --> 
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblExaminee04}" />
+                        <t:template>
+                          	<Input 	id="SchExam04u" editable="{screenMode>/slocList}" selectedKey="{Exam04m}"
+						   			showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>
+								</suggestionItems>
+		          			</Input>
+                        </t:template>
+		              </t:Column>
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblInspector04}" />
+                        <t:template>
+							<Input 	id="SchInsp04u" editable="{screenMode>/slocList}" selectedKey="{Insp04m}"
+									showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+									suggestionItems="{path : 'User>/results', templateShareable:false}">
+								<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>
+								</suggestionItems>
+							</Input>
+                        </t:template>
+                      </t:Column>
+<!-- 05 --> 
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblExaminee05}" />
+                        <t:template>
+                          	<Input 	id="SchExam05u" editable="{screenMode>/slocList}" selectedKey="{Exam05m}"
+						   			showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+ 	  			  		   			suggestionItems="{path : 'User>/results', templateShareable:false}">
+ 	  			  				<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>
+								</suggestionItems>
+		          			</Input>
+                        </t:template>
+		              </t:Column>
+                      <t:Column width="13rem">
+                        <Label text="{i18n>lblInspector05}" />
+                        <t:template>
+							<Input 	id="SchInsp05u" editable="{screenMode>/slocList}" selectedKey="{Insp05m}"
+									showSuggestion="true"  suggestionItemSelected=".onScheduleItemSelected"
+									suggest="handleSuggestEmpId"
+									suggestionItems="{path : 'User>/results', templateShareable:false}">
+								<suggestionItems>
+									<core:ListItem 	key="{User>EmpId}" text="{User>EmpNameEn}"/>
+								</suggestionItems>
+							</Input>
+                        </t:template>
+                      </t:Column>
+
+
+					</t:columns>
+		    	  </t:Table>
+					<MessageStrip
+						id="MsgStrip"
+						class="sapUiTinyMargin"
+						text="{header>/MessageStrip}"
+						type="Information"
+						showIcon="true">
+					</MessageStrip>
+				</VBox>
+		      </ux:ObjectPageSubSection>
+		    </ux:subSections>
+          </ux:ObjectPageSection>          
+        </ux:sections>
+      </ux:ObjectPageLayout>
+    </content>
+  </Page>
+</core:View>

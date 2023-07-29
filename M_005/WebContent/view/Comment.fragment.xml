@@ -1,0 +1,127 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">
+	
+	<Dialog id="dialog_comment" title="{i18n>popup_comment_title}" 
+	        resizable="true" 
+	        contentWidth="90rem" 
+	        contentHeight="50rem"
+	        draggable = "true"
+	        afterClose="onCommentAfterClose"
+	        class="sapUiContentPadding">
+		<content>
+			<l:Grid>
+				<Label text="{i18n>lblDeptAsset}" class="sapUiTinyMarginTop">
+					<layoutData>
+		          		<l:GridData span="L2 M2 S2" />
+		          	</layoutData> 
+		        </Label>
+		        <HBox width="100%">
+                	<Input id="cmtKostl" value="{ComHead>/Kostl}" editable="false" width="5rem"/>
+	                <Input id="cmtKtext" value="{ComHead>/Ktext}" editable="false" width="15rem"/>
+			        <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData> 
+				</HBox>
+		        <Label text="{i18n>lblInspector}" class="sapUiTinyMarginTop">
+			    	<layoutData>
+		          		<l:GridData span="L2 M2 S2" />
+		          	</layoutData>
+          		</Label>
+          		<HBox>
+		        	<Input id="cmtInspn" value="{ComHead>/Inspn}" editable="false" width="15rem"/>
+		        	<layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData>
+		        </HBox>
+		        <Label text="{i18n>lblExaminee}" class="sapUiTinyMarginTop" >
+			    	<layoutData>
+		          		<l:GridData span="L2 M2 S2" />
+		          	</layoutData>  
+		        </Label>
+         		<HBox>
+		        	<Input id="cmtExamn" value="{ComHead>/Examn}" editable="false" width="15rem"/>
+		        	<layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData>
+		        </HBox>
+		        <Label text="{i18n>lblJoiner}" class="sapUiTinyMarginTop" >
+					<layoutData>
+		          		<l:GridData span="L2 M2 S2" />
+		          	</layoutData>
+          		</Label>
+         		<HBox>
+		        	<Input id="cmtJoinn" value="{ComHead>/Joinn}" editable="false" width="15rem"/>
+		        	<layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData>
+		        </HBox>
+			</l:Grid>
+			<t:Table id="table_Daily" visibleRowCount="3" selectionMode="None">
+       			<t:toolbar>
+               		<Toolbar  class="myFontToolbar">
+                  		<content >
+							<Title 	titleStyle="H4" text="{i18n>titleCommentTable}"
+									class="sapUiTinyMargin" />      
+<!--                       		<ToolbarSpacer/>
+                       		<Button icon="sap-icon://add" 
+                              		text="{i18n>add}"
+                              		press="onAdd_operation" 
+                              		visible="{screenMode>/oper_isvisible}"/>
+                          	<Button icon="sap-icon://delete"
+                              		text="{i18n>delete}"
+                         			press="onDelete_operation"
+                         			visible="{screenMode>/oper_isvisible_del}"/> -->
+                    	</content>
+                	</Toolbar>
+            	</t:toolbar>
+               
+				<t:columns>
+            	 	<t:Column width="9rem">
+                    	<Label text="{i18n>lblDate}"/>
+                      	<t:template>
+							<DatePicker id="cmtInspDate"
+										placeholder="{i18n>lblEnterDate}"
+		                              	value="{ path : 'InspDate' }"
+										change="handleChangeInspDate"
+										enabled="false">
+							</DatePicker>	    
+                      	</t:template>
+                  	</t:Column>
+                  	<t:Column width="30%">
+                    	<Label text="{i18n>lblSummary}" />
+                    	<t:template>
+                        	<Input value="{InspSummary}" editable="{ComHead>/Save}" maxLength="1024"/>
+                      	</t:template>
+                  	</t:Column>
+                  	<t:Column width="20%">
+                      	<Label text="{i18n>lblNote}" />
+                   		<t:template>
+                       		<Input value="{InspNote}" editable="{ComHead>/Save}" maxLength="50"/>
+                   		</t:template>
+                  	</t:Column>
+                  	<t:Column width="50%">
+                  		<Label text="{i18n>lblOpinion}" />
+                      	<t:template>
+                        	<Input value="{InspOpinion}" editable="{ComHead>/Save}" maxLength="1024"/>
+                        </t:template>
+                  	</t:Column>
+				</t:columns>
+  			</t:Table>
+  			<Title 	titleStyle="H4" width="90%" text="" class="sapUiSmallMargin" />
+  			
+			<Title 	titleStyle="H4" text="{i18n>titleCommentTextArea}" class="sapUiSmallMargin" />        			
+	        <TextArea id="desc" value="{ComHead>/LongText}" rows="7" 
+	                  width="100%" editable="{ComHead>/Save}" />
+		</content>
+        <buttons>
+             <Button id="commentSave" 	text="{i18n>save}"   	press="onCommentSaveDialog" visible="{ComHead>/Save}"></Button>
+             <Button id="commentSubmit" text="{i18n>lblSubmit}" press="onCommentSubmitDialog" visible="{ComHead>/Submit}"></Button>
+             <Button id="commentCancel" text="{i18n>lblClose}"  press="onCommentCancelDialog"></Button>
+        </buttons>
+		
+	</Dialog>
+</core:FragmentDefinition>
