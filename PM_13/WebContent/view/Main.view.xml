@@ -1,0 +1,290 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm0130.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	   
+  <Page id="mainpage" title="">
+    	<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="1"
+			labelSpanM="1"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="5"
+			columnsM="5">
+    	
+    	<f:content>	
+	      <HBox class="sapUiMediumMarginBegin">
+        	<items>
+	        	<CheckBox id="history" text="{i18n>lblIncludeHistory}" class="sapUiTinyMarginEnd" 
+	        						   selected="false" select="onHistorySelect" />
+	        </items>  
+	        
+           <layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+	      </HBox>    	
+          <Label id="lblswerk" text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop" required="true">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Label>
+		  <Select id="swerk" forceSelection="false" change="onSwerkSelect"  required="true">
+           <layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+ 		  </Select>
+          <Label id="lblzcrldate" text="{i18n>lblCreatedOn}"  class="sapUiTinyMarginTop">   
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>              
+          </Label>
+        <HBox>
+          <items>    	
+			<DatePicker
+				id="zcrldate_from"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"			
+				change="handleDateChangeFrom">
+			</DatePicker>
+          <Label text="~"  class="sapUiTinyMarginTop">
+          </Label>
+			<DatePicker
+				id="zcrldate_to"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"		
+				change="handleDateChangeTo">
+			</DatePicker>
+          	</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox>   
+                    
+          <Label text="{i18n>lblCreatedBy}"  class="sapUiTinyMarginTop">            
+          	<layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>  
+          </Label>
+          <Input id="zcrname">
+          	<layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+          </Input>
+   	            
+          <Label text="{i18n>lblObjectType}" class="sapUiTinyMarginTop">
+          </Label>
+	
+			<RadioButtonGroup id="main_type" columns="2" class="sapUiTinyMarginTop" select="onRtnChange">
+				<buttons>
+					<RadioButton id="main_type_e" text="{i18n>lblEquipment}"/>
+					<RadioButton id="main_type_s" text="{i18n>lblSparePart}"/>
+				</buttons>
+	         	<layoutData>
+	         		<l:GridData span="L3 M3 S1" />
+	         	</layoutData>  				
+			</RadioButtonGroup>  
+          <Label text="{i18n>lblTechObject}" class="sapUiTinyMarginTop">
+          	<layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>		          
+          </Label>			
+          <MultiInput id="equnr" valueHelpRequest="onValueHelpRequest">
+          	<layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+          </MultiInput>                     
+
+          <MultiInput id="matnr" valueHelpRequest="onValueHelpRequest">
+          	<layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+          </MultiInput>                     
+
+          <Label text="{i18n>lblVendor}" class="sapUiTinyMarginTop">
+          	<layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>               
+          </Label>
+          <MultiInput id="lifnr" valueHelpRequest="onValueHelpRequest" change="onChange">
+          	<layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+          </MultiInput>                     
+         <Label text="" class="sapUiTinyMarginTop">
+           <layoutData>
+         		<l:GridData span="L1 M1 S1" />
+         	</layoutData>          
+         </Label>
+          <Button text="{i18n>search}" press="onBtnSearch">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Button>
+    	</f:content>
+    	</f:SimpleForm>
+    	
+     <t:Table id="table"
+         selectionMode="None"
+		 selectionBehavior="RowSelector"
+		 showNoData = "false"
+		 visibleRowCount="18"
+		 enableCellFilter="{ui>/cellFilterOn}"
+		 class="sapUiResponsiveMargin"> 
+	        <t:toolbar>
+                 <Toolbar design="sap.ui.commons.ToolbarDesign.Transparent">
+                     <content>
+                         <Button
+                         	icon="sap-icon://excel-attachment"
+                         	tooltip="{i18n>lblDownloadExcel}"
+                         	press="downloadExcel"/>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters"/>
+                             
+                         <ToolbarSpacer/>     
+<!-- sap.m.ButtonType.Accept	accept type (blue button)
+sap.m.ButtonType.Back			back type (back navigation button for header)
+sap.m.ButtonType.Default		default type (no special styling)
+sap.m.ButtonType.Emphasized		emphasized type
+sap.m.ButtonType.Reject			reject style (red button)
+sap.m.ButtonType.Transparent	transparent type
+sap.m.ButtonType.Unstyled		Unstyled type (no styling)
+sap.m.ButtonType.Up				up type (up navigation button for header)
+ -->                         
+						 <Button id="orderCrte" text="{i18n>create}" width="6rem" press="onPress_crte"  type="Unstyled"/>
+                     </content>
+                 </Toolbar>
+             </t:toolbar>
+                
+             <t:columns>
+                    <t:Column width="4rem"
+                       sortProperty="Zicon"
+                       filterProperty="Zicon"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStatus}" />
+                        <t:template>
+                            <core:Icon src="{Zicon}" 
+                                       color="{Color}" />
+                        </t:template>
+                    </t:Column>	               
+                    <t:Column width="7rem"
+                       sortProperty="RequestNo"
+                       filterProperty="RequestNo">
+                        <Label text="{i18n>lblRequestNo}" />
+                        <t:template>
+                            <!-- <Text text="{RequestNo}"/> -->
+                            <Link text="{RequestNo}" press="onPress_chge" />
+                        </t:template>
+                    </t:Column>	
+                    <t:Column width="15rem"
+                       sortProperty="TechObject"
+                       filterProperty="TechObject">
+                        <Label text="{i18n>lblTechObject}" />
+                        <t:template>
+                            <Text text="{TechObject}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>	
+                    <t:Column width="7rem"
+                       sortProperty="ActualDateOut"
+                       filterProperty="ActualDateOut"
+                       hAlign="Center">
+                        <Label text="{i18n>lblDateOut}" />
+                        <t:template>
+	                       	<Text text="{ path : 'ActualDateOut',
+						                  formatter : '.formatter.strToFormatDate' }"
+	                       	 />   	                       	                             
+                        </t:template>
+                    </t:Column>	  
+                    <t:Column width="8rem"
+                       sortProperty="PlanDateIn"
+                       filterProperty="PlanDateIn"
+                       hAlign="Center">
+                        <Label text="{i18n>lblPlannedDateIn}" />
+                        <t:template>
+	                       	<Text text="{ path : 'PlanDateIn',
+						                  formatter : '.formatter.strToFormatDate' }"
+	                       	 />   	                       	                             
+                        </t:template>
+                    </t:Column>	                      
+                    <t:Column width="7rem"
+                       sortProperty="ActualDateIn"
+                       filterProperty="ActualDateIn"
+                        hAlign="Center">
+                        <Label text="{i18n>lblDateIn}" />
+                        <t:template>
+	                       	<Text text="{ path : 'ActualDateIn',
+						                  formatter : '.formatter.strToFormatDate' }"
+	                       	 />                              
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="4rem"
+                       sortProperty="Items"
+                       filterProperty="Items"
+                       hAlign="Right">
+                        <Label text="{i18n>lblItems}" />
+                        <t:template>
+                            <Text text="{Items}"/>
+                        </t:template>
+                    </t:Column>                    
+                    <t:Column width="7rem"
+                       sortProperty="Zcrldate"
+                       filterProperty="Zcrldate"
+                       hAlign="Center">
+                        <Label text="{i18n>lblCreatedOn}" />
+                        <t:template>
+	                       	<Text text="{ path : 'Zcrldate',
+						                  formatter : '.formatter.strToFormatDate' }"
+	                       	 />   
+                            
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="7rem"
+                       sortProperty="Zcrname"
+                       filterProperty="Zcrname"
+                       hAlign="Center">
+                        <Label text="{i18n>lblCreatedBy}" />
+                        <t:template>
+                            <Text text="{Zcrname}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem"
+                       hAlign="Center">
+                        <Label text="{i18n>lblOutDoc}" />
+                        <t:template>
+                            <core:Icon src="{Requestout}"  />                        
+                        </t:template>
+                    </t:Column>     
+                    <t:Column width="4rem"
+                       hAlign="Center">
+                        <Label text="{i18n>lblInDoc}" />
+                        <t:template>
+                            <core:Icon src="{Requestin}"  />
+                        </t:template>
+                    </t:Column>                         
+              </t:columns>
+    </t:Table>    	
+<!-- 		<footer>
+			<Bar>
+				<endButton>
+					<Button id="orderCrte" text="{i18n>create}"  press="onPress_crte" />
+				</endButton>
+			</Bar>
+		</footer> -->
+		 
+			 			 		
+	</Page>
+</core:View>
+
+

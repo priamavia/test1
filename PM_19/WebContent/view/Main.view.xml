@@ -1,0 +1,606 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm0190.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	   
+  <Page id="mainpage" title="">
+    	<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="1"
+			labelSpanM="1"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="5"
+			columnsM="5">
+    	<f:content>	
+          <Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop" required="true">
+          </Label>
+ 		  <Select id="swerk" forceSelection="false" change="onSwerkSelect" required="true">
+           <layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+ 		  </Select>
+          <Label text="{i18n>lblMaintWC}" class="sapUiTinyMarginTop" required="true">     
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>  
+          </Label>
+          <ComboBox id="vaplz" selectionChange="onChange_Vaplz" required="true">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox> 
+ 		  
+          <Label text="{i18n>lblOrderProject}"  class="sapUiSmallMarginTop">       
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+          </Label>
+          <HBox>
+<!--           	<items>    	
+        		<CheckBox id="pmorder" text="{i18n>lblPmOrder}" class="sapUiTinyMarginEnd" selected="true"/>
+        		<CheckBox id="project" text="{i18n>lblProject}" class="sapUiTinyMarginEnd" selected="true"/>
+          	</items> -->
+          	
+          <items>                          
+	      <RadioButtonGroup id="kind" columns="2" class="sapUiTinyMarginTop sapUiTinyMarginEnd" select="onKindRtnChange">
+			<buttons>
+				<RadioButton id="pmorder" text="{i18n>lblPmOrder}"/>
+				<RadioButton id="project" text="{i18n>lblProject}"/>
+			</buttons>	
+<!--          	<layoutData>
+         		<l:GridData span="L3 M3 S1" />
+         	</layoutData>  	 -->			
+		  </RadioButtonGroup>  
+          </items>
+                    	
+           	<layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox>              
+<!--                       // 2¿­   -->          
+          <Label text="{i18n>lblDate}"  class="sapUiTinyMarginTop" required="true">   
+          </Label>
+	        <HBox>
+	          <items>    	
+				<DatePicker
+					id="gstrp_from"
+					placeholder="{i18n>lblEnterDate}"
+					width="147px"			
+					change="handleDateChangeFrom"
+					required="true">
+				</DatePicker>
+	          <Label text="~"  class="sapUiTinyMarginTop">
+	          </Label>
+				<DatePicker
+					id="gstrp_to"
+					placeholder="{i18n>lblEnterDate}"
+					width="147px"		
+					change="handleDateChangeTo"
+					required="true">
+				</DatePicker>
+	          	</items>
+	           <layoutData>
+	        		<l:GridData span="L3 M3 S1" />
+	          	</layoutData>
+		      </HBox>    
+
+          <Label text="{i18n>lblOrderNo}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Label>
+          <HBox>
+          <items>
+          <Input id="aufnr_from" width="136px"/>
+          <Label text="~"  width="30px" class="sapUiTinyMarginTop" textAlign="Center"/>
+          <Input id="aufnr_to"  width="136px"/>          
+          </items>
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>          
+          </HBox>
+          
+          <Label text="{i18n>lblStatus}" class="sapUiSmallMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+          </Label>
+          <HBox>  
+          <items>                          
+	      <RadioButtonGroup id="stat" columns="3" class="sapUiTinyMarginTop sapUiTinyMarginEnd" select="onStatRtnChange">
+			<buttons>
+				<RadioButton id="stat_rel" text="{i18n>lblNotEntered}"/>
+				<RadioButton id="stat_cnf" text="{i18n>lblEntered}"/>
+				<RadioButton id="stat_teco" text="{i18n>lblCompleted}"/>
+			</buttons>	
+<!--          	<layoutData>
+         		<l:GridData span="L3 M3 S1" />
+         	</layoutData>  	 -->			
+		  </RadioButtonGroup>  
+          </items>
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>          
+          </HBox>          
+<!--                       // 3¿­   -->  	                              
+          <Label text="{i18n>lblExecutionId}" class="sapUiTinyMarginTop">
+          </Label>
+          <MultiInput id="exec_id" valueHelpRequest="onValueHelpRequest">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </MultiInput>           	
+          <Label text="{i18n>lblWbs}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Label>      
+          <MultiInput id="posid" valueHelpRequest="onValueHelpRequest">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData> 	
+          </MultiInput>   
+          <Label text="{i18n>lblWorker}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+          </Label>
+          <ComboBox id="zname" >
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox>                    	  
+         <Label text="" class="sapUiTinyMarginTop">
+           <layoutData>
+         		<l:GridData span="L11 M11 S1" />
+         	</layoutData>          
+         </Label>
+          <Button text="{i18n>search}" press="onBtnSearch">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Button>
+    	</f:content>
+    	</f:SimpleForm>
+    	
+   	<f:SimpleForm
+   	    title="{i18n>pmorder_group}"
+   	    id = "SimpleForm_pmorder"
+   	    layout="ResponsiveGridLayout"
+   	  	labelSpanL="0"
+		labelSpanM="0"
+		emptySpanL="0"
+		emptySpanM="0"
+		emptySpanS="0"
+		columnsL="5"
+		columnsM="5"
+		visible ="false"
+		editable="true">  
+	<f:content>	
+		<t:Table id="table_order"
+	         selectionMode="Single"
+			 selectionBehavior="Row"
+			 showNoData = "false"			 
+			 visibleRowCount="14">			 
+	        <t:toolbar>
+                 <Toolbar design="sap.ui.commons.ToolbarDesign.Transparent">
+                     <content>                            
+                         <Button
+                         	icon="sap-icon://excel-attachment"
+                         	tooltip="{i18n>lblDownloadExcel}"
+                         	press="downloadExcel_order"/>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings_order"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters_order"/>
+                         <ToolbarSpacer/>                    
+
+			 			 <Button id="workResult" text="{i18n>workResult}" width="6rem" press="onPress_wkresult"  type="Unstyled"/>                                                 
+						 <Button id="complete" text="{i18n>Complete}" width="6rem" press="onPress_complete" type="Unstyled"/>
+                     </content>
+                 </Toolbar>
+             </t:toolbar>
+                
+             <t:columns>
+                    <t:Column width="4rem"
+                       sortProperty="Zicon"
+                       filterProperty="Zicon"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStatus}" />
+                        <t:template>
+                            <core:Icon src="{Zicon}" 
+                                       color="{Color}"
+                                       alt="{Txt20}" />
+                        </t:template>
+                    </t:Column>	               
+                    <t:Column width="6rem"
+                       sortProperty="Auart"
+                       filterProperty="Auart"
+                       hAlign="Center">
+                        <Label text="{i18n>lblOrderType}" />
+                        <t:template>
+                            <Text text="{Auart}"/>
+                        </t:template>
+                    </t:Column>                                 
+                    <t:Column width="8rem"
+                       sortProperty="Aufnr"
+                       filterProperty="Aufnr"
+                       hAlign="Center">
+                        <Label text="{i18n>lblOrderNo}" />
+                        <t:template>
+                            <Link text="{Aufnr}" press="onPress_Aufnr" />
+                        </t:template>
+                    </t:Column>	  
+                    <t:Column width="6rem"
+                       sortProperty="Txt30"
+                       filterProperty="Txt30"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStatus}"/>
+                        <t:template>
+                            <Text text="{Txt30}" textAlign="Center"/>
+                        </t:template>
+                    </t:Column>	                      
+                    <t:Column width="18rem"
+                       sortProperty="Ktext"
+                       filterProperty="Ktext"
+                       hAlign="Left">
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Ktext}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="6rem"
+                       sortProperty="Gstrp"
+                       filterProperty="Gstrp"
+                       hAlign="Center">
+                        <Label text="{i18n>lblDate}" />
+                        <t:template>
+	                       	<Text text="{ path : 'Gstrp',
+						                  formatter : '.formatter.strToFormatDate' }"
+						                  textAlign="Center"
+	                       	 />                              
+                        </t:template>
+                    </t:Column> 
+                    <t:Column width="6rem"
+                       sortProperty="Zplhr"
+                       filterProperty="Zplhr"
+                       hAlign="Center">
+                        <Label text="{i18n>lblPlan}" />
+                        <t:template>
+                            <Text text="{Zplhr}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="6rem"
+                       sortProperty="Zachr"
+                       filterProperty="Zachr"
+                       hAlign="Center">
+                        <Label text="{i18n>lblActual}" />
+                        <t:template>
+                            <Text text="{Zachr}" textAlign="Right"/>
+                        </t:template>
+                    </t:Column>      
+                    <t:Column width="3rem"  
+                              hAlign="Center">
+                        <Label text="{i18n>lblUnit}" />
+                        <t:template>
+                           <Text text="{Arbeh}" textAlign="Center" />
+                        </t:template>
+                    </t:Column>                                   
+                    <t:Column width="6rem"
+                       sortProperty="Isdz"
+                       filterProperty="Isdz"
+                       hAlign="Center">
+                        <Label text="{i18n>lblFrom}" />
+                        <t:template>                       	 
+	                       	<Text text="{ path : 'Isdz',
+						                  formatter : '.formatter.strToFormatTime' }"
+						          textAlign="Center"
+	                       	 />                        	                          
+                        </t:template>
+                    </t:Column> 
+                    <t:Column width="6rem"
+                       sortProperty="Iedz"
+                       filterProperty="Iedz"
+                       hAlign="Center">
+                        <Label text="{i18n>lblTo}" />
+                        <t:template>
+	                       	<Text text="{ path : 'Iedz',
+						                  formatter : '.formatter.strToFormatTime' }"
+						          textAlign="Center"
+	                       	 />                              
+                        </t:template>
+                    </t:Column> 
+                   <t:Column width="3rem" hAlign="Center">
+                       <Label text="{i18n>lblUnit}"/>
+                       <t:template>
+                          <Text text="{Ismne}" textAlign="Center"/>				                        
+                       </t:template>
+                   </t:Column>	 
+                   <t:Column width="10rem" hAlign="Center">
+                       <Label text="{i18n>lblWorker}"/>
+                       <t:template>
+                          <Text text="{Zname}" textAlign="Center" />				                        
+<!--                           <Input 
+                              id="Zname"
+                              value="{
+                                   path : 'Zname'
+                                   }"
+                              enabled="{Enable}"/>	 -->			                        
+                       </t:template>
+                   </t:Column>	                                                                       
+              </t:columns>
+    </t:Table>    
+    </f:content>
+    </f:SimpleForm>		
+    
+   	<f:SimpleForm
+   	    title="{i18n>project_group}"
+   	    id = "SimpleForm_project"
+   	    layout="ResponsiveGridLayout"
+   	  	labelSpanL="0"
+		labelSpanM="0"
+		emptySpanL="0"
+		emptySpanM="0"
+		emptySpanS="0"
+		columnsL="5"
+		columnsM="5"
+		visible ="false"
+		editable="true">
+   	<f:content>	  	
+			<t:Table id="table_project"
+		         selectionMode="Single"
+				 selectionBehavior="Row"
+				 showNoData = "false"
+				 visibleRowCount="14">	
+	        	<t:toolbar>
+                 	<Toolbar>
+                    	<content>
+                         <Button
+                         	icon="sap-icon://excel-attachment"
+                         	tooltip="{i18n>lblDownloadExcel}"
+                         	press="downloadExcel_proj"/>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings_proj"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters_proj"/>                    	
+                        	<ToolbarSpacer/>
+ 	                        <Button
+ 	                            id = "add"
+                                icon="sap-icon://add" 
+                                text="{i18n>add}"
+                                press="onAdd" 
+                              />     <!-- visible="{Enable}" -->
+                            <Button
+                            	id = "delete"
+                                icon="sap-icon://delete"
+                                text="{i18n>delete}"
+                           					press="onDelete"
+                           		 /> <!--  visible="{Enable}"  -->
+                           					
+			 			 <Button id="save" text="{i18n>save}" width="6rem" press="onPress_save"  type="Unstyled"/>                                                 
+						 <Button id="pcomplete" text="{i18n>Complete}" width="6rem" press="onPress_pcomplete" type="Unstyled"/>
+                                        					
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>				 			 
+                 <t:columns>
+                    <t:Column width="3rem" 
+                       hAlign="Center">
+                        <Label text="{i18n>lblNo}" />
+                        <t:template>
+                             <Text text="{Seq}" textAlign="Center"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="4rem"
+                       sortProperty="Zicon"
+                       filterProperty="Zicon"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStatus}" />
+                        <t:template>
+                            <core:Icon src="{Zicon}" 
+                                       color="{Color}"
+                                       alt="{Txt20}" />
+                        </t:template>
+                    </t:Column>	                      
+<!--                     <t:Column width="8rem"
+                       sortProperty="Txt30"
+                       filterProperty="Txt30"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStatus}"/>
+                        <t:template>
+                            <Text text="{Txt30}" textAlign="Center"/>
+                        </t:template>
+                    </t:Column>	  -->
+  					<t:Column width="10rem" 
+                       sortProperty="ExecId"
+                       filterProperty="ExecId"
+                       hAlign="Center">
+                        <Label text="{i18n>lblExecutionId}" />
+                        <t:template>
+                           <Input id="ExecId" 
+                                value="{ExecId}" editable="{Enable}" textAlign="Left"
+                           		change="handleChangeData"
+		                        valueState="{ExecIdValSt}"
+		                        valueStateText="{ExecIdValStText}"  
+		                        enabled="{Enable}"
+		                        valueHelpRequest="onValueHelpRequest_table_exec_id"	      
+		                        showValueHelp="true"                                                              
+                                 />                                
+                        </t:template>
+                    </t:Column>
+<!--   					<t:Column width="8rem" 
+                       sortProperty="Incode"
+                       filterProperty="Incode"
+                       hAlign="Center">
+                        <Label text="{i18n>lblWbsId}" />
+                        <t:template>
+                            <Text text="{Incode}" textAlign="Center"/>
+                        </t:template>
+                    </t:Column> -->
+  					<t:Column width="8rem" 
+                       sortProperty="Qmnum"
+                       filterProperty="Qmnum"
+                       hAlign="Center">
+                        <Label text="{i18n>lblNotification}" />
+                        <t:template>
+                             <Text text="{Qmnum}" textAlign="Center"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="8rem"
+                       sortProperty="Zdate"
+                       filterProperty="Zdate"
+                       hAlign="Center">
+                        <Label text="{i18n>lblDate}" />
+                        <t:template>	                       	 
+							<DatePicker
+								id="Zdate"
+								placeholder="{i18n>lblEnterDate}"
+		                              value="{
+		                                   path : 'Zdate'
+		                                   }"
+		                        valueFormat = "yyyyMMdd"
+								change="handleChangeZdate"
+		                        valueState="{ZdateValSt}"
+		                        valueStateText="{ZdateValStText}"    						
+								enabled="{Enable}">
+							</DatePicker>		                                                
+	                       	                          
+                        </t:template>
+                    </t:Column> 
+                    <t:Column width="6rem">
+                        <Label text="{i18n>lblFrom}" />
+                        <t:template>
+						<TimePicker
+							id="Zftime"
+							placeholder="{i18n>lblEnterTime}"
+							 value="{
+	                                   path : 'Zftime'
+	                                   }"
+					        displayFormat="HH"
+					        valueFormat="HH"							
+							change="handleChangeFTime"
+	                        valueState="{ZftimeValSt}"
+	                        valueStateText="{ZftimeValStText}"  						
+							enabled="{Enable}">
+						</TimePicker>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="6rem">
+                        <Label text="{i18n>lblTo}" />
+                        <t:template>
+ 						<TimePicker
+							id="Zttime"
+							placeholder="{i18n>lblEnterTime}"
+							value="{
+	                                   path : 'Zttime'
+	                                   }"
+					        displayFormat="HH"
+					        valueFormat="HH"							
+							change="handleChangeTTime"
+	                        valueState="{ZttimeValSt}"
+	                        valueStateText="{ZttimeValStText}"  						
+							enabled="{Enable}">
+						</TimePicker>
+                            
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem">
+                        <Label text="{i18n>lblTime}" />
+                        <t:template>
+                            <Input value="{Zwhour}" editable="{Enable}" textAlign="Right"
+                            		change="handleChangeData"
+			                        valueState="{ZwhourValSt}"
+			                        valueStateText="{ZwhourValStText}"  
+			                        enabled="{Enable}"	                                                                    
+                                  />                        
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="3rem"  
+                              hAlign="Center">
+                        <Label text="{i18n>lblUnit}" />
+                        <t:template>
+                           <Text text="{Meins}" textAlign="Center"/>
+                        </t:template>
+                    </t:Column>     
+                   <t:Column width="8rem" hAlign="Center">
+                       <Label text="{i18n>lblMaintWC}" />
+                       <t:template>
+							<ComboBox id="Arbpl" selectedKey="{Arbpl}" forceSelection="false"
+								          items="{path:'Items', templateShareable:false}"
+					                      valueState="{ArbplValSt}"
+					                      valueStateText="{ArbplValStText}" 								          
+								          enabled="{Enable}">
+							     <items> 
+								    <core:Item key="{Key}" text="{Key}"/> 
+								 </items>
+				            <layoutData>
+				          		<l:GridData span="L3 M3 S1" />
+				          	</layoutData>								   
+							</ComboBox>		 		  
+                       </t:template>
+                   </t:Column>	                                                           
+                   <t:Column width="10rem" hAlign="Center">
+                       <Label text="{i18n>lblWorker}"/>
+                       <t:template>
+                          <Text text="{Zidtxt}" textAlign="Center" />				                        
+<!--                           <Input 
+                            id="Qmnam"
+                            value="{
+                                 path : 'Qmnam'
+                                 }"
+                            enabled="{Enable}"/>	 -->			                        
+                     </t:template>
+                 </t:Column>                    
+                  <t:Column width="15rem">
+                      <Label text="{i18n>lblTodayActual}" />
+                      <t:template>
+                        <Input value="{Ztodwr}" editable="{Enable}"
+                        			change="handleChangeData"
+			                        valueState="{ZtodwrValSt}"
+			                        valueStateText="{ZtodwrValStText}"  
+			                        enabled="{Enable}"/>   
+                      </t:template>
+                  </t:Column> 
+                  <t:Column width="15rem">
+                      <Label text="{i18n>lblTomorrowPlan}" />
+                      <t:template>
+                      	<Input value="{Ztomwr}" editable="{Enable}"
+                      				change="handleChangeData"
+			                        valueState="{ZtomwrValSt}"
+			                        valueStateText="{ZtomwrValStText}"  
+			                        enabled="{Enable}"/>                        
+                      </t:template>
+                  </t:Column> 
+                  <t:Column width="15rem">
+                      <Label text="{i18n>lblRemark}" />
+                      <t:template>  
+                      	<Input value="{Zwremk}" editable="{Enable}"
+			                        valueState="{ZwremkValSt}"
+			                        valueStateText="{ZwremkValStText}"  
+			                        enabled="{Enable}"/>                       	                       
+                      </t:template>
+                  </t:Column> 
+          	</t:columns>
+  		</t:Table> 
+  	</f:content>
+  	</f:SimpleForm>      		 
+			 			 		
+	</Page>
+</core:View>
+
+

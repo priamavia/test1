@@ -1,0 +1,149 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+
+	<Dialog id="dialog_result" title="{i18n>Notification_List_title}" 
+	        resizable="true" 
+	        contentWidth="80rem" 
+	        contentHeight="60rem"
+	        draggable = "true"
+	        afterClose="onResultAfterClose">
+		<content>
+		<VBox>
+	    	<f:SimpleForm layout="ResponsiveGridLayout"
+	    	  	labelSpanL="1" labelSpanM="1" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="3" columnsM="3">
+		    	<f:content>
+		    	
+		    		<!-- Maintenance Plant -->
+		          	<Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop"  required="true">
+		          	</Label>
+		           	<Select id="swerk" forceSelection="false" required="true"  enabled="false">
+		           		<layoutData>
+		          			<l:GridData span="L3 M3 S1" />
+		          		</layoutData>
+		           	</Select>
+		           	
+					<!-- Cost Center -->
+<!-- 					<Label text="Cost Center" class="sapUiTinyMarginTop">
+          				<layoutData>
+          					<l:GridData span="L2 M2 S1" />
+          				</layoutData>
+          			</Label>
+          			<MultiInput id="coc" valueHelpRequest="onValueHelpRequest" >
+          				<layoutData>
+          					<l:GridData span="L4 M4 S1" />
+          				</layoutData>
+          			</MultiInput> -->
+
+					<!-- Equipment -->
+<!-- 					<Label text="Equipment" class="sapUiTinyMarginTop">
+					</Label>
+					<Input id="equnr" maxLength="18">
+						<layoutData>
+							<l:GridData span="L4 M4 S1" />
+						</layoutData>
+					</Input>
+					<Text>
+						<layoutData>
+							<l:GridData span="L11 M11 S11" />
+						</layoutData>
+					</Text> -->
+		          <Label text="{i18n>lblEquipment}"  class="sapUiTinyMarginTop" >
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label>
+		          <Input id="equnr" editable="false">		          
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		          </Input>
+  		          <Input id="invnr" enabled="false">		          
+		          	<layoutData>
+		          		<l:GridData span="L4 M4 S1" />
+		          	</layoutData>
+		          </Input>	
+					
+					<!-- Search Button -->
+<!-- 					<Button text="Search" press="onSearch" >
+					  	<layoutData>
+							<l:GridData span="L1 M1 S1"/>
+						</layoutData>
+					</Button> -->
+				</f:content>
+	    	</f:SimpleForm>
+	    	
+		</VBox>   
+
+		<t:Table id="table_eq" selectionMode="Single" selectionBehavior="Row" visibleRowCount="20" class="sapUiResponsiveMargin"
+		rowSelectionChange="onRowSelect">
+			<t:toolbar>
+				<Toolbar>
+                     <content>
+                         <ToolbarSpacer/>
+                         <Button
+                         	icon="sap-icon://excel-attachment"
+                         	tooltip="{i18n>lblDownloadExcel}"
+                         	press="downloadExcel"/>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters"/>
+                     </content>
+				</Toolbar>
+			</t:toolbar>
+             
+			<t:columns>
+				<t:Column width="10rem" sortProperty="Qmdat" filterProperty="Qmdat">
+					<Label text="{i18n>lblNotificationDate}"/>
+                   	<t:template>
+                       	<Text text="{ path : 'Qmdat',
+					                  formatter : '.formatter.strToFormatDate' }"
+                       	 />    
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="21rem" sortProperty="Qmartx" filterProperty="Qmartx">
+					<Label text="{i18n>lblNotiType2}" />
+					<t:template>
+						<Text text="{Qmartx}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="10rem" sortProperty="Qmnum" filterProperty="Qmnum">
+				    <Label text="{i18n>lblNotification}" />
+				    <t:template>
+				    	<Link text="{Qmnum}" press="onPress_Qmnum" />
+				    </t:template>
+				</t:Column>
+				
+				<t:Column width="11rem" sortProperty="UphaseT" filterProperty="UphaseT">
+					<Label text="{i18n>lblStatus}" />
+					<t:template>
+						<Text text="{UphaseT}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="21rem" sortProperty="Qmtxt" filterProperty="Qmtxt">
+					<Label text="{i18n>lblDescription}" />
+					<t:template>
+						<Text text="{Qmtxt}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+
+			</t:columns>
+		</t:Table>	
+		</content>
+         <buttons>
+             <Button id="resultCancel" text = "{i18n>close}"   press = "onListCloselDialog" ></Button>
+         </buttons>		
+	</Dialog>
+</core:FragmentDefinition>

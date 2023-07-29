@@ -1,0 +1,188 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "cj.pm0130",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_0120_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+            "equip": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_CM003_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            }, 
+            "equipBOM" : {
+            	"uri": "/sap/opu/odata/sap/ZPM_GW_CM004_SRV/",
+	                "type": "OData",
+	                "settings": {
+	                    "odataVersion": "2.0"
+                }
+            },
+            "userInfo" : {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_CM001_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+             "possible" : {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_CM002_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            },
+            "material" : {
+            	"uri": "/sap/opu/odata/sap/ZPM_GW_CM007_SRV/",
+	                "type": "OData",
+	                "settings": {
+	                    "odataVersion": "2.0"
+                }
+            },
+            "equiFactory" : {
+            	"uri": "/sap/opu/odata/sap/ZPM_GW_0130_SRV/",
+	                "type": "OData",
+	                "settings": {
+	                    "odataVersion": "2.0"
+                }
+            },
+            "fileUpload": {
+                "uri": "/sap/opu/odata/sap/ZPM_GW_UPLOAD_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            }            
+        }
+    },
+    "sap.ui": {
+        "_version": "1.1.0",
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_bluecrystal"
+        ]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "rootView": {
+            "viewName": "cj.pm0130.view.App",
+            "type": "XML"
+        },
+        "dependencies": {
+            "minUI5Version": "1.38.0",
+            "libs": {
+                "sap.ui.core": {  },
+                "sap.m": {  },
+                "sap.ui.layout": {  },
+                "sap.ui.comp" : {  }
+            },
+            "components": {
+           		"cj.pm0010": {
+	                "minVersion": "1.1.0"
+	            }         
+            }
+        },
+                
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings" : {
+                    "bundleName": "cj.pm0130.i18n.i18n"
+                }
+            },
+            "":{
+                "dataSource": "mainService"
+            },
+            "userInfo":{
+                "dataSource": "userInfo"
+            },
+            "possible":{
+                "dataSource": "possible"
+            },
+            "equip":{
+                "dataSource": "equip"
+            },
+            "equipBOM":{
+                "dataSource": "equipBOM"
+            },
+            "material":{
+                "dataSource": "material"
+            },
+            "equiFactory":{
+                "dataSource": "equiFactory"
+            },
+            "fileUpload":{
+                "dataSource": "fileUpload"
+            }              
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "cj.pm0130.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "main",
+                    "target": [
+                        "main"
+                    ]
+                }
+            ],
+            "targets": {
+                "main": {
+                    "viewName": "Main",
+                    "viewId": "main",
+                    "viewLevel": 1
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        }
+    }
+}

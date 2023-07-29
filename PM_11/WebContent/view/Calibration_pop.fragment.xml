@@ -1,0 +1,446 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+	
+	<Dialog id="dialog_rm" title="{i18n>calibrationWorkResult_title}" 
+	        resizable="true" 
+	        contentWidth="80rem" 
+	        contentHeight="60rem"
+	        draggable = "true"
+	        afterClose="onCalibrationAfterClose">
+		    	<f:SimpleForm
+		    	    id = "SimpleForm_Header"
+		    	    layout="ResponsiveGridLayout"
+		    	  	labelSpanL="1"
+					labelSpanM="1"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsL="5"
+					columnsM="5"
+					editable="true">
+					
+		    	<f:content>
+		          <Label text="{i18n>lblOrderNo}" class="sapUiTinyMarginTop" >
+		          </Label> 		          
+		          <Input id="aufnr_cb" value="{header>/Aufnr}" editable="false">		          
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		          </Input>            
+		          <Text id="ktext_cb" text="{header>/Ktext}">		          
+		          	<layoutData>
+		          		<l:GridData span="L4 M4 S1" />
+		          	</layoutData>
+		          </Text>
+		          <Label text="{i18n>lblPlanDate}" class="sapUiTinyMarginTop" >
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label> 	
+					<DatePicker
+						id="addat_cb"
+						placeholder="{i18n>lblEnterDate}"
+						width="98px"	
+				        value="{header>/Addat}"	
+						editable="false" >
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		          </DatePicker>   		          
+		          <Label text="{i18n>lblOrderType}" class="sapUiTinyMarginTop" >
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label> 	
+		          <Input id="auart_cb" value="{header>/Auart}" editable="false">		          
+		          	<layoutData>
+		          		<l:GridData span="L2 M2 S1" />
+		          	</layoutData>
+		          </Input>		          		
+		                    
+		          <Label text="{i18n>lblEquipment}" class="sapUiTinyMarginTop" >
+		          </Label> 		          
+		          <Input id="equnr_cb" value="{header>/Equnr}" editable="false">		          
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		          </Input>             		          
+		          <Text id="eqktx_cb" text="{header>/Eqktx}">		          
+		          	<layoutData>
+		          		<l:GridData span="L4 M4 S1" />
+		          	</layoutData>
+		          </Text>
+		          		                    
+		          <Label text="{i18n>lblMaintWC}" class="sapUiTinyMarginTop">	   
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>			                 
+		          </Label> 	
+		          <Input id="vaplz_cb" value="{header>/Vaplz}" editable="false">		          
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		          </Input>   		
+		          <Label text="{i18n>lblTagID}" class="sapUiTinyMarginTop" >
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label> 	
+		          <Input id="invnr_cb" value="{header>/Invnr}" editable="false">		          
+		          	<layoutData>
+		          		<l:GridData span="L2 M2 S1" />
+		          	</layoutData>
+		          </Input>   		          
+		    	</f:content>
+		     </f:SimpleForm>
+      
+		     <t:Table id="table_intern"
+		     	 title="{i18n>workTimeData_title}"
+		         selectionMode="None"
+				 selectionBehavior="Row"
+				 showNoData = "false"
+				 visibleRowCount="3"
+				 class="sapUiResponsiveMargin">
+		             <t:columns>
+		                   <t:Column width="9rem" hAlign="Center" >
+		                       <Label text="{i18n>lblStartDate}"/>
+		                       <t:template>
+								<DatePicker
+									id="Isdd"
+									placeholder="{i18n>lblEnterDate}"
+			                        value="{Isdd}"
+									change="handleChangeIsdd"
+			                        valueState="{IsddValSt}"
+			                        valueStateText="{IsddValStText}"  								
+									enabled="{Enable}">
+								</DatePicker>		                                                
+		                       </t:template>
+		                   </t:Column>	
+		                   <t:Column width="8rem"  hAlign="Center">
+		                       <Label text="{i18n>lblStartTime}"/>
+		                       <t:template>
+							<TimePicker
+								id="Isdz"
+								placeholder="{i18n>lblEnterTime}"
+								 value="{Isdz}"
+						        displayFormat="HH.mm.ss"
+						        valueFormat="HHmmss"							
+								change="handleChangeIsdz"
+		                        valueState="{IsdzValSt}"
+		                        valueStateText="{IsdzValStText}"  								
+								enabled="{Enable}">
+							</TimePicker>	                                                     
+		                       </t:template>
+		                   </t:Column>
+		                   <t:Column width="9rem" hAlign="Center">
+		                       <Label text="{i18n>lblEndDate}" />
+		                       <t:template>
+							<DatePicker
+								id="Iedd"
+								placeholder="{i18n>lblEnterDate}"
+		                              value="{Iedd}"						
+								change="handleChangeIedd"
+		                        valueState="{IeddValSt}"
+		                        valueStateText="{IeddValStText}"  								
+								enabled="{Enable}">
+							</DatePicker>		                                                
+		                       </t:template>
+		                   </t:Column>	
+		                   <t:Column width="8rem" hAlign="Center">
+		                       <Label text="{i18n>lblEndTime}" />
+		                       <t:template>
+							<TimePicker
+								id="Iedz"
+								placeholder="{i18n>lblEnterTime}"
+								 value="{Iedz}"
+						        displayFormat="HH.mm.ss"
+						        valueFormat="HHmmss"	
+								change="handleChangeIedz"
+		                        valueState="{IedzValSt}"
+		                        valueStateText="{IedzValStText}" 								
+								enabled="{Enable}">
+							</TimePicker>	                                                     
+		                       </t:template>
+		                   </t:Column>		
+		                   <t:Column width="8rem" hAlign="Center">
+		                       <Label text="{i18n>lblDuration}"/>
+		                       <t:template>
+		                          <Input 
+		                              id="Idaur"
+		                              value="{Idaur}"
+		                              textAlign="Right"
+		                              editable="false"/>				                        
+		                       </t:template>
+		                   </t:Column>
+		                   <t:Column width="3rem" hAlign="Center">
+		                       <Label text="{i18n>lblUnit}"/>
+		                       <t:template>
+		                          <Text text="{Idaue}" textAlign="Center"/>				                        
+		                       </t:template>
+		                   </t:Column>	                   		                    
+		                   <t:Column width="8rem" hAlign="Center">
+		                       <Label text="{i18n>lblWorkTime}"/>
+		                       <t:template>
+		                          <Input 
+		                              id="Ismnw"
+		                              value="{Ismnw}"
+		                              textAlign="Right"
+		                              change="handleChangeIsmnw"
+				                      valueState="{IsmnwValSt}"
+				                      valueStateText="{IsmnwValStText}"  		                              
+		                              enabled="{Enable}"/>				                        
+		                       </t:template>
+		                   </t:Column>	
+		                   <t:Column width="4rem" hAlign="Center">
+		                       <Label text="{i18n>lblUnit}"/>
+		                       <t:template>
+		                          <Text text="{Ismne}" textAlign="Center"
+		                          enabled="{Enable}"/>				                        
+		                       </t:template>
+		                   </t:Column>	                   		                    
+		                   <t:Column width="10rem" hAlign="Center">
+		                       <Label text="{i18n>lblWorker}"/>
+		                       <t:template>
+		                       <Text text="{Zname}" textAlign="Center" />	
+<!-- 		                          <Input 
+		                              id="Zname"
+		                              value="{Zname}"
+		                              enabled="{Enable}"/>	 -->			                        
+		                       </t:template>
+		                   </t:Column>	
+		                   <t:Column width="6rem" hAlign="Center">
+		                       <!-- <Label text="{i18n>lblFinish}" /> -->
+		                       <CheckBox text="{i18n>lblFinish}" enabled="{Enable}" select="onFinish"/>
+		                       <t:template  width="20px">
+		                          <CheckBox 
+		                              id="aueru_wr"
+		                              selected="{Aueru}"
+		                              editable="false"/>				                        
+		                       </t:template>
+		                   </t:Column>	
+		             </t:columns>
+		     </t:Table>    
+		     <t:Table id="table_extern"
+		     	 title="{i18n>workResult_title}"
+		         selectionMode="None"
+				 selectionBehavior="Row"
+				 showNoData = "false"
+				 visibleRowCount="3"
+				 class="sapUiResponsiveMargin">
+		             <t:columns>
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblPr}" />
+	                        <t:template>
+                            <Text text="{Banfn}"/>
+	                        </t:template>
+	                    </t:Column>	
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblPo}" />
+	                        <t:template>
+                            <Text text="{Ebeln}"/>
+	                        </t:template>
+	                    </t:Column>		                    		             
+	                    <t:Column width="15rem" hAlign="Center">
+	                        <Label text="{i18n>lblPOText}" />
+	                        <t:template>
+                            <Text text="{Txz01}"/>
+	                        </t:template>
+	                    </t:Column>			             
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblVendor}" />
+	                        <t:template>
+                            <Text text="{Lifnr}"/>
+	                        </t:template>
+	                    </t:Column>	
+	                    <t:Column width="10rem" hAlign="Center">
+	                        <Label text="{i18n>lblVendorDesc}" />
+	                        <t:template>
+                            <Text text="{Name1}"/>
+	                        </t:template>
+	                    </t:Column>	
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblPoDate}" />
+	                        <t:template>
+	                       	<Text text="{ path : 'Aedat',
+						                  formatter : '.formatter.strToFormatDate' }"
+	                       	 />                                
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblPrice}" />
+	                        <t:template>
+                            <Text text="{Netpr}"/>
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblCurrency}" />
+	                        <t:template>
+                            <Text text="{Waers}"/>
+	                        </t:template>
+	                    </t:Column>		                    
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblPoQty}" />
+	                        <t:template>
+                            <Text text="{Menge} {Meins}"/>
+	                        </t:template>
+	                    </t:Column>	
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblEntryQty}" />
+	                        <t:template>
+                            <Input id="menge"  value="{Menge}" 
+						                      valueState="{MengeValSt}"
+						                      valueStateText="{MengeValStText}"                              
+		                            	      enabled="{Enable}" />				                        
+	                        </t:template>
+	                    </t:Column>			             
+	                    <t:Column width="6rem" hAlign="Center">
+	                        <Label text="{i18n>lblEntryDate}" />
+	                        <t:template>
+							<DatePicker
+								id="lbldt"
+								placeholder="{i18n>lblEnterDate}"
+                                value="{Lbldt}"
+								width="150px"
+								change="handleChangLstDate"
+			                    valueState="{LbldtValSt}"
+			                    valueStateText="{LbldtValStText}"  								
+								enabled="{Enable}">
+							</DatePicker>			                        
+	                        </t:template>
+	                    </t:Column>					             
+	                    <t:Column width="8rem" hAlign="Center">
+	                        <Label text="{i18n>lblEntryBy}" />
+	                        <t:template>
+                            <Input id="bktxt" value="{Bktxt}"
+											  change="handleChangLBktxt"
+						                      valueState="{BktxtValSt}"
+						                      valueStateText="{BktxtValStText}"                              
+                                              enabled="{Enable}"/>				                        
+	                        </t:template>
+	                    </t:Column>	
+	              </t:columns>
+		    </t:Table>	
+		    
+	    	<f:SimpleForm
+	    	    id = "SimpleForm_Result"
+	    	    layout="ResponsiveGridLayout"
+	    	  	labelSpanL="2"
+				labelSpanM="2"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="5"
+				columnsM="5"
+				editable="true">
+		    	<f:content>
+		          <Label text="{i18n>calibrationResult_title}" class="sapUiTinyMarginTop" required="true">
+		          </Label> 		          
+					<Select id="Grund" selectedKey="{calibration>/Grund}" forceSelection="false"
+								  change="handleChangeGrund"
+					              required="true"
+						          enabled="{calibration>/Enable}">
+		            <layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	</layoutData>								   
+					</Select>	
+		          <Input id="ltxa1" text="{calibration>/Ltxa1}" enabled="{calibration>/Enable}">		          
+		          	<layoutData>
+		          		<l:GridData span="L7 M7 S1" />
+		          	</layoutData>
+		          </Input>
+		          
+		          <Label text="{i18n>lblResultDocument}" class="sapUiTinyMarginTop" >
+		          </Label> 	
+		          <HBox>
+		          <items>			          
+		          <u:FileUploader id="fileUploader" width="500px"
+		          				  sameFilenameAllowed="false"
+		          				  placeholder="{i18n>fileselect}" 
+		          				  uploadComplete="handleUploadComplete"
+		          				  change="handleValueChange"
+		          				  typeMissmatch="handleTypeMissmatch"
+					              maximumFileSize="10.000"
+					              additionalData="Upload"
+					              uploadOnChange="false"
+					              uploadProgress="uploadProgress"
+					              sendXHR="true"
+					              useMultipart="false"
+		          				  style="Emphasized"
+		          				  fileType="dwg,dat,jpg,gif,png,mpp,pdf,ppt,pptx,wav,txt,doc,docx,xls,xlsx,xml,zip"
+		          				  icon="sap-icon://attachment"
+		          				  value="{File}" 
+		          				  enabled="{header>/FileEnable}">	
+		          </u:FileUploader>
+		          </items>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>		          
+		          </HBox>	 		             	          		          
+		          <Button text="{i18n>fileupload}" enabled="{header>/FileEnable}" press="onBtnFileUpload">
+		            <layoutData>
+		          		<l:GridData span="L2 M2 S1" />
+		          	</layoutData>
+		          </Button>   	    		          
+		          <Label text="" class="sapUiTinyMarginTop" >
+		           <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label> 	    		          
+		          <Button text="{i18n>creatnoti}" enabled="{header>/NotiEnable}" press="onBtnCreateNoti">
+		            <layoutData>
+		          		<l:GridData span="L2 M2 S1" />
+		          	</layoutData>
+		          </Button>    
+			    
+		    	</f:content>
+	    	</f:SimpleForm>	
+	    	<t:Table id="table_file"
+			     	 title="{i18n>lblfiletitle}"
+			         selectionMode="None"
+					 showNoData = "false"
+					 visibleRowCount="3"
+					 class="sapUiResponsiveMargin">
+			             <t:columns>
+		                    <t:Column width="6rem" hAlign="Center">
+		                        <Label text="{i18n>lblNo}" />
+		                        <t:template>
+	                            <Text text="{Serial}"/>
+		                        </t:template>
+		                    </t:Column>	
+		                    <t:Column width="51.5rem" hAlign="Left">
+		                        <Label text="{i18n>lblFilename}" />
+		                        <t:template>
+	                             	<Link id="fileLink" text="{FileName}" target="_blank" press="onDownload"/>
+		                        </t:template>
+		                    </t:Column>	
+		                     <t:Column width="12rem" hAlign="Center">
+		                        <Label text="{i18n>lblEntryBy}" /> 
+		                        <t:template>
+						        	<Text text="{Zcrname}"/>                 
+		                        </t:template>
+		                    </t:Column>		                    		             		             
+		                    <t:Column width="5rem" hAlign="Center">
+		                        <!-- <Label text="{i18n>lblEntryBy}" /> -->
+		                        <t:template>
+						          <Button id="fileDelBtn"
+						                  icon="sap-icon://delete" 
+						                  visible="true"
+						                  press="onBtnFileDelete">
+						          </Button>  				                        
+		                        </t:template>
+		                    </t:Column>	
+		              </t:columns>
+			    </t:Table>			    
+	    	
+         <buttons>
+             <Button id="saveMeasure" text = "{i18n>save}"     press = "onSaveCalibrationDialog" enabled="{}"></Button>
+             <Button id="Close" text = "{i18n>close}"   press = "onCloseCalibrationDialog"></Button>
+         </buttons>
+		
+	</Dialog>
+</core:FragmentDefinition>
