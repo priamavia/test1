@@ -1,0 +1,47 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">
+	
+	<Dialog id="dialog_reqApp" title="{i18n>popup_req_title}" 
+	        resizable="true" 
+	        contentWidth="28rem" 
+	        contentHeight="18rem"
+	        draggable = "true"
+	        afterClose="onReqApprovalAfterClose">
+		<content>
+		<VBox>
+    		<items>		         
+		     <t:Table id="table_approval"
+		         selectionMode="Single"
+				 selectionBehavior="Row"
+				 visibleRowCount="4"
+				 class="sapUiResponsiveMargin">
+		             <t:columns>
+	                    <t:Column width="10rem" hAlign="Center">
+	                        <Label text="{i18n>lblTitle}"/>
+	                        <t:template>
+                            <Text text="{Ztitle}" />                     
+	                        </t:template>
+	                    </t:Column>	
+	                    <t:Column width="10rem" hAlign="Center">
+	                        <Label text="{i18n>lblName}" />
+	                        <t:template>
+                            <Text text="{Zname}" />				                        
+	                        </t:template>
+	                    </t:Column>		                    
+	              </t:columns>
+		    </t:Table>
+	    	    
+		    </items>
+			</VBox>
+		</content>
+         <buttons>
+             <Button id="appRequest" text = "{i18n>request}"     press = "onAppRequestDialog"></Button>
+             <Button id="appCancel" text = "{i18n>cancel}"   press = "onAppCancelDialog"></Button>
+         </buttons>
+		
+	</Dialog>
+</core:FragmentDefinition>

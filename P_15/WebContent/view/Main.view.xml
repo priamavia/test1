@@ -1,0 +1,242 @@
+<core:View	xmlns:l="sap.ui.layout"
+			xmlns:u="sap.ui.unified"
+			xmlns:f="sap.ui.layout.form"
+			xmlns:t="sap.ui.table"
+			xmlns:core="sap.ui.core"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns="sap.m"
+			controllerName="cj.pm0070.controller.Main"
+			xmlns:html="http://www.w3.org/1999/xhtml">
+       
+  <Page id="mainpage" title="">
+    	<f:SimpleForm layout="ResponsiveGridLayout"
+    	  	labelSpanL="1" labelSpanM="1" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="3" columnsM="3">
+	    	<f:content>
+	    	
+	    		<!-- Maintenance Plant -->
+	          	<Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop"  required="true">
+	          	</Label>
+	           	<Select id="swerk" forceSelection="false" change="onSelChange"  required="true">
+	           		<layoutData>
+	          			<l:GridData span="L3 M3 S1" />
+	          		</layoutData>
+	           	</Select>
+	           	
+	           	<!-- Process -->
+	          	<Label text="{i18n>lblProcess}" class="sapUiTinyMarginTop">
+	            	<layoutData>
+	          			<l:GridData span="L1 M1 S1" />
+	          		</layoutData>
+	          	</Label>
+	          	<MultiInput id="loc" valueHelpRequest="onValueHelpRequest" change="onChange">
+	          		<layoutData>
+	          			<l:GridData span="L3 M3 S1" />
+	          		</layoutData>
+	          	</MultiInput>
+	          	
+				<!-- Tag # -->
+				<Label text="{i18n>lblTag}" class="sapUiTinyMarginTop">
+	            	<layoutData>
+	          			<l:GridData span="L1 M1 S1" />
+	          		</layoutData>					
+				</Label>
+				<Input id="tag" maxLength="25">
+					<layoutData>
+						<l:GridData span="L3 M3 S1" />
+					</layoutData>
+				</Input>
+         
+				<!-- EQ Category -->
+					<Label text="{i18n>lblEQCategory}" class="sapUiTinyMarginTop">
+					</Label>
+<!-- 					<MultiInput id="eqc" valueHelpRequest="onValueHelpRequest" change="onChange">
+		          	<layoutData>
+		          		<l:GridData span="L4 M4 S1" />
+		          	</layoutData>
+				</MultiInput>  -->
+		          <ComboBox id="eqc" >
+		          	<layoutData>
+		          		<l:GridData span="L3 M3 S1" />
+		          	</layoutData>
+		          </ComboBox>  
+		          					
+				<!-- Object Type -->
+				<Label text="{i18n>lblObjType}" class="sapUiTinyMarginTop">
+	            	<layoutData>
+	          			<l:GridData span="L1 M1 S1" />
+	          		</layoutData>						
+         			</Label>
+         			<MultiInput id="tot" valueHelpRequest="onValueHelpRequest" >
+         				<layoutData>
+         					<l:GridData span="L3 M3 S1" />
+         				</layoutData>
+         			</MultiInput>
+				
+				<!-- Cost Center -->
+				<Label text="{i18n>lblCostCenter}" class="sapUiTinyMarginTop">
+         				<layoutData>
+         					<l:GridData span="L1 M1 S1" />
+         				</layoutData>
+         			</Label>
+         			<MultiInput id="coc" valueHelpRequest="onValueHelpRequest" change="onChange">
+         				<layoutData>
+         					<l:GridData span="L3 M3 S1" />
+         				</layoutData>
+         			</MultiInput>
+         
+				<!-- Work Center -->
+					<Label text="{i18n>lblWorkCenter}" class="sapUiTinyMarginTop">
+          			</Label>
+          			<ComboBox id="woc">
+          				<layoutData>
+	          				<l:GridData span="L3 M3 S1" />
+          				</layoutData>
+          			</ComboBox>
+<!--            			<MultiInput id="woc" valueHelpRequest="onValueHelpRequest" change="onChange">
+         				<layoutData>
+          				<l:GridData span="L3 M3 S1" />
+         				</layoutData>
+         			</MultiInput>   -->        
+				<!-- Desc -->
+				<Label text="{i18n>lblDesc}" class="sapUiTinyMarginTop">
+	    			<layoutData>
+	          			<l:GridData span="L1 M1 S1" />
+	          		</layoutData>
+				</Label>
+				<Input id="desc" maxLength="25">
+					<layoutData>
+	          			<l:GridData span="L3 M3 S1" />
+					</layoutData>
+				</Input>
+
+				<Text>
+					<layoutData>
+						<l:GridData span="L3 M3 S1" />
+					</layoutData>
+				</Text>
+				
+				<!-- Search Button -->
+				<Button text="{i18n>search}" press="onSearch" >
+				  	<layoutData>
+						<l:GridData span="L1 M1 S1"/>
+					</layoutData>
+				</Button>
+			</f:content>
+    	</f:SimpleForm>
+
+		<t:Table id="table" 
+		         selectionMode="Single" 
+				 selectionBehavior="Row" 
+				 showNoData = "false"
+				 visibleRowCount="17" 
+				 class="sapUiResponsiveMargin"
+				 rowSelectionChange="onRowSelect">
+			<t:toolbar>
+				<Toolbar>
+                     <content>
+                         <Button
+                         	icon="sap-icon://excel-attachment"
+                         	tooltip="{i18n>lblDownloadExcel}"
+                         	press="downloadExcel"/>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters"/>
+                         <ToolbarSpacer/>                             
+                     </content>
+				</Toolbar>
+			</t:toolbar>
+             
+			<t:columns>
+				<t:Column width="7rem" sortProperty="EQUNR" filterProperty="EQUNR">
+					<Label text="{i18n>lblEquipment}"/>
+                   	<t:template>
+                   		<Link text="{EQUNR}" press="onPress_equnr" />
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="10rem" sortProperty="INVNR" filterProperty="INVNR">
+					<Label text="{i18n>lblTag}" />
+					<t:template>
+						<Text text="{INVNR}"  wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="4rem" sortProperty="ABCKZ" filterProperty="ABCKZ" hAlign="Center">
+				    <Label text="{i18n>lblABCIndicator}" />
+				    <t:template>
+				    	<Text text="{ABCKZ}"/>
+				    </t:template>
+				</t:Column>
+				
+				<t:Column width="9rem" sortProperty="EARTX" filterProperty="EARTX">
+					<Label text="{i18n>lblObjectTypes}" />
+					<t:template>
+						<Text text="{EARTX}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="15rem" sortProperty="EQKTX" filterProperty="EQKTX">
+					<Label text="{i18n>lblEQDesc}" />
+					<t:template>
+						<Text text="{EQKTX}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+
+				<t:Column width="8rem" sortProperty="EQFNR" filterProperty="EQFNR">
+					<Label text="{i18n>lblSortField}" />
+					<t:template>
+						<Text text="{EQFNR}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="8rem" sortProperty="KTEXT" filterProperty="KTEXT">
+					<Label text="{i18n>lblProcess}" />
+					<t:template>
+						<Text text="{KTEXT}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="13rem" sortProperty="PLTXT" filterProperty="PLTXT">
+					<Label text="{i18n>lblFL}" />
+					<t:template>
+						<Text text="{PLTXT}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="12rem" sortProperty="KOSTL_TXT" filterProperty="KOSTL_TXT">
+					<Label text="{i18n>lblCostCenter}" />
+					<t:template>
+						<Text text="{KOSTL_TXT}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+				
+				<t:Column width="8rem" sortProperty="KTEXT2" filterProperty="KTEXT2">
+					<Label text="{i18n>lblWorkCenter}" />
+					<t:template>
+						<Text text="{KTEXT2}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+
+				<t:Column width="10rem" sortProperty="HERST" filterProperty="HERST">
+					<Label text="{i18n>lblManufacturer}" />
+					<t:template>
+						<Text text="{HERST}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+
+				<t:Column width="8rem" sortProperty="TYPBZ" filterProperty="TYPBZ">
+					<Label text="{i18n>lblModelNo}" />
+					<t:template>
+						<Text text="{TYPBZ}" wrapping="false"/>
+					</t:template>
+				</t:Column>
+
+			</t:columns>
+		</t:Table>
+	</Page>
+</core:View>

@@ -1,0 +1,89 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table"
+	xmlns:semantic="sap.m.semantic"
+	>
+	<Dialog id="dialog_bom_sh" title="{i18n>ShMaterial_title}" 
+	        resizable="true" 
+	        contentWidth="60rem" 
+	        contentHeight="30rem"
+	        draggable = "true">
+		<content>
+		<t:Table id="bom_table"
+		 selectionBehavior="Row"
+		 visibleRowCount="10"
+		 selectionMode="None"
+		 class="sapUiResponsiveMargin"
+		  >                
+           <t:columns>
+               <t:Column width="3rem" hAlign="Center">
+                    <Label text="{i18n>lblNo}"/>
+                    <t:template>
+                        <Text text="{Idx}" textAlign="Center" />    
+                    </t:template>
+                </t:Column>
+          	   <t:Column width="5rem" >
+                    <Label text="{i18n>lblMaterial}"/>
+                    <t:template>
+                        <Text text="{Matnr}" />    
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="{i18n>lblDescription}" />
+                    <t:template>
+                        <Text text="{Maktx}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="{i18n>lblSl}" />
+                    <t:template>
+                        <Text text="{Lgort}"/>
+                    </t:template>
+                </t:Column>
+                <t:Column width="15rem">
+                    <Label text="{i18n>lblSlDesc}" />
+                    <t:template>
+                        <Text text="{Lgobe}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column width="4rem" hAlign="Right">
+                    <Label text="{i18n>lblN}" />
+                    <t:template>
+                        <Text text="{StockN}"/>     
+                    </t:template>
+                </t:Column>
+                <t:Column width="4rem" hAlign="Right">
+                    <Label text="{i18n>lblO}" />
+                    <t:template>
+                        <Text text="{StockO}"/>     
+                    </t:template>
+                </t:Column>
+                <t:Column width="4rem" hAlign="Right">
+                    <Label text="{i18n>lblQty}" required="true"/>
+                    <t:template>
+                        <Input value="{Menge}" change="onQtyChange_BomSub" textAlign="Right"/>
+                    </t:template>
+                </t:Column>
+                <t:Column width="4rem" hAlign="Center">
+                    <Label text="{i18n>lblUom}" />
+                    <t:template>
+                        <Text text="{Meins}"/>
+                    </t:template>
+                </t:Column>
+            </t:columns>
+         </t:Table>
+		</content>
+	<beginButton>
+    <Button
+       id="select_bom"
+       text="{i18n>select}"
+       press="onConfirmDialog_bom_sub"/>
+    </beginButton>
+    <endButton>
+     <Button
+       id="close_bom"
+       text="{i18n>cancel}"
+       press="onCloseDialog_bom_sub"/>
+    </endButton>
+	</Dialog>
+</core:FragmentDefinition>

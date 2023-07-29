@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table"
+	>
+	<Dialog id="dialog_pmclasf" title="PM Classfication" 
+	        resizable="true" 
+	        contentWidth="61rem" 
+	        contentHeight="25rem"
+	        draggable = "true"
+	        >
+		<content>
+<!-- 			<HBox class="sapUiResponsiveMargin">
+				<Label id="catalogProfileLbl" text="Catalog Profile" class="sapUiSmallMarginTop"/>
+				<Input id="Qkatart" class="sapUiSmallMarginBeginEnd" width="6rem" editable="false"/>
+                <Text id="Rbnr" text="" class="sapUiSmallMarginTop" />
+			</HBox> -->
+
+		</content>
+		<HBox id="pm_hbox" class="sapUiResponsiveMargin">
+		
+		     <t:Table id="table_pmclasf"
+		         selectionMode="None"
+				 selectionBehavior="Row"
+				 visibleRowCount="4"
+				 class="sapUiResponsiveMargin">
+	             <t:columns>
+		        	<t:Column width="14rem">
+                        <Label text="{i18n>lblPMType}" />
+                        <t:template>
+                            <Text text="{Type}" />    
+                        </t:template>
+                    </t:Column>
+		        	<t:Column width="20rem">
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Desc}" />    
+                        </t:template>
+                    </t:Column>
+		        	<t:Column width="20rem">
+                        <Label text="{i18n>lblExam}" />
+                        <t:template>
+                            <Text text="{Exam}" />    
+                        </t:template>
+                    </t:Column>                           
+	              </t:columns>
+		    </t:Table>		
+
+		</HBox>		
+		
+         <buttons>             
+             <Button id="close" text = "{i18n>close}"   press = "onCloseDialog_pmclasf"></Button>
+         </buttons>
+     </Dialog>
+</core:FragmentDefinition>

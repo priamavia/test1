@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <title>ZTMP01</title>
+
+         <script src="resources/sap-ui-cachebuster/sap-ui-core.js"   
+	            id="sap-ui-bootstrap"
+	            data-sap-ui-libs="sap.m"
+	            data-sap-ui-theme="sap_bluecrystal"
+	            data-sap-ui-compatVersion="edge"
+	            data-sap-ui-resourceroots='{"com.cj": "./"}'>
+        </script>
+
+       <!--  <link rel="stylesheet" type="text/css" href="css/style.css">  -->
+
+        <script>
+            sap.ui.getCore().attachInit(function() {
+              sap.ui.require([
+                  "sap/m/Shell",
+                  "sap/ui/core/ComponentContainer"
+              ], function (Shell, ComponentContainer) {
+                  // initialize the UI component
+                  new Shell({
+                      app: new ComponentContainer({
+                          height : "100%",
+                          name : "com.cj"
+                      })
+                  }).placeAt("content");
+              });
+          });   
+        </script>
+    </head>
+    <body class="sapUiBody" id="content">
+       
+    </body>
+
+</html>

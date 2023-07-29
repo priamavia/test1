@@ -1,0 +1,140 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	>
+	<Dialog id="dialog_init" title="{i18n>createWorkOrder_title}" 
+	        resizable="false" 
+	        contentWidth="40rem" 
+	        contentHeight="28rem"
+	        draggable = "true" >
+		<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="2"
+			labelSpanM="2"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="2"
+			columnsM="2">
+   			<f:content>
+   			   	<Label text="{i18n>lblMaintPlant}"  required="true" class="sapUiTinyMarginTop" >
+<!--  		            <layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>  -->
+		        </Label>
+		        <Select id="swerk_init" required="true" forceSelection="false" width="90%"  
+		                 change="onSelChange">
+		          	<layoutData>
+		          		<l:GridData span="L10 M10 S10" />
+		          	</layoutData>
+		        </Select> 
+		        <Label text="{i18n>lblBasicDate}" class="sapUiTinyMarginTop" required="true">
+<!-- 		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>  -->
+		        </Label>
+		        <HBox>
+		        	<DatePicker
+				      id="basic_from_init"
+				      width="12rem"
+				      placeholder="{i18n>lblEnterDate}"
+				      required="true"
+				      change="onHandleDateChange"
+				      class="sapUiTinyMarginEnd" />
+					<Text text="~" class="sapUiTinyMarginTop sapUiTinyMarginEnd" />
+					<DatePicker
+				      id="basic_to_init"
+				      width="12rem"
+				      placeholder="{i18n>lblEnterDate}"
+				      required="true"
+				      change="onHandleDateChange"/>
+				    <layoutData>
+          				<l:GridData span="L10 M10 S10" />
+          			</layoutData>
+		        </HBox>
+		        <Label text="{i18n>lblOrderType}"  required="true" class="sapUiTinyMarginTop" >
+<!-- 		            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData> -->
+		        </Label>
+                <Select id="auart_init" required="true" width="75%"  forceSelection="false">
+		          	<layoutData>
+		          		<l:GridData span="L10 M10 S10" />
+		          	</layoutData>
+		        </Select> 
+		        <Label text="{i18n>lblMnWkCtr}"  required="true" class="sapUiTinyMarginTop" >
+<!-- 		            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData> -->
+		        </Label>
+                <Select id="woc_init" required="true" width="75%"  forceSelection="false">
+		          	<layoutData>
+		          		<l:GridData span="L10 M10 S10" />
+		          	</layoutData>
+		        </Select> 
+		        <Label text="{i18n>lblDescription}"  required="true" class="sapUiTinyMarginTop" >
+<!-- 		            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData> -->
+		        </Label>
+                <Input id="hdDesc_init" required="true"  width="90%" maxLength="40" change="onChange">
+		          	<layoutData>
+		          		<l:GridData span="L10 M10 S10" />
+		          	</layoutData>
+		        </Input>
+		        <Label text="{i18n>lblFL}" class="sapUiTinyMarginTop">
+<!-- 			            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData>  -->
+          		</Label>
+          		<HBox>
+          			<Input id="fl_init" valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+          			  width="9rem" class="sapUiTinyMarginEnd" change="onChange"/>
+          			<Text id="fl_init_tx" class="sapUiTinyMarginTop"/>
+          			<layoutData>
+		          		<l:GridData span="L10 M10 S10" />
+		          	</layoutData>
+          		</HBox>
+		       <Label text="{i18n>lblEquipment}" class="sapUiTinyMarginTop">
+<!-- 		          	<layoutData>
+		          		<l:GridData span="L4 M4 S4"  />
+		          	</layoutData> -->
+		        </Label>
+		        <HBox>
+		        	<Input id="equnr_init" valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+		        	  width="9rem" class="sapUiTinyMarginEnd" change="onChange"/>
+		        	<Text id="equnr_init_tx" class="sapUiTinyMarginTop"/>
+		        	<layoutData>
+		          		<l:GridData span="L10 M10 S10" />
+		          	</layoutData>
+		        </HBox>
+		        <Label text="{i18n>lblAssembly}"  class="sapUiTinyMarginTop" >
+<!-- 		            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData> -->
+		        </Label>
+		         <HBox>
+		        	<Input id="asm_init" valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+		        	  width="9rem" class="sapUiTinyMarginEnd" change="onChange"/>
+		        	<Text id="asm_init_tx" class="sapUiTinyMarginTop"/>
+		        	<layoutData>
+		          		<l:GridData span="L10 M10 S10" />
+		          	</layoutData>
+		        </HBox>
+    		</f:content>
+	    </f:SimpleForm>  
+		<beginButton>
+			<Button
+			   id="confirmInit"
+		       text="{i18n>continue}"
+		       press="onConfirmDialog_init"/>
+	    </beginButton>
+	    <endButton>
+		     <Button
+		       text="{i18n>cancel}"
+		       press="onCloseDialog_init"/>
+	    </endButton>
+    </Dialog>
+</core:FragmentDefinition>

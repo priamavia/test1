@@ -1,0 +1,954 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+           xmlns:ux="sap.uxap"
+		   controllerName="cj.pm0110.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+  <Page id="order" >
+  	<content>
+  	   <ux:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true">
+		  <ux:sections>
+			<ux:ObjectPageSection title="{i18n>lblHeader}">
+				<ux:subSections>
+					<ux:ObjectPageSubSection title=" ">
+						<ux:blocks>
+							<l:Grid>
+					            <Label text="{i18n>lblOrder}" class="sapUiTinyMarginTop">
+  							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+						        </Label>
+						        <HBox width="100%">
+					                <ComboBox id="auart" selectedKey="{ReadOrder>/Auart}" width="15rem" 
+					                     selectionChange="onChange_Auart" class="sapUiTinyMarginEnd" 
+					                     editable="{screenMode>/auartEditable}"/>
+					                <Input id="aufnr" value="{ReadOrder>/Aufnr}" editable="false" width="6rem" class="sapUiTinyMarginEnd"/>
+							        <layoutData>
+						          		<l:GridData span="L4 M4 S4" />
+						          	</layoutData> 
+						        </HBox>
+						        <Label text="{i18n>lblStatus}" class="sapUiTinyMarginTop">
+							       <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>
+				          		</Label>
+				          		<HBox>
+						        	<Input id="sysstatus" value="{ReadOrder>/SysStatusTx}" editable="false"  width="8rem" class="sapUiTinyMarginEnd"/>
+									<Input id="userstatus" value="{ReadOrder>/UserStatusTx}" editable="false"  width="8rem" />						          	 
+						        	<layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData>
+						        </HBox>
+						        <Label text="{i18n>lblNotification}" class="sapUiTinyMarginTop" >
+ 						            <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>  
+						        </Label>
+				          		<HBox>
+							        <Input id="noti" value="{ReadOrder>/Qmnum}" editable="false" width="7rem" />
+							        <Button id="btnNoti" press="onNotiDetail" text="{i18n>detail}" enabled="{screenMode>/notibtn}"/>
+						        	<layoutData>
+						          		<l:GridData span="L2 M2 S2" />
+						          	</layoutData>
+						        </HBox>						        
+						        <Label text="{i18n>lblPMActType}" class="sapUiTinyMarginTop" >
+    							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>
+				          		</Label>
+				          		<ComboBox id="act" selectedKey="{ReadOrder>/Ilart}"  editable="{screenMode>/mode}" 
+				          		   width="100%" change="onCBChange" >
+ 						          	<layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData> 
+						        </ComboBox>
+						        <Text>
+						        	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData> 
+						        </Text>
+ 						        <Label text="{i18n>lblPic}" class="sapUiTinyMarginTop" visible="false">
+  							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>  
+				          		</Label>
+				          		<Input id="zname"  value="{ReadOrder>/Zname}"  editable="false" visible="false">
+						          	<layoutData>
+						          		<l:GridData span="L2 M2 S2" />
+						          	</layoutData>
+						        </Input>	
+						        <Text>
+						        	<layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData> 
+						        </Text>						        					        
+						        <Label text="{i18n>lblDescription}" class="sapUiTinyMarginTop" required="true">
+   	 				            	<layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>
+						        </Label>
+						        <VBox>
+						            <Input id="hdDesc" value="{ReadOrder>/ShortTx}" editable="{screenMode>/mode}" 
+						                   width="37rem" maxLength="40" required="true" change="onChange"/>
+							        <TextArea id="desc" value="{ReadOrder>/LongTxt}" rows="7" 
+							                  width="100%" editable="{screenMode>/mode}" />
+                                	<layoutData>
+						          		<l:GridData span="L11 M11 S11" />
+						          	</layoutData> 
+                                </VBox>
+						        <Label text="{i18n>lblCreatedBy}" class="sapUiTinyMarginTop" >
+							        <layoutData>
+							          	<l:GridData span="L1 M1 S1" />
+							        </layoutData> 
+							    </Label>
+						        <Input id="createBy" value="{ReadOrder>/Ernam}" editable="false">
+						            <layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData> 
+						        </Input>
+						        <Text>
+						        	 <layoutData>
+						          		<l:GridData span="L4 M4 S4" />
+						          	</layoutData>
+						        </Text>
+						        <Label text="{i18n>lblCreatedOn}" class="sapUiTinyMarginTop">
+						            <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+						        </Label>
+						        <DatePicker
+								      id="createon"
+								      width="15rem"
+								      placeholder="{i18n>lblEnterDate}"
+								      change="onHandleDateChange"
+								      class="sapUiTinyMarginEnd" 
+								      value="{ReadOrder>/Erdat}"
+								      editable="false">
+								     <layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData> 
+								</DatePicker>  
+							</l:Grid>
+						</ux:blocks>
+					</ux:ObjectPageSubSection>
+				</ux:subSections>
+	          </ux:ObjectPageSection>
+	          <ux:ObjectPageSection title="{i18n>general_title}">
+	          	 <ux:subSections>
+					<ux:ObjectPageSubSection title=" ">
+						<ux:blocks>
+							<l:Grid>
+								<Label text="{i18n>lblPriority}" class="sapUiTinyMarginTop">
+ 							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+						        </Label>
+						       <ComboBox id="pri" selectedKey="{ReadOrder>/Priok}" width="10rem" 
+						             required="true" editable="{screenMode>/mode}" change="onCBChange">
+						        	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData> 
+						        </ComboBox>
+						        <Label text="{i18n>lblBasicDate}" class="sapUiTinyMarginTop">
+						            <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+						        </Label>
+						        <HBox>
+						        	<DatePicker
+								      id="basic_from"
+								      width="12rem"
+								      placeholder="{i18n>lblEnterDate}"
+								      required="true"
+								      change="onHandleDateChange"
+								      class="sapUiTinyMarginEnd"
+								      value="{ReadOrder>/Gstrp}" 
+								      editable="{screenMode>/mode}"/>
+									<Text text="~" class="sapUiTinyMarginTop sapUiTinyMarginEnd" />
+									<DatePicker
+								      id="basic_to"
+								      width="12rem"
+								      placeholder="{i18n>lblEnterDate}"
+								      required="true"
+								      change="onHandleDateChange"
+								      value="{ReadOrder>/Gltrp}" 
+								      editable="{screenMode>/mode}"/>
+								     <layoutData>
+				          				<l:GridData span="L5 M5 S5" />
+				          			 </layoutData> 
+								</HBox> 
+						        <Label text="{i18n>lblFuncLoc}" class="sapUiTinyMarginTop">
+							       <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>
+				          		</Label>
+				          		<HBox>
+				          		    <Input id="tplnr" valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+				          		        value="{ReadOrder>/Tplnr}" width="10rem"
+							            class="sapUiTinyMarginEnd" editable="false"/>  <!--  editable="{screenMode>/changeMode}" -->
+							        <Text id="tplnrTx" text="{ReadOrder>/Pltxt}" class="sapUiTinyMarginTop"/>
+				          			<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+				          		</HBox>
+						        <Label text="{i18n>lblPlannerGrp}" class="sapUiTinyMarginTop">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<ComboBox id="plg" selectedKey="{ReadOrder>/Ingrp}" editable="{screenMode>/mode}" change="onCBChange">
+				          			<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+				          		</ComboBox>
+						        <Label text="{i18n>lblMnWkCtr}" class="sapUiTinyMarginTop">
+						            <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+						        </Label>
+						        <ComboBox id="woc" selectedKey="{ReadOrder>/Vaplz}"  editable="false"
+						           change="onCBChange" width="20rem"> <!--   editable="{screenMode>/mode}" -->
+						            <layoutData>
+							        	<l:GridData span="L5 M5 S5" />
+							        </layoutData>	
+							    </ComboBox>	        
+						        <Label text="{i18n>lblEquipment}" class="sapUiTinyMarginTop">
+							        <layoutData>
+							          	<l:GridData span="L1 M1 S1" />
+							        </layoutData> 
+							    </Label>
+						        <HBox>
+							        <Input id="equnr" value="{ReadOrder>/Equnr}"  maxLength="18"
+							            valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+							            width="10rem" editable="{screenMode>/mode}"
+							            class="sapUiTinyMarginEnd"  change="onChange"/>  <!-- editable="false"  -->
+							        <Text id="equnrTx" text="{ReadOrder>/Eqktx}" class="sapUiTinyMarginTop" />  <!-- visible="false" -->
+							        <!-- <Text id="invnr" text="{ReadOrder>/Invnr}" class="sapUiTinyMarginTop"/> -->
+						        	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </HBox>        			        
+						        <Label text="{i18n>lblCostCtr}" class="sapUiTinyMarginTop" >
+							        <layoutData>
+							          	<l:GridData span="L1 M1 S1" />
+							        </layoutData> 
+							    </Label>
+							    <HBox>
+							        <Input id="coc"  change="onChange" width="10rem" maxLength="10"
+							           value="{ReadOrder>/Kostl}" 
+						               showValueHelp="true" valueHelpRequest="onValueHelpRequest"
+						               editable="false"
+						               class="sapUiTinyMarginEnd"/> <!-- editable="{screenMode>/changeMode}" -->
+							        <Text id="cocTx" text="{ReadOrder>/Ktext}" class="sapUiTinyMarginTop" />
+						            <layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </HBox>
+						        <Label text="{i18n>lblTagID}" class="sapUiTinyMarginTop">
+							        <layoutData>
+							          	<l:GridData span="L1 M1 S1" />
+							        </layoutData> 
+							    </Label>
+							    <Input id="invnr" value="{ReadOrder>/Invnr}" editable="false" width="20rem">
+						            <layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </Input>
+						        <Label text="{i18n>lblPlant}" class="sapUiTinyMarginTop">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<ComboBox id="swerk" selectedKey="{ReadOrder>/Swerk}" editable="false" width="20rem"> <!-- editable="{screenMode>/mode}" -->
+						          	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </ComboBox>
+						        <Label text="{i18n>lblRevision}" class="sapUiTinyMarginTop">
+							        <layoutData>
+							          	<l:GridData span="L1 M1 S1" />
+							        </layoutData> 
+							    </Label>
+							    <HBox>
+								    <Input id="rev" value="{ReadOrder>/Revnr}" width="10rem"  maxLength="8"
+								        editable="{screenMode>/mode}" change="onChange" 
+								        showValueHelp="true" valueHelpRequest="onValueHelpRequest" 
+								        class="sapUiTinyMarginEnd"/>
+                                    <Text id="revTx" text="{ReadOrder>/Revtx}" class="sapUiTinyMarginTop" />
+							        <layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData> 
+						        </HBox>
+						        <Label id="lblase" text="{i18n>lblAssembly}" class="sapUiTinyMarginTop"
+						             maxLength="24" >
+							        <layoutData>
+							          	<l:GridData span="L1 M1 S1" />
+							        </layoutData> 
+							    </Label>
+							    <HBox>
+							        <Input id="asm"  value="{ReadOrder>/Bautl}" width="10rem"  change="onChange"
+							          valueHelpRequest="onValueHelpRequest" showValueHelp="true" 
+							          class="sapUiTinyMarginEnd"  editable="{screenMode>/mode}"/>
+							        <Text id="asmTx"  text="{ReadOrder>/Bautx}"  class="sapUiTinyMarginTop" />
+						            <layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+							    </HBox> 
+						        <Label id="lblwbs" text="{i18n>lblWbs}" class="sapUiTinyMarginTop"
+						             maxLength="24" required="true"
+						             visible="{screenMode>/iswbsvisible}">
+							        <layoutData>
+							          	<l:GridData span="L1 M1 S1" />
+							        </layoutData> 
+							    </Label>
+							    <HBox>
+							        <Input id="wbs"  value="{ReadOrder>/Posid}" width="13rem"
+							          valueHelpRequest="onValueHelpRequest" showValueHelp="true" 
+							          class="sapUiTinyMarginEnd" visible="{screenMode>/iswbsvisible}" editable="{screenMode>/mode}"/>
+							        <Text id="wbsTx"  text="{ReadOrder>/Post1}"  class="sapUiTinyMarginTop" />
+						            <layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+							    </HBox> 
+					   		</l:Grid>
+						</ux:blocks>
+			    	</ux:ObjectPageSubSection>
+				 </ux:subSections>
+	          </ux:ObjectPageSection>
+	          <ux:ObjectPageSection title="{i18n>operation_title}">
+	          	 <ux:subSections>
+					<ux:ObjectPageSubSection title=" ">
+						<ux:blocks>
+							<t:Table id="table_operation" visibleRowCount="2"  
+							    enableSelectAll="false">
+					        	<t:toolbar>
+				                 	<Toolbar>
+				                    	<content>
+				                        	<ToolbarSpacer/>
+					                        <Button
+				                                icon="sap-icon://add" 
+				                                text="{i18n>add}"
+				                                press="onAdd_operation" 
+				                                visible="{screenMode>/oper_isvisible}" />
+				                            <Button
+				                                icon="sap-icon://delete"
+				                                text="{i18n>delete}"
+                               					press="onDelete_operation"
+                               					visible="{screenMode>/oper_isvisible_del}"  />
+				                        </content>
+				                    </Toolbar>
+				                 </t:toolbar>
+				                 <t:columns>
+				              	 	<t:Column width="4rem">
+				                        <Label text="{i18n>lblOpac}"/>
+				                        <t:template>
+				                            <Text text="{Vornr}" />    
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="12rem">
+				                        <Label text="{i18n>lblWorkCenter}" />
+				                        <t:template>
+				                            <Select selectedKey="{Arbpl}" width="100%"  enabled="{OperStatus}"
+				                                items="{path:'Items', templateShareable:false}">
+										   		<core:Item key="{Key}" text="{Key}" />
+				                            </Select>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="8.5rem">
+				                        <Label text="{i18n>lblInternalExternal}" />
+				                        <t:template>
+				                            <Select id="t_steus" selectedKey="{Steus}" width="100%" enabled="{SteusChange}" 
+				                               forceSelection="false" change="onChange_intext" >
+				                            	<items>
+					                            	<core:Item key="PM01" text="Internal" />
+					                            	<core:Item key="PM03" text="External" />
+				                            	</items>
+				                            </Select>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="17rem">
+				                        <Label text="{i18n>lblOperationShortText}" />
+				                        <t:template>
+				                            <Input value="{Ltxa1}" editable="{OperStatus}" maxLength="40" change="onChange_ltext"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="5.5rem">
+				                        <Label text="{i18n>lblWorkTime}" />
+				                        <t:template>
+				                            <Input value="{Arbei}" editable="{DisplayMode}" change="onChange_cal" valueState="{ErrChk1}"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="5.5rem">
+				                        <Label text="{i18n>lblNumber}" />
+				                        <t:template>
+				                            <Input value="{Anzzl}" editable="{DisplayMode}" change="onChange_cal" valueState="{ErrChk2}" textAlign="Right"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="5.5rem">
+				                        <Label text="{i18n>lblDuration}" />
+				                        <t:template>
+				                           <!--  <Input value="{Dauno}" editable="{DisplayMode}"/> -->
+				                            <Text text="{Dauno}" textAlign="Right"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="3rem">
+				                        <Label text="{i18n>lblUnit}" />
+				                        <t:template>
+				                            <Text text="{Arbeh}"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="8.5rem">
+				                        <Label text="{i18n>lblPic}" />
+				                        <t:template>
+				                            <Text text="{PIC}"/>
+				                        </t:template>
+				                    </t:Column>
+				                 </t:columns>
+				    		</t:Table> 
+						</ux:blocks>
+			    	</ux:ObjectPageSubSection>
+				 </ux:subSections>
+	          </ux:ObjectPageSection>
+			<ux:ObjectPageSection>
+				<ux:subSections>
+					<ux:ObjectPageSubSection title="{i18n>lblfiletitle}">
+						<ux:blocks>
+							<l:Grid>
+							   <VBox visible="{screenMode>/fileUpload}">
+							   	  <l:Grid>
+								     <Label text="{i18n>lblFile}" class="sapUiTinyMarginTop" >
+										<layoutData>
+							          		<l:GridData span="L1 M1 S1" />
+							          	</layoutData> 
+									 </Label>
+									 <HBox>
+										 <u:FileUploader id="fileUploader" width="500px"
+				          				  sameFilenameAllowed="false"
+				          				  placeholder="{i18n>fileselect}" 
+				          				  uploadComplete="handleUploadComplete"
+				          				  change="handleValueChange"
+				          				  typeMissmatch="handleTypeMissmatch"
+							              maximumFileSize="10.000"
+							              additionalData="Upload"
+							              uploadOnChange="false"
+							              uploadProgress="uploadProgress"
+							              sendXHR="true"
+							              useMultipart="false"
+				          				  style="Emphasized"
+				          				  fileType="dwg,dat,jpg,gif,png,mpp,pdf,ppt,pptx,wav,txt,doc,docx,xls,xlsx,xml,zip"
+				          				  icon="sap-icon://attachment"
+				          				  value="{File}" 
+				          				  enabled="{screenMode>/fileAttach}">	
+				                          </u:FileUploader>
+			                              <layoutData>
+							          		<l:GridData span="L9 M9 S9" />
+							          	  </layoutData> 
+									 </HBox>
+									 <Button text="{i18n>fileupload}"  press="onBtnFileUpload" >
+							            <layoutData>
+							          		<l:GridData span="L2 M2 S2" />
+							          	</layoutData>
+							         </Button>
+							      </l:Grid>
+						       	  <layoutData>
+						          	 <l:GridData span="L12 M12 S12" />
+						          </layoutData>
+						        </VBox>
+						        <HBox>
+							         <t:Table id="table_file"
+							         selectionMode="None"
+									 showNoData = "false">
+							             <t:columns>
+						                    <t:Column width="6rem" hAlign="Center">
+						                        <Label text="{i18n>lblNo}" />
+						                        <t:template>
+					                            <Text text="{Serial}"/>
+						                        </t:template>
+						                    </t:Column>	
+						                    <t:Column width="44rem" hAlign="Left">
+						                        <Label text="{i18n>lblFilename}" />
+						                        <t:template>
+					                             	<Link id="fileLink" text="{FileName}" target="_blank" press="onDownload"/>
+						                        </t:template>
+						                    </t:Column>	
+						                     <t:Column width="16rem" hAlign="Center">
+						                        <Label text="{i18n>lblEntryBy}" /> 
+						                        <t:template>
+										        	<Text text="{Zcrname}"/>                 
+						                        </t:template>
+						                    </t:Column>		                    		             		             
+						                    <t:Column width="5rem" hAlign="Center">
+						                        <t:template>
+										          <Button id="fileDelBtn"
+										                  icon="sap-icon://delete" 
+										                  visible="true"
+										                  enabled="{screenMode>/fileDelete}"
+										                  press="onBtnFileDelete">
+										          </Button>  				                        
+						                        </t:template>
+						                    </t:Column>	
+						                </t:columns>
+								    </t:Table> 
+							        <layoutData>
+						          		<l:GridData span="L12 M12 S12" />
+						          	</layoutData>
+							    </HBox>   
+							</l:Grid>
+						</ux:blocks>
+					</ux:ObjectPageSubSection>
+				</ux:subSections>
+			</ux:ObjectPageSection>	          
+	           <ux:ObjectPageSection title="{i18n>external_title}" visible="{screenMode>/visibleExt}">
+	          	 <ux:subSections>
+					<ux:ObjectPageSubSection title=" ">
+						<ux:blocks>
+							<l:Grid>
+								<Label text="{i18n>lblOperation}" class="sapUiTinyMarginTop">
+ 							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+						        </Label>
+						        <Input id="operation" value="{ReadOrder>/External/Vornr}" editable="false"  
+						            width="8rem" >
+						          	<layoutData>
+						          		<l:GridData span="L11 M11 S11" />
+						          	</layoutData>
+						        </Input>
+						        <Label text="{i18n>lblWorkDesc}" class="sapUiTinyMarginTop" required="true">
+							       <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>
+				          		</Label>
+						        <Input id="workDesc" value="{ReadOrder>/External/Ltxa1}" editable="{screenMode>/isExternal}"
+						               maxLength="40" width="80%" required="true">
+						          	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </Input> 
+						        <Label text="{i18n>lblQty}" class="sapUiTinyMarginTop">
+							       <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>
+				          		</Label>
+						        <HBox>
+					                <Input id="qty" value="{ReadOrder>/External/Mgvrg}" editable="false" width="4rem" class="sapUiTinyMarginEnd" />
+					                <Text id="meinh" text="{ReadOrder>/External/Meinh}"  editable="false" width="2rem" class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
+					                
+					                <Label text="{i18n>lblExpAmount}" class="sapUiTinyMarginTop" width="7rem" required="{screenMode>/expamountRequired}"/>
+					                <Input id="expamount" width="9rem" editable="{screenMode>/expamount}"  class="sapUiTinyMarginEnd" required="{screenMode>/expamountRequired}" change="onChange"
+				                           value="{
+										          parts:[
+										               {path:'ReadOrder>/External/Preis'},
+										               {path:'ReadOrder>/External/Waers'}
+										          ],
+										          type:'sap.ui.model.type.Currency',
+										          formatOptions:{
+										               showMeasure: false
+										          }
+								    }"
+								     textAlign="Right"/>
+					                <Text id="ex_waers" text="{ReadOrder>/External/Waers}"  width="3rem" 
+					                      class="sapUiTinyMarginTop"/>
+						        
+							        <layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData> 
+						        </HBox>
+						        
+<!-- 						        <Label text="{i18n>lblExpAmount}" class="sapUiTinyMarginTop">
+							       <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData>
+				          		</Label>
+				          		<HBox>
+					                <Input id="plannedprice" width="6rem" editable="{screenMode>/isExternal}"  class="sapUiTinyMarginEnd"
+				                           value="{
+										          parts:[
+										               {path:'ReadOrder>/External/Preis'},
+										               {path:'ReadOrder>/External/Waers'}
+										          ],
+										          type:'sap.ui.model.type.Currency',
+										          formatOptions:{
+										               showMeasure: false
+										          }
+								    }"/>
+					                <Text id="ex_waers" text="{ReadOrder>/External/Waers}"  width="3rem" 
+					                      class="sapUiTinyMarginTop"/>
+							        <layoutData>
+						          		<l:GridData span="L2 M2 S2" />
+						          	</layoutData> 
+						        </HBox> -->
+						        
+<!--                                 <Label text="{i18n>lblPlant}" class="sapUiTinyMarginTop">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<ComboBox id="werks" selectedKey="{ReadOrder>/External/Werks}" editable="{screenMode>/isExternal}" >
+						          	<layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData>
+						        </ComboBox> -->
+                                <Label text="{i18n>lblPurchOrg}" class="sapUiTinyMarginTop" required="true">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<ComboBox id="puo" width="80%" selectedKey="{ReadOrder>/External/Ekorg}" 
+				          		     editable="{screenMode>/isExternal}" required="true" change="onCBChange">
+						          	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </ComboBox>	
+						        <Label text="{i18n>lblPurchGrp}" class="sapUiTinyMarginTop" required="true">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<ComboBox id="pug" width="80%" selectedKey="{ReadOrder>/External/Ekgrp}"  
+				          		     editable="{screenMode>/isExternal}" required="true" change="onCBChange">
+						          	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </ComboBox>		
+						        <Label text="{i18n>lblMaltGrp}" class="sapUiTinyMarginTop">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<HBox>
+				          		    <Input id="mag" editable="false" value="{ReadOrder>/External/Matkl}" width="5rem" class="sapUiTinyMarginEnd"/>
+				          		    <Text id="mag_tx" text="{ReadOrder>/External/Wgbez}" class="sapUiTinyMarginTop" width="10rem"/>
+				          			<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+				          		</HBox>
+<!-- 				          		<ComboBox id="mag"   >
+						          	<layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData>
+						        </ComboBox>	 -->
+						        <Label text="{i18n>lblCostElem}" class="sapUiTinyMarginTop">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<HBox>
+				          			<Input id="costelemt"  width="8rem" editable="false" value="{ReadOrder>/External/Sakto}" class="sapUiTinyMarginEnd"/>
+						          	<Text id="costelemttx" text="{ReadOrder>/External/SaktoTx}" class="sapUiTinyMarginTop"/>
+						       		 <layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </HBox>	
+						        <Label text="{i18n>lblPrNo}" class="sapUiTinyMarginTop">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<HBox>
+					          		<Input id="pr" width="7rem" editable="false" value="{ReadOrder>/External/Banfn}"/>
+							        <Input id="pritem" width="5rem" editable="false" value="{ReadOrder>/External/Bnfpo}"/>
+						        	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData> 
+						        </HBox>	
+						        <Label text="{i18n>lblVendor}" class="sapUiTinyMarginTop" required="{screenMode>/expamountRequired}">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<HBox>
+				          		   <Input id="lfa" width="8rem" value="{ReadOrder>/External/Lifnr}" required="{screenMode>/expamountRequired}"
+				          		       valueHelpRequest="onValueHelpRequest" showValueHelp="true" change="onChange"
+				          		       editable="{screenMode>/isExternal}" class="sapUiTinyMarginEnd"/>
+				          		    <Text id="lfaTx" text="{ReadOrder>/External/LifnrTx}" class="sapUiTinyMarginTop"/>
+						          	<layoutData>
+						          		<l:GridData span="L5 M5 S5" /> 
+						          	</layoutData>
+						        </HBox>
+						        <Label text="{i18n>lblPoNo}" class="sapUiTinyMarginTop">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<HBox>
+					          		<Input id="po" width="7rem" editable="false" value="{ReadOrder>/External/Ebeln}"/>
+							        <Input id="poitem" width="5rem" editable="false" value="{ReadOrder>/External/Ebelp}"/>
+							        <HBox width="100%" class="sapUiSmallMarginBegin" visible="{screenMode>/createinfo}">
+							           <Label text="{i18n>lblPrice}" class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
+							           <Text class="sapUiTinyMarginTop sapUiTinyMarginEnd"
+							                 text="{
+												          parts:[
+												               {path:'ReadOrder>/External/Netpr'},
+												               {path:'ReadOrder>/External/WaersPO'}
+												          ],
+												          type:'sap.ui.model.type.Currency',
+												          formatOptions:{
+												               showMeasure: false
+												          }
+												     }" />
+							           <Text text="{ReadOrder>/External/WaersPO}" class="sapUiTinyMarginTop"/>
+							        </HBox>
+						        	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData> 
+						        </HBox>
+						        <Label text="{i18n>lblPotype}" class="sapUiTinyMarginTop" visible="{screenMode>/createpo}">
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+						        <HBox id="crtePO" visible="{screenMode>/createpo}">
+						        	<RadioButton id="cb" text="{i18n>lblPotypeCB}" select="onRdoSelect" selected="true" class="sapUiTinyMarginEnd"/>
+						        	<!-- RadioButton id="zw" text="{i18n>lblPotypeZW}" select="onRdoSelect" class="sapUiTinyMarginEnd"/-->
+						        	<Button text="{i18n>createPo}" press="onCreatePO" />
+						        	<layoutData>
+						          		<l:GridData span="L5 M5 S5" />
+						          	</layoutData>
+						        </HBox>
+<!-- 						        <Label text="{i18n>lblEntrySheetNo}" class="sapUiTinyMarginTop" >
+							        <layoutData>
+						          		<l:GridData span="L1 M1 S1" />
+						          	</layoutData> 
+				          		</Label>
+				          		<Input id="sheetno" editable="false" value="{ReadOrder>/External/Lblni}" >
+						          	<layoutData>
+						          		<l:GridData span="L3 M3 S3" />
+						          	</layoutData>
+						        </Input> -->						        
+					   		</l:Grid>
+						</ux:blocks>
+			    	</ux:ObjectPageSubSection>
+				 </ux:subSections>
+	          </ux:ObjectPageSection>
+	          <ux:ObjectPageSection title="{i18n>material_title}" visible="{screenMode>/pm04layout}">
+	          	 <ux:subSections>
+					<ux:ObjectPageSubSection title=" ">
+						<ux:blocks>
+							<t:Table id="table_material" 
+							   visibleRowCount="4">
+					         	<t:toolbar>
+				                 	<Toolbar>
+				                    	<content>
+				                    	    <Button id="bntBom" text="{i18n>equipmentBOM}" press="onPress_bom" type="Unstyled" 
+				                    	            enabled="{screenMode>/bomEnable}" visible="{screenMode>/isvisible}"/>
+				                        	<ToolbarSpacer/>
+					                        <Button
+				                                icon="sap-icon://add" 
+				                                text="{i18n>add}"
+				                                press="onAdd_materal" 
+				                                visible="{screenMode>/isvisible}" />
+				                            <Button
+				                                icon="sap-icon://delete"
+				                                text="{i18n>delete}"
+                               					press="onDelete_materal"
+                               					visible="{screenMode>/isvisible}"  />
+				                        </content>
+				                    </Toolbar>
+				                 </t:toolbar> 
+				                 <t:columns>
+				              	 	<t:Column width="3.5rem">
+				                        <Label text="{i18n>lblNo}"/>
+				                        <t:template>
+				                            <Text text="{Posnr}" />    
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="9rem" >
+				                        <Label text="{i18n>lblMaterialNo}" />
+				                        <t:template>
+				                            <Input id="mat" value="{Matnr}" 
+				                                valueHelpRequest="onValueHelpRequest_mat" showValueHelp="true" 
+				                                editable="{screenMode>/matmode}" valueState="{MatErr}"  change="onChange_mat" />
+				                        </t:template>
+				                    </t:Column>
+<!-- 				                    <t:Column width="4.5rem" >
+				                        <Label text="" />
+				                        <t:template>
+				                            <Button text="BOM" press="onPress_bom"/>
+				                        </t:template>
+				                    </t:Column> -->
+				                    <t:Column width="16rem" >
+				                        <Label text="{i18n>lblDescription}" />
+				                        <t:template>
+				                            <Text text="{Maktx}" wrapping="false"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="6rem">
+				                        <Label text="{i18n>lblQuantity}" />
+				                        <t:template>
+							               <Input id="M--qty" value="{Bdmng}" editable="{screenMode>/matmode}"  
+				                            valueState="{QtyErr}" change="onChange_Mat_qty" textAlign="Right"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="4.5rem">
+				                        <Label text="{i18n>lblUnit}" />
+				                        <t:template>
+				                            <Text text="{Meins}" />
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="7rem" >
+				                        <Label text="{i18n>lblSLoc}" />
+				                        <t:template>
+<!-- 				                        	<Text id="stl" text="{Lgort}" /> -->
+				                            <Input id="stl" value="{Lgort}" editable="{screenMode>/matmode}" maxLength="4" change="onChange_stl"
+				                             valueHelpRequest="onValueHelpRequest_stl" showValueHelp="true" valueState="{SlocErr}"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="10rem" >
+				                        <Label text="{i18n>lblSLocDesc}" />
+				                        <t:template>
+				                            <Text id="stlTx" text="{Lgobe}" wrapping="false"/>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="7rem" visible="{screenMode>/matSpVisible}">
+				                        <Label text="{i18n>lblSpflag}" />
+				                        <t:template>
+									      <ComboBox id="Spflag" selectedKey="{Spflag}" editable="{screenMode>/matmode}" change="onChange_Mat_spflag">
+									      	 <items>
+						                   		<core:Item key="" text="" />
+						                   		<core:Item key="S" text="{i18n>lblStock}" />
+						                   		<core:Item key="P" text="{i18n>lblPurch}" />
+						                    </items>
+									      </ComboBox>
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="8rem">
+				                        <Label text="{i18n>lblType}" />
+				                        <t:template>
+				                            <ComboBox width="100%" selectedKey="{Charg}" editable="{ChargMode}"  >  <!-- enabled="{ChargMode}"  -->
+												<items>
+					                            	<core:Item key="N" text="{i18n>lblVal}" />
+					                            	<core:Item key="O" text="{i18n>lblNonVal}" />
+				                            	</items>
+				                            </ComboBox>
+				                        </t:template>
+				                    </t:Column>
+				                 </t:columns>
+				    		</t:Table> 
+						</ux:blocks>
+			    	</ux:ObjectPageSubSection>
+				 </ux:subSections>
+	          </ux:ObjectPageSection>
+	          <ux:ObjectPageSection title="{i18n>cost_title}" visible="{screenMode>/pm04layout}">
+	          	 <ux:subSections>
+					<ux:ObjectPageSubSection title=" ">
+						<ux:blocks>
+							<t:Table id="table_cost" visibleRowCount="3" selectionMode="None">
+<!-- 					        	<t:toolbar>
+				                 	<Toolbar>
+				                    	<content>
+				                        	<ToolbarSpacer/>
+					                        <Button
+				                                icon="sap-icon://add" 
+				                                text="Add"
+				                                press="onAdd" 
+				                                visible="{screenMode>/StatMode}" />
+				                            <Button
+				                                icon="sap-icon://delete"
+				                                text="Delete"
+                               					press="onDelete"
+                               					visible="{screenMode>/StatMode}"  />
+				                        </content>
+				                    </Toolbar>
+				                 </t:toolbar> -->
+				                 <t:columns>
+				              	 	<t:Column width="32rem">
+				                        <Label text="{i18n>lblValueCostDesc}"/>
+				                        <t:template>
+				                            <Text text="{CatName}" />    
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="15rem">
+				                        <Label text="{i18n>lblPlannedCosts}" />
+				                        <t:template>
+				                            <Text text="{
+											          parts:[
+											               {path:'PlanCost'},
+											               {path:'Waers'}
+											          ],
+											          type:'sap.ui.model.type.Currency',
+											          formatOptions:{
+											               showMeasure: false
+											          } 
+					                                }" />
+				                  		</t:template>
+				                    </t:Column>
+				                    <t:Column width="15rem" >
+				                        <Label text="{i18n>lblActualCosts}" />
+				                        <t:template>
+				                            <Text text="{
+											          parts:[
+											               {path:'ActCost'},
+											               {path:'Waers'}
+											          ],
+											          type:'sap.ui.model.type.Currency',
+											          formatOptions:{
+											               showMeasure: false
+											          } 
+					                                }" />
+				                        </t:template>
+				                    </t:Column>
+				                    <t:Column width="10rem">
+				                        <Label text="{i18n>lblCurrency}" />
+				                        <t:template>
+				                            <Text text="{Waers}" />
+				                        </t:template>
+				                    </t:Column>
+				                 </t:columns>
+				    		</t:Table> 
+						</ux:blocks>
+			    	</ux:ObjectPageSubSection>
+				 </ux:subSections>
+	          </ux:ObjectPageSection>
+
+	        </ux:sections>
+	      </ux:ObjectPageLayout>
+		</content>	
+		<footer>
+			<Bar>
+<!-- 				<contentLeft>
+					<Button id="print" text="{i18n>printIssueSlip}" press="onPrint" visible="{screenMode>/print}"/>
+				    <Button id="workAssign" text="{i18n>workAssign}" press="onPress_wkassign" visible="{screenMode>/assgin}"/>
+				</contentLeft>
+				
+				<contentMiddle>
+					<Button id="complete" text="{i18n>orderComplete}" press="onComplete" visible="{screenMode>/complete}" />   
+					<Button id="proposal" text="{i18n>reqApprove}" press="onProposal" visible="{screenMode>/proposal}"/>
+					<Button id="approve" text="{i18n>approve}" press="onApprove" visible="{screenMode>/approvereject}"/>  
+					<Button id="reject"  text="{i18n>reject}" press="onReject" visible="{screenMode>/approvereject}"/>
+				</contentMiddle>
+
+				<contentRight>
+				    <Button id="clear"  text="{i18n>clear}" press="onClear" visible="{screenMode>/clear}"/>
+				    <Button id="save"  text="{i18n>save}" press="onSave" visible="{screenMode>/mode}"/>
+					<Button id="cancel" text="{i18n>close}" press="onCloseDialog_init" />
+				</contentRight> -->
+				<contentLeft>
+					<Button id="print" text="{i18n>printIssueSlip}" press="onPrint" visible="{screenMode>/print}"/>
+					<Button id="orderprint" text="{i18n>orderPrint}" press="onOrderPrint" visible="{screenMode>/print}"/>
+				    <Button id="workAssign" text="{i18n>workAssign}" press="onPress_event" visible="{screenMode>/assgin}"/>
+				</contentLeft>
+				
+				<contentMiddle>
+					<Button id="workResult" text="{i18n>workResult}" press="onPress_event" visible="{screenMode>/workResult}" />
+					<Button id="complete" text="{i18n>orderComplete}" press="onPress_event" visible="{screenMode>/complete}" />  
+					<Button id="proposal" text="{i18n>reqApprove}" press="onPress_event" visible="{screenMode>/proposal}"/> 
+					<Button id="approve" text="{i18n>approve}" press="onPress_event" visible="{screenMode>/approvereject}"/>  
+					<Button id="reject"  text="{i18n>reject}" press="onPress_event" visible="{screenMode>/approvereject}"/>
+				</contentMiddle>
+
+				<contentRight>
+				    <Button id="clear"  text="{i18n>clear}" press="onClear" visible="{screenMode>/clear}"/>
+				    <Button id="save"  text="{i18n>save}" press="onPress_event" visible="{screenMode>/save}"/>
+					<Button id="cancel" text="{i18n>close}" press="onCloseDialog_init" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>
+
+

@@ -1,0 +1,399 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+	
+	<Dialog id="dialog_re" title="{i18n>popup_repairequip_title}" 
+	        resizable="true" 
+	        contentWidth="85rem" 
+	        contentHeight="60rem"
+	        draggable = "true"
+	        afterClose="onRepairEquipAfterClose">
+		<content>
+		    <VBox>
+		    	<f:SimpleForm
+		    	    id = "SimpleForm_repair"
+		    	    layout="ResponsiveGridLayout"
+		    	  	labelSpanL="1"
+					labelSpanM="1"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsL="5"
+					columnsM="5">
+		    	<f:content>
+		          <Label text="{i18n>lblRequestNo}"  class="sapUiTinyMarginTop" >
+		          </Label>
+		          <HBox>    	
+		          <Input id="RequestNo_re" width="120px" value="{header>/RequestNo}" editable="false"/>	
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>		          	          
+		          <Input id="Status_re" width="170px" value="{header>/Status}" editable="false"/>		          
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>	
+		  		  <Select id="swerk_re" width="245px" forceSelection="false" selectedKey="{header>/Swerk}" change="onSwerkSelect_popup"  required="true"/>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>
+			      </HBox>
+		          <Label text="{i18n>lblPlanedOutIn}"  class="sapUiTinyMarginTop" required="true">
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label>
+		        <HBox>    	
+					<DatePicker
+						id="PlanDateOut_re"
+						placeholder="{i18n>lblEnterDate}"
+						value="{header>/PlanDateOut}"
+						width="145px"
+						change="handleChangPlanDateOut"
+						enabled="true"
+						required="true">
+					</DatePicker>
+		          <Label text="~"  class="sapUiTinyMarginTop">
+		          </Label>
+					<DatePicker
+						id="PlanDateIn_re"
+						placeholder="{i18n>lblEnterDate}"
+						value="{header>/PlanDateIn}"
+						width="145px"
+						change="handleChangPlanDateIn"
+						enabled="true"
+						required="true">
+					</DatePicker>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>
+			      </HBox>
+			      		          			      
+		          <Label text="{i18n>lblCreatedOn}"  class="sapUiTinyMarginTop" >
+		          </Label>
+		        <HBox>    	
+					<DatePicker
+						id="Zcrldate_re"
+						placeholder="{i18n>lblEnterDate}"
+						value="{header>/Zcrldate}"
+						width="145px"
+						editable="false">
+					</DatePicker>
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>
+					<TimePicker
+						id="Zcrltime_re"
+						placeholder="{i18n>lblEnterTime}"
+						value="{header>/Zcrltime}"
+						width="130px"
+ 				        valueFormat="HHmmss"
+					    displayFormat="HH:mm:ss"						
+						editable="false">
+					</TimePicker>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>
+			      </HBox>
+			      		      
+			      <Label text="{i18n>lblActualOut}"  class="sapUiTinyMarginTop" >
+		           <layoutData>
+		        		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>			      
+		          </Label>
+		        <HBox>    	
+					<DatePicker
+						id="ActualDateOut_re"
+						placeholder="{i18n>lblEnterDate}"
+						value="{header>/ActualDateOut}"
+						width="145px"
+						editable="false">
+					</DatePicker>
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>
+					<TimePicker
+						id="ActualTimeOut_re"
+						placeholder="{i18n>lblEnterTime}"
+						value="{header>/ActualTimeOut}"
+						width="130px"
+ 				        valueFormat="HHmmss"
+					    displayFormat="HH:mm:ss"						
+						editable="false">
+					</TimePicker>
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>					
+					<Input id="PersonOut_re" value="{header>/PersonOut}" editable="false"/>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>
+			      </HBox>
+		          <Label text="{i18n>lblCreatedBy}"  class="sapUiTinyMarginTop" >
+		          </Label>
+  		         <HBox>    	
+					<Input id="Zcrname_re" value="{header>/Zcrname}" editable="false"/>
+					
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>					
+			      </HBox>
+			      <Label text="{i18n>lblActualIn}"  class="sapUiTinyMarginTop" >
+		           <layoutData>
+		        		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>			      
+		          </Label>
+		        <HBox>    	
+					<DatePicker
+						id="ActualDateIn_re"
+						placeholder="{i18n>lblEnterDate}"
+						value="{header>/ActualDateIn}"
+						width="145px"
+						editable="false">
+					</DatePicker>
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>
+					<TimePicker
+						id="ActualTimeIn_re"
+						placeholder="{i18n>lblEnterTime}"
+						value="{header>/ActualTimeIn}"
+						width="130px"
+ 				        valueFormat="HHmmss"
+					    displayFormat="HH:mm:ss"						
+						editable="false">
+					</TimePicker>
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>					
+					<Input id="PersonIn_re" value="{header>/PersonIn}" editable="false"/>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>
+			      </HBox>	
+			      
+		          <Label text="{i18n>lblServiceType}" class="sapUiTinyMarginTop" required="true">
+		          </Label>
+					<RadioButtonGroup id="ServiceType_re" columns="2" class="sapUiTinyMarginTop" select="onServiceChange" required="true">
+						<buttons>
+							<RadioButton id="service_type_s" width="80px" text="{i18n>lblServicePo}"/>
+							<RadioButton id="service_type_w" text="{i18n>lblVendorWarranty}"/>
+						</buttons>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>						
+					</RadioButtonGroup>  			      		      
+			      	      
+		          <Label id="lbleblen_re" text="{i18n>lblPo}" class="sapUiTinyMarginTop">
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label>
+		        <HBox>   		          
+		          <Input id="ebeln_re" value="{header>/Ebeln}" maxLength="10" change="onChange_po"/>
+		          <Label text=" "  class="sapUiTinyMarginEnd">
+		          </Label>			          
+		          <Text id="txz01_re" text="{header>/Txz01}" class="sapUiTinyMarginTop"/>
+		          	<layoutData>
+		          		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>
+		        </HBox>   
+		          <Label text="{i18n>lblObjectType}" class="sapUiTinyMarginTop" required="true">
+		          </Label>
+					<RadioButtonGroup id="MainType_re" columns="2" class="sapUiTinyMarginTop" select="onMainChange" required="true">
+						<buttons>
+							<RadioButton id="main_type_e" width="80px" text="{i18n>lblEquipment}"/>
+							<RadioButton id="main_type_s" text="{i18n>lblSparePart}"/>
+						</buttons>
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>	
+					</RadioButtonGroup>  			      		      	
+			      	      
+		          <Label text="{i18n>lblTechObject}" class="sapUiTinyMarginTop"  required="true">
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>		          
+		          </Label>
+			      <HBox>			          
+			          <MultiInput id="equnr_re" width="490px" valueHelpRequest="onValueHelpRequest" tokenChange="onEquipTokenChange">
+			          </MultiInput>                     
+			
+			          <MultiInput id="matnr_re" width="490px" valueHelpRequest="onValueHelpRequest">
+			          </MultiInput>                     
+		          
+		           <layoutData>
+		        		<l:GridData span="L5 M5 S1" />
+		          	</layoutData>
+			      </HBox>	
+		          <Label id="lbllifnr_re" text="{i18n>lblVendor}" class="sapUiTinyMarginTop">
+		          </Label>
+			      <HBox>		          
+		          <MultiInput id="lifnr_re" width="490px" valueHelpRequest="onValueHelpRequest">
+		          </MultiInput>   
+		          		          
+		           <layoutData>
+		        		<l:GridData span="L11 M11 S1" />
+		          	</layoutData>
+			      </HBox>								      
+		    	</f:content>
+		    	</f:SimpleForm>
+
+
+		    	<f:SimpleForm
+		    	    title="{i18n>lblfiletitle}"
+		    	    id = "SimpleForm_attach"
+		    	    layout="ResponsiveGridLayout"
+		    	  	labelSpanL="1"
+					labelSpanM="1"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsL="11"
+					columnsM="11">
+		    	<f:content>
+					     <Label text="{i18n>lblFile}" class="sapUiTinyMarginTop" >
+							<layoutData>
+				          		<l:GridData span="L1 M1 S1" />
+				          	</layoutData> 
+						 </Label>
+						 <HBox>
+							 <u:FileUploader id="fileUploader" width="500px"
+	          				  sameFilenameAllowed="false"
+	          				  placeholder="{i18n>fileselect}" 
+	          				  uploadComplete="handleUploadComplete"
+	          				  change="handleValueChange"
+	          				  typeMissmatch="handleTypeMissmatch"
+				              maximumFileSize="10.000"
+				              additionalData="Upload"
+				              uploadOnChange="false"
+				              uploadProgress="uploadProgress"
+				              sendXHR="true"
+				              useMultipart="false"
+	          				  style="Emphasized"
+	          				  fileType="dwg,dat,jpg,gif,png,mpp,pdf,ppt,pptx,wav,txt,doc,docx,xls,xlsx,xml,zip"
+	          				  icon="sap-icon://attachment"
+	          				  value="{File}" 
+	          				  enabled="{createNoti>/fileAttach}">	
+	                          </u:FileUploader>
+                              <layoutData>
+				          		<l:GridData span="L8 M8 S8" />
+				          	  </layoutData> 
+						 </HBox>
+						 <Button id="btnUpload" text="{i18n>fileupload}"  press="onBtnFileUpload" >
+				            <layoutData>
+				          		<l:GridData span="L2 M2 S2" />
+				          	</layoutData>
+				         </Button>
+				        <HBox>
+					         <t:Table id="table_file"
+					         selectionMode="None"
+							 showNoData = "false">
+					             <t:columns>
+				                    <t:Column width="6rem" hAlign="Center">
+				                        <Label text="{i18n>lblInOut}" />
+				                        <t:template>
+			                            <Text text="{InoutText}"/>
+				                        </t:template>
+				                    </t:Column>	
+				                    <t:Column width="44rem" hAlign="Left">
+				                        <Label text="{i18n>lblFilename}" />
+				                        <t:template>
+			                             	<Link id="fileLink" text="{FileName}" target="_blank" press="onDownload"/>
+				                        </t:template>
+				                    </t:Column>	
+				                     <t:Column width="16rem" hAlign="Center">
+				                        <Label text="{i18n>lblEntryBy}" /> 
+				                        <t:template>
+								        	<Text text="{Zcrname}"/>                 
+				                        </t:template>
+				                    </t:Column>		                    		             		             
+				                    <t:Column width="5rem" hAlign="Center">
+				                        <t:template>
+								          <Button id="fileDelBtn"
+								                  icon="sap-icon://delete" 
+								                  visible="true"
+								                  enabled="{repairEquip>/fileDelete}"
+								                  press="onBtnFileDelete">
+								          </Button>  				                        
+				                        </t:template>
+				                    </t:Column>	
+				                </t:columns>
+						    </t:Table> 
+					        <layoutData>
+				          		<l:GridData span="L11 M11 S11" />
+				          	</layoutData>
+					    </HBox>   
+
+		    	</f:content>
+		    	</f:SimpleForm>
+							
+	    					 
+		     <t:Table id="table_material"
+		         selectionMode="Single"
+				 selectionBehavior="Row"
+				 visibleRowCount="5"
+				 class="sapUiResponsiveMargin">
+         	<t:toolbar>
+                	<Toolbar>
+                   	<content>
+                   	    <Button id="bntBom" text="{i18n>equipmentBOM}" press="onPress_bom" type="Unstyled" />
+                       	<ToolbarSpacer/>
+                        <Button
+                               id ="btnAdd"
+                               icon="sap-icon://add" 
+                               text="{i18n>add}"
+                               press="onAdd_materal"/>
+                           <Button
+                           	   id ="btnDelete"
+                               icon="sap-icon://delete"
+                               text="{i18n>delete}"
+                          	   press="onDelete_materal" />
+                       </content>
+                   </Toolbar>
+                </t:toolbar> 
+	             <t:columns>
+		        	<t:Column width="5rem">
+                        <Label text="{i18n>lblNo}"/>
+                        <t:template>
+                            <Text text="{Serial}" />    
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="20rem" >
+                        <Label text="{i18n>lblMaterialNo}" />
+                        <t:template>
+                            <Input id="mat" maxLength="40" value="{Matnr}" change="onChange_mat"
+                                valueHelpRequest="onValueHelpRequest_mat" showValueHelp="true" 
+                                editable="{Emode}" valueState="{MatErr}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="35rem" >
+                        <Label text="{i18n>lblDescription}" />
+                        <t:template>
+                            <Text text="{Maktx}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="12rem" hAlign="Right">
+                        <Label text="{i18n>lblQuantity}" />
+                        <t:template>
+                            <Input id="bdmng" value="{Bdmng}" editable="{Emode}" 
+                                              valueState="{QtyErr}" change="onChange_Mat_qty"
+                                              textAlign="Right"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="4.8rem" hAlign="Center">
+                        <Label text="{i18n>lblUnit}" />
+                        <t:template>
+                            <Text text="{Meins}" />
+                        </t:template>
+                    </t:Column>
+	              </t:columns>
+		    </t:Table>
+			</VBox>
+		</content>
+         <buttons>
+             <Button id="Save" 			text = "{i18n>save}" 		press = "onSaveRepairEquipDialog"></Button>
+             <Button id="Delete" 		text = "{i18n>delete}" 		press = "onDeleteRepairEquipDialog"></Button>             
+             <Button id="ConfirmOut" 	text = "{i18n>confirmOut}"  press = "onConfirmOutRepairEquipDialog"></Button>
+             <Button id="ConfirmIn" 	text = "{i18n>confirmIn}"   press = "onConfirmInRepairEquipDialog"></Button>
+             <Button id="Cancel" 		text = "{i18n>close}"   	press = "onCancelInRepairEquipDialog"></Button>
+         </buttons>
+		
+	</Dialog>
+</core:FragmentDefinition>

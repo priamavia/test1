@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	>
+	<Dialog id="dialog_po" title="{i18n>create_po_title}" 
+	        resizable="false" 
+	        contentWidth="30rem" 
+	        contentHeight="8rem"
+	        draggable = "true" >
+		<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="2"
+			labelSpanM="2"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="2"
+			columnsM="2">
+   			<f:content>
+   			   	<Label text="{i18n>lblPrice}"  required="true" class="sapUiTinyMarginTop apUiTinyMarginEnd" >
+   			   		<layoutData>
+		          		<l:GridData span="L3 M3 S3" />
+		          	</layoutData> 
+		         </Label>
+		        <Input id="price_po"  required="true"  change="onChange"
+		       			value="{
+						          parts:[
+						          		{path:'ReadOrder>/External/Preis'},
+									    {path:'ReadOrder>/External/Waers'}
+
+						          ],
+						          type:'sap.ui.model.type.Currency',
+						          formatOptions:{
+						               showMeasure: false
+						          } 
+						       }">
+		        	<layoutData>
+		          		<l:GridData span="L3 M3 S3" />
+		          	</layoutData>  
+		        </Input>
+		        
+<!-- 		   20170823 PO 금액 입력 시 Vender의 Currency 가 아니라  Exteranl 의 Currency 를 Defautl로 하도록 수정 
+                {path:'ReadOrder>/Netpr'},
+				{path:'ReadOrder>/WaersPO'} -->
+		       <!--  <ComboBox id="waers_po" required="true" selectedKey="{ReadOrder>/External/LfaWaers}"  change="onChange"> -->
+		       
+		       <ComboBox id="waers_po" required="true" selectedKey="{ReadOrder>/External/Waers}"  change="onChange">
+		          	<layoutData>
+		          		<l:GridData span="L3 M3 S3" />
+		          	</layoutData>
+		        </ComboBox>
+		        <!-- <Text text="{ReadOrder>/External/LfaWaers}" /> -->
+    		</f:content>
+	    </f:SimpleForm>  
+		<beginButton>
+			<Button
+		       text="{i18n>continue}"
+		       press="onConfirmDialog_po"/>
+	    </beginButton>
+	    <endButton>
+		     <Button
+		       text="{i18n>cancel}"
+		       press="onCloseDialog_po"/>
+	    </endButton>
+    </Dialog>
+</core:FragmentDefinition>

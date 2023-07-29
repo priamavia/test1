@@ -1,0 +1,205 @@
+<core:View xmlns:core="sap.ui.core" 
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns="sap.m"
+          xmlns:f="sap.ui.layout.form"
+	      xmlns:l="sap.ui.layout"
+	      xmlns:t="sap.ui.table"
+	      xmlns:viz="sap.viz.ui5.controls" 
+	      xmlns:viz.data="sap.viz.ui5.data" 
+	      xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+		  controllerName="cj.pm0240.controller.Main" 
+		  xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage">
+		<content>
+ 	    	<f:SimpleForm
+	    	    layout="ResponsiveGridLayout"
+	    	  	labelSpanL="1"
+				labelSpanM="1"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="3"
+				columnsM="3">
+    			<f:content>
+          			<Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop" required="true">
+          				<layoutData>
+			          		<l:GridData span="L1 M1 S1" />
+			          	</layoutData> 
+          			</Label>
+          			<Select id="swerk" change="onSelChange" required="true">
+			           <layoutData>
+			          		<l:GridData span="L3 M3 S3" />
+			          	</layoutData>
+	         	    </Select>    			
+    				<Label text="{i18n>lblPeriod}" class="sapUiTinyMarginTop" required="true">
+			         	<layoutData>
+			          		<l:GridData span="L1 M1 S1" />
+			          	</layoutData> 
+			        </Label>
+			        <HBox>
+			        	<Select id="period_from"
+					      width="100px"
+					      required="true" />
+					    <Select id="period_from_month"
+					       width="80px"
+					      required="true"
+					      class="sapUiTinyMarginEnd" />
+						<Text text="~" class="sapUiTinyMarginTop sapUiTinyMarginEnd" />
+						<Select
+					      id="period_to"
+					      width="100px"
+					      required="true" />
+					    <Select
+					      id="period_to_month"
+					      width="80px"
+					      required="true" />
+					    <layoutData>
+	          				<l:GridData span="L7 M7 S7" />
+	          			</layoutData>
+			        </HBox>
+		            <Label text="{i18n>lblPS}" class="sapUiTinyMarginTop">
+ 			            <layoutData>
+			          		<l:GridData span="L1 M1 S1" />
+			          	</layoutData>  
+		            </Label>
+		            <ComboBox id="pls">
+		            	<layoutData>
+			          		<l:GridData span="L3 M3 S3" />
+			          	</layoutData>
+		            </ComboBox>
+			        <Label text="{i18n>lblWorkCenter}" class="sapUiTinyMarginTop">
+		                <layoutData>
+			          		<l:GridData span="L1 M1 S1" />
+			          	</layoutData> 
+			        </Label>
+			        <ComboBox id="woc">
+			        	<layoutData>
+			          		<l:GridData span="L3 M3 S3" />
+			          	</layoutData>
+			        </ComboBox>
+			        <Text>
+			        	<layoutData>
+			          		<l:GridData span="L3 M3 S3"/>
+			          	</layoutData>
+			        </Text>
+			        <Button text="{i18n>search}" press="onSearch">
+			            <layoutData>
+			          		<l:GridData span="L1 M1 S1"/>
+			          	</layoutData>
+			        </Button>
+	    		</f:content>
+	    	</f:SimpleForm> 
+	        	
+	       <t:Table id="table"  		
+			 visibleRowCount="1"
+			 selectionMode="None"
+			 class="sapUiResponsiveMargin">
+			 	<t:toolbar hAlign="End">
+                 	<Toolbar>
+                    	<content>
+                    	     <title text="{i18n>lblGIrate}" />
+	                         <Button
+	                         	icon="sap-icon://excel-attachment"
+	                         	tooltip="{i18n>lblDownloadExcel}"
+	                         	press="onDownloadExcel"/>
+	                         <Button
+	                             icon="sap-icon://decline"
+	                             tooltip="{i18n>lblClearAllSortings}"
+	                             press="onClearAllSortings"/>
+	                         <Button
+	                             icon="sap-icon://clear-filter"
+	                             tooltip="{i18n>lblClearAllFilters}"
+	                             press="onClearAllFilters"/>                             	                            
+                             <ToolbarSpacer/>
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>
+                 <t:columns>               
+                    <t:Column width="8rem"
+                       sortProperty="Notiyplan"
+                       filterProperty="Notiyplan" hAlign="End">
+                        <Label text="{i18n>lblNotiyplan}" />
+                        <t:template>
+                            <Text text="{Notiyplan}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="8rem"
+                       sortProperty="Notiyperf"
+                       filterProperty="Notiyperf" hAlign="End">
+                        <Label text="{i18n>lblNotiyperf}" />
+                        <t:template>
+                            <Text text="{Notiyperf}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="8rem"
+                       sortProperty="Yratio"
+                       filterProperty="Yratio" hAlign="End">
+                        <Label text="{i18n>lblRatio}" />
+                        <t:template>
+                            <Text text="{Yratio}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                     
+                    <t:Column width="8rem"
+                       sortProperty="Notimplan"
+                       filterProperty="Notimplan" hAlign="End">
+                        <Label text="{i18n>lblNotimplan}" />
+                        <t:template>
+                            <Text text="{Notimplan}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="8rem"
+                       sortProperty="Notimperf"
+                       filterProperty="Notimperf" hAlign="End">
+                        <Label text="{i18n>lblNotimperf}" />
+                        <t:template>
+                            <Text text="{Notimperf}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="8rem"
+                       sortProperty="Mratio"
+                       filterProperty="Mratio" hAlign="End">
+                        <Label text="{i18n>lblRatio}" />
+                        <t:template>
+                            <Text text="{Mratio}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                       
+            	</t:columns>
+    		</t:Table>       	
+    		
+            <viz:VizFrame id="chart" class="sapUiResponsiveMargin"
+                height="25rem" width="95%" vizType="column">
+<!--                  <viz:dataset>
+                    <viz.data:FlattenedDataset >
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Invnr"
+                                value="{Invnr}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Totcost"
+                                value="{Totcost}" />
+                            <viz.data:MeasureDefinition name="Waers"
+                                value="{Waers}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+ 
+                <viz:feeds>
+                    <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure"
+                        values="Totcost" />
+                    <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension"
+                        values="Invnr" />
+                </viz:feeds>  -->
+            </viz:VizFrame>    		  
+                		
+		</content>
+	<!-- 	<footer>
+			<Bar>
+				<contentRight>
+				    <Button id="DetailNoti" text="{i18n>lblDisplayNoti}" press="onPress_detail" />
+					<Button id="createNoti" text="{i18n>lblCreateNoti}" press="onPress_noti" />
+					<Button id="assignOrd" text="{i18n>lblAssignOrder}" press="onPress_order" />
+				</contentRight>
+			</Bar>
+		</footer> -->
+	</Page>
+</core:View>

@@ -1,0 +1,11 @@
+<core:View xmlns:core="sap.ui.core" 
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns="sap.m"
+		  controllerName="com.cj.controller.View1" 
+		  xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>title}">
+		<content>
+	      <Label text="aaa"></Label>
+		</content>
+	</Page>
+</core:View>

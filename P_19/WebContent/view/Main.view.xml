@@ -1,0 +1,647 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+       	   xmlns:t="sap.ui.table"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm0100.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	   
+  <Page id="mainpage" title="">
+    	<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="1"
+			labelSpanM="1"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="5"
+			columnsM="5">
+    	<f:content>	
+<!--                       // 1Line   -->    	
+          <Label text="{i18n>lblMaintPlant}"  class="sapUiTinyMarginTop" required="true">
+          </Label>
+ 		  <Select id="swerk" forceSelection="false" change="onSwerkSelect" required="true">
+           <layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+ 		  </Select>
+          <Label text="{i18n>lblNotiNo}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Label>         
+          <HBox>
+          <items>
+          <Input id="qmnum_from" width="136px"/>
+          <Label text="~"  width="30px" class="sapUiTinyMarginTop" textAlign="Center"/>
+          <Input id="qmnum_to"  width="136px"/>          
+          </items>
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>          
+          </HBox>
+          <Label text="{i18n>lblNotiDate}"  class="sapUiTinyMarginTop">       
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+          </Label>
+        <HBox>
+          <items>    	
+			<DatePicker
+				id="qmdat_from"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"
+				change="handleDateChangeQmdatFrom">
+			</DatePicker>
+          <Label text="~"  class="sapUiTinyMarginTop">
+          </Label>
+			<DatePicker
+				id="qmdat_to"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"
+				change="handleDateChangeQmdatTo">
+			</DatePicker>
+          	</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox>              
+<!--                       // 2��   -->          
+          <Label text="{i18n>lblOrderType}" class="sapUiTinyMarginTop">
+          </Label>
+          <ComboBox id="auart" selectionChange="onChange_Auart">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox>            
+<!--           <MultiInput id="auart" valueHelpRequest="onValueHelpRequest" >
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </MultiInput>    --> 
+          <Label text="{i18n>lblOrderNo}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Label>
+          <HBox>
+          <items>
+          <Input id="aufnr_from" width="136px"/>
+          <Label text="~"  width="30px" class="sapUiTinyMarginTop" textAlign="Center"/>
+          <Input id="aufnr_to"  width="136px"/>          
+          </items>
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>          
+          </HBox>
+          <Label text="{i18n>lblStartDate}"  class="sapUiTinyMarginTop" required="true">   
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>              
+          </Label>
+        <HBox>
+          <items>    	
+			<DatePicker
+				id="gstrp_from"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"			
+				change="handleDateChangeFrom"
+				required="true">
+			</DatePicker>
+          <Label text="~"  class="sapUiTinyMarginTop">
+          </Label>
+			<DatePicker
+				id="gstrp_to"
+				placeholder="{i18n>lblEnterDate}"
+				width="147px"		
+				change="handleDateChangeTo"
+				required="true">
+			</DatePicker>
+          	</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox>    
+<!--                       // 3��   -->  	            
+          <Label text="{i18n>lblMaintWC}" class="sapUiTinyMarginTop">       
+          </Label>
+          <ComboBox id="vaplz" selectionChange="onChange_Vaplz">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox> 
+                    
+<!--           <MultiInput id="vaplz" valueHelpRequest="onValueHelpRequest" >
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </MultiInput>    -->             
+<!--         <HBox class="sapUiMediumMarginBegin">
+        	<items>
+	        	<CheckBox id="outstand" text="{i18n>lblOutstanding}" class="sapUiTinyMarginEnd" selected="true"/>
+	        	<CheckBox id="inpro" text="{i18n>lblInProcess}" class="sapUiTinyMarginEnd" selected="true"/>
+	        	<CheckBox id="conf" text="{i18n>lblConfirmed}" class="sapUiTinyMarginEnd" selected="false"/>	        	
+	        	<CheckBox id="comp" text="{i18n>lblCompleted}" class="sapUiTinyMarginEnd" selected="false"/>
+	        	<CheckBox id="reject" text="{i18n>lblReject}" class="sapUiMediumMarginEnd" selected="false"/>
+	        </items>        
+	       	<layoutData>
+          		<l:GridData span="L6 M6 S1" />
+          	</layoutData> 
+        </HBox>
+        <HBox class="sapUiMediumMarginBegin">
+        	<items>
+	        	<CheckBox id="assing" text="{i18n>lblAssigned}" class="sapUiTinyMarginEnd" selected="false"/>
+	        	<CheckBox id="notass" text="{i18n>lblNotAssigned}" class="sapUiMediumMarginEnd" selected="true"/>
+	        </items>	        
+	       	<layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData> 
+        </HBox>      -->
+        
+<!--         <HBox class="sapUiMediumMarginBegin">
+        	<items>
+	        	<CheckBox id="outstand" text="{i18n>lblOutstanding}" class="sapUiTinyMarginEnd" selected="true"/>
+	        	<CheckBox id="inpro" text="{i18n>lblInProcess}" class="sapUiTinyMarginEnd" selected="true"/>
+	        	<CheckBox id="conf" text="{i18n>lblConfirmed}" class="sapUiTinyMarginEnd" selected="false"/>	        	
+	        	<CheckBox id="comp" text="{i18n>lblCompleted}" class="sapUiTinyMarginEnd" selected="false"/>
+	        	<CheckBox id="reject" text="{i18n>lblReject}" class="sapUiMediumMarginEnd" selected="false"/>
+				<Text text=" " width="40px"/>
+	        	<CheckBox id="assing" text="{i18n>lblAssigned}" class="sapUiTinyMarginEnd" selected="false"/>
+	        	<CheckBox id="notass" text="{i18n>lblNotAssigned}" class="sapUiMediumMarginEnd" selected="true"/>
+	        </items>	        
+	       	<layoutData>
+          		<l:GridData span="L8 M8 S1" />
+          	</layoutData> 
+        </HBox>     --> 
+                
+<!--                       // 4��   -->  	              
+          <Label text="{i18n>lblPG}" class="sapUiTinyMarginTop" visible="false">
+          </Label>       
+          <ComboBox  id="ingrp" visible="false">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox> 
+              
+          <Label text="{i18n>lblProdLine}" class="sapUiTinyMarginTop" visible="false">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+          </Label>
+          <ComboBox id="stort"  visible="false">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox>   
+          <Label text="{i18n>lblApprover}" class="sapUiTinyMarginTop" visible="false">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+          </Label>
+		  <Input id="aname" visible="false">
+			  <layoutData>
+				  <l:GridData span="L3 M3 S1" />
+			  </layoutData>
+		  </Input>              
+<!--                       // 5��   -->  	                   
+          <Label text="{i18n>lblFL}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>                
+          </Label>
+          <MultiInput id="tplnr" valueHelpRequest="onValueHelpRequest">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </MultiInput>           	
+          <Label text="{i18n>lblEquipment}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Label>      
+          <MultiInput id="equnr" valueHelpRequest="onValueHelpRequest">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData> 	
+          </MultiInput>   
+          <Label text="{i18n>lblWorker}" class="sapUiTinyMarginTop">
+<!--             <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>      -->     
+          </Label>
+          <ComboBox id="zname">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </ComboBox>                    	  
+        <Label text="{i18n>lblPMActType}" class="sapUiTinyMarginTop" visible="false">
+   		</Label>
+        <ComboBox id="ilart" forceSelection="false" visible="false">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S3" />
+          	</layoutData>
+        </ComboBox>		  		          
+        <Label text="{i18n>lblTagID}" class="sapUiTinyMarginTop">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>          
+         </Label>
+		 <Input id="invnr">
+		  	<layoutData>
+				<l:GridData span="L3 M3 S1" />
+		  	</layoutData>
+		 </Input>
+         <Label text="{i18n>lblDepartment}" class="sapUiTinyMarginTop">
+           <layoutData>
+         		<l:GridData span="L1 M1 S1" />
+         	</layoutData>          
+         </Label>
+         <ComboBox id="dpt" forceSelection="false">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S3" />
+          	</layoutData>
+         </ComboBox>
+         <Label text="{i18n>lblRevision}" class="sapUiTinyMarginTop">
+           <layoutData>
+         		<l:GridData span="L1 M1 S1" />
+         	</layoutData>          
+         </Label>
+         <Input id="revnr" forceSelection="false">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S3" />
+          	</layoutData>
+         </Input>         
+         <Label text="{i18n>lblStatus}" class="sapUiTinyMarginTop">    
+         </Label>         
+        <HBox>
+        	<items>
+<!-- 	        	<RadioButton id="outstand" text="{i18n>lblOutstanding}" class="sapUiMediumMarginEnd" selected="false"/> -->
+<!-- 	        	<RadioButton id="inappro" text="{i18n>lblInApproval}" class="sapUiMediumMarginEnd" selected="fasle"/> -->
+<!-- 	        	<RadioButton id="inpro" text="{i18n>lblInProcess}" class="sapUiMediumMarginEnd" selected="true"/> -->
+<!-- 	        	<RadioButton id="conf" text="{i18n>lblConfirmed}" class="sapUiMediumMarginEnd" selected="false"/>	        	 -->
+<!-- 	        	<RadioButton id="comp" text="{i18n>lblCompleted}" class="sapUiMediumMarginEnd" selected="false"/> -->
+<!-- 	        	<RadioButton id="reject" text="{i18n>lblRejected}" class="sapUiMediumMarginEnd" selected="false"/> -->
+
+	        	<CheckBox id="outstand" text="{i18n>lblOutstanding}" class="sapUiMediumMarginEnd" selected="false"/>
+	        	<CheckBox id="inappro" text="{i18n>lblInApproval}" class="sapUiMediumMarginEnd" selected="fasle"/>
+	        	<CheckBox id="inpro" text="{i18n>lblInProcess}" class="sapUiMediumMarginEnd" selected="true"/>
+	        	<CheckBox id="conf" text="{i18n>lblConfirmed}" class="sapUiMediumMarginEnd" selected="false"/>	        	
+	        	<CheckBox id="comp" text="{i18n>lblCompleted}" class="sapUiMediumMarginEnd" selected="false"/>
+	        	<CheckBox id="reject" text="{i18n>lblRejected}" class="sapUiMediumMarginEnd" selected="false"/>
+	        	
+	        	<CheckBox id="assing" text="{i18n>lblAssigned}" class="sapUiMediumMarginEnd" selected="true"/>
+	        	<CheckBox id="notass" text="{i18n>lblNotAssigned}" class="sapUiMediumMarginEnd" selected="true"/>
+	        </items>	        
+	       	<layoutData>
+          		<l:GridData span="L10 M10 S1" />
+          	</layoutData> 
+        </HBox>             
+          <Button text="{i18n>search}" press="onBtnSearch">
+            <layoutData>
+          		<l:GridData span="L1 M1 S1" />
+          	</layoutData>
+          </Button>
+    	</f:content>
+    	</f:SimpleForm>
+    	
+     <t:Table id="table"
+         selectionMode="Single"
+		 selectionBehavior="RowSelector"
+		 showNoData = "false"
+		 visibleRowCount="13"
+		 enableCellFilter="{ui>/cellFilterOn}"
+		 class="sapUiResponsiveMargin"> 
+	        <t:toolbar>
+                 <Toolbar design="sap.ui.commons.ToolbarDesign.Transparent">
+                     <content>
+                         <Button
+                         	icon="sap-icon://excel-attachment"
+                         	tooltip="{i18n>lblDownloadExcel}"
+                         	press="downloadExcel"/>
+                         <Button
+                             icon="sap-icon://decline"
+                             tooltip="{i18n>lblClearAllSortings}"
+                             press="clearAllSortings"/>
+                         <Button
+                             icon="sap-icon://clear-filter"
+                             tooltip="{i18n>lblClearAllFilters}"
+                             press="clearAllFilters"/>
+                             
+                         <ToolbarSpacer/>     
+<!-- sap.m.ButtonType.Accept	accept type (blue button)
+sap.m.ButtonType.Back			back type (back navigation button for header)
+sap.m.ButtonType.Default		default type (no special styling)
+sap.m.ButtonType.Emphasized		emphasized type
+sap.m.ButtonType.Reject			reject style (red button)
+sap.m.ButtonType.Transparent	transparent type
+sap.m.ButtonType.Unstyled		Unstyled type (no styling)
+sap.m.ButtonType.Up				up type (up navigation button for header)
+ -->                         
+ 						 <!--Button id="orderDisp" text="{i18n>display}"     width="6rem" press="onPress_disp" type="Unstyled" / -->
+						 <!--Button id="orderChge" text="{i18n>change}"      width="6rem" press="onPress_chge" type="Unstyled" / -->
+						 <Button id="compProposal" text="{i18n>compProposal}" press="compProposal" type="Unstyled"/>
+						 <Button id="orderprint" text="{i18n>orderPrint}" press="onOrderPrint" type="Unstyled"/>
+						 <Button id="orderCrte" text="{i18n>createWorkOrder}" press="onPress_crte" type="Unstyled"/>
+	
+						 <Button id="workAssign" text="{i18n>workAssign}" width="6rem" press="onPress_wkassign" type="Unstyled" />
+
+						 <Button id="Request"  	text="{i18n>reqApprove}"  width="6.5rem" press="onPress_request" type="Unstyled" />
+						 <Button id="Approval" 	text="{i18n>approval}"    width="6rem" press="onPress_approval" type="Unstyled"/>
+	
+			 			 <Button id="workResult" text="{i18n>workResult}"  width="6rem" press="onPress_wkresult"  type="Unstyled"/>                                                 
+                     </content>
+                 </Toolbar>
+             </t:toolbar>
+             <t:Column width="3rem"
+                sortProperty="Zicon"
+                filterProperty="Zicon"
+                hAlign="Center">
+                 <core:Icon src="attachment"/>
+                 <t:template>
+                     <core:Icon id="Zicon" src="{Zicon}"/>
+                 </t:template>
+             </t:Column>	                           
+             <t:columns>
+                    <t:Column width="4rem"
+                       sortProperty="Werks"
+                       filterProperty="Werks"
+                       hAlign="Center">
+                        <Label text="{i18n>lblPlant}"/>
+                        <t:template>
+                            <Text text="{Werks}"/>
+                        </t:template>
+                    </t:Column>	               
+                    <t:Column width="4rem"
+                       sortProperty="Auart"
+                       filterProperty="Auart"
+                       hAlign="Center">
+                        <Label text="{i18n>lblType}" />
+                        <t:template>
+                            <Text text="{Auart}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>	
+                    <t:Column width="6rem"
+                       sortProperty="Aufnr"
+                       filterProperty="Aufnr"
+                       hAlign="Center">
+                        <Label text="{i18n>lblOrder}" />
+                        <t:template>
+                            <Link text="{Aufnr}" press="onPress_chge" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="15rem"
+                       sortProperty="Ktext"
+                       filterProperty="Ktext"
+                       hAlign="Left">
+                        <Label text="{i18n>lblOrderDesc}" />
+                        <t:template>
+                            <Text text="{Ktext}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem"
+                       sortProperty="Revnr"
+                       filterProperty="Revnr"
+                       hAlign="Left">
+                        <Label text="{i18n>lblRevision}" />
+                        <t:template>
+                            <Text text="{Revnr}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                    
+                    <t:Column width="7rem"
+                       sortProperty="Txt30"
+                       filterProperty="Txt30"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStatus}" />
+                        <t:template>
+                            <Text text="{Txt30}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>	                    
+                    <t:Column width="7rem"
+                       sortProperty="Gstrp"
+                       filterProperty="Gstrp"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStartDate}" />
+                        <t:template>
+	                       	<Text text="{ path : 'Gstrp',
+						                  formatter : '.formatter.strToFormatDate' }"
+	                       	 />   
+<!-- 			        	<DatePicker
+			        	  width="6rem"
+					      class="sapUiTinyMarginEnd"
+					      value="{Addat}" 
+					      editable="false"
+					      displayFormat ="{userFormat/dateFormat}"
+						  valueFormat="yyyyMMdd"
+					      />	
+ -->                        </t:template>
+                    </t:Column> 
+                    <t:Column width="6rem"
+                       sortProperty="Gltrp"
+                       filterProperty="Gltrp"
+                       hAlign="Center">
+                        <Label text="{i18n>lblFinishDate}" />
+                        <t:template>
+	                       	<Text text="{ path : 'Gltrp',
+						                  formatter : '.formatter.strToFormatDate' }"
+	                       	 />                              
+                        </t:template>
+                    </t:Column>                     
+                    <t:Column width="6rem"
+                       sortProperty="Qmnum"
+                       filterProperty="Qmnum"
+                       hAlign="Center">
+                        <Label text="{i18n>lblNoti}" />
+                        <t:template>
+                            <Text text="{Qmnum}"/>
+                        </t:template>
+                    </t:Column>     
+                    <t:Column width="5rem"
+                       sortProperty="Zbmind"
+                       filterProperty="Zbmind"
+                       hAlign="Center">
+                        <Label text="{i18n>lblBMCM}" />
+                        <t:template>
+                            <Text text="{Zbmind}"/>
+                        </t:template>
+                    </t:Column>   
+                    <t:Column width="12rem"
+                       sortProperty="NameTextc"
+                       filterProperty="NameTextc"
+                       hAlign="Center">
+                        <Label text="{i18n>lblApprover}" />
+                        <t:template>
+                            <Text text="{NameTextc}"/>
+                        </t:template>
+                    </t:Column>                                                         
+                    <t:Column width="4rem"
+                       sortProperty="Vaplz"
+                       filterProperty="Vaplz"
+                       hAlign="Center">
+                        <Label text="{i18n>lblWc}" />
+                        <t:template>
+                            <Text text="{Vaplz}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="4rem"
+                       sortProperty="Ingpr"
+                       filterProperty="Ingpr"
+                       hAlign="Center">
+                        <Label text="{i18n>lblPG}" />
+                        <t:template>
+                            <Text text="{Ingpr}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>    
+                    <t:Column width="4rem"
+                       sortProperty="Ilart"
+                       filterProperty="Ilart"
+                       hAlign="Center">
+                        <Label text="{i18n>lblAct}" />
+                        <t:template>
+                            <Text text="{Ilart}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>                                                      
+                    <t:Column width="9rem"
+                       sortProperty="Tplnr"
+                       filterProperty="Tplnr"
+                       hAlign="Center">
+                        <Label text="{i18n>lblFL}" />
+                        <t:template>
+                            <Text text="{Tplnr}" wrapping="false" textAlign="Left"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="6rem"
+                       sortProperty="Equnr"
+                       filterProperty="Equnr"
+                       hAlign="Center">
+                        <Label text="{i18n>lblEquipment}" />
+                        <t:template>
+                            <Link text="{Equnr}" press="onPress_equnr" />
+                        </t:template>
+                    </t:Column>    
+                    <t:Column width="15rem"
+                       sortProperty="Eqktx"
+                       filterProperty="Eqktx"
+                       hAlign="left">
+                        <Label text="{i18n>lblEQDesc}" />
+                        <t:template>
+                            <Text text="{Eqktx}" wrapping="false"/>
+                        </t:template>
+                    </t:Column> 
+                    <t:Column width="5rem"
+                       sortProperty="Msgrp"
+                       filterProperty="Msgrp"
+                       hAlign="Center">
+                        <Label text="{i18n>lblRoom}" />
+                        <t:template>
+                            <Text text="{Msgrp}"/>
+                        </t:template>
+                    </t:Column>                      
+                    <t:Column width="6rem" hAlign="End">
+                        <Label text="{i18n>lblWorkdurtn}" /> 
+                        <t:template>
+                             <Text 
+	                             text="{
+							         path:'Arbei',
+							         type :'sap.ui.model.type.Decimal'
+	                              }" 
+                              /> 
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="6rem" hAlign="End">
+                        <Label text="{i18n>lblWorkact}" /> 
+                        <t:template>
+                             <Text 
+	                             text="{
+							         path:'Ismnw',
+							         type :'sap.ui.model.type.Decimal'
+	                              }" 
+                              /> 
+                        </t:template>
+                    </t:Column>                    
+                    <t:Column width="3rem"  
+                              hAlign="Center">
+                        <Label text="{i18n>lblUnit}" />
+                        <t:template>
+                           <Text text="{Arbeh}" />
+                        </t:template>
+                    </t:Column> 
+<!--                     <t:Column width="7rem"
+                       sortProperty="Txt30"
+                       filterProperty="Txt30"
+                       hAlign="Center">
+                        <Label text="{i18n>lblStatus}" />
+                        <t:template>
+                            <Text text="{Txt30}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>	
+ --><!--                     <t:Column width="10rem"
+                       sortProperty="Utxt30"
+                       filterProperty="Utxt30"
+                       hAlign="Center">
+                        <Label text="{i18n>lblUserStatus}" />
+                        <t:template>
+                            <Text text="{Utxt30}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>	 -->
+                    <t:Column width="10rem"
+                       sortProperty="Zname"
+                       filterProperty="Zname"
+                       hAlign="Center">
+                        <Label text="{i18n>lblPic}" />
+                        <t:template>
+                            <Text text="{Zname}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem"
+                       sortProperty="Ebeln"
+                       filterProperty="Ebeln"
+                       hAlign="Center">
+                        <Label text="{i18n>lblPoNo}" />
+                        <t:template>
+                            <Text text="{Ebeln}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column width="4rem"
+                       sortProperty="Zdevice"
+                       filterProperty="Zdevice"
+                       hAlign="Center">
+                        <Label text="Device" />
+                        <t:template>
+                            <Text text="{Zdevice}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+              </t:columns>
+    </t:Table>    	
+<!-- 		<footer>
+			<Bar>
+				<contentLeft>
+					<Button id="orderDisp" text="{i18n>display}" press="onPress_disp" />
+					<Button id="orderChge" text="{i18n>change}"  press="onPress_chge" />
+					<Button id="orderCrte" text="{i18n>create}"  press="onPress_crte" />
+				</contentLeft>
+
+				<contentMiddle>
+					<Button id="Request"  text="{i18n>reqApprove}" press="onPress_request" />
+					<Button id="Approval" text="{i18n>approval}"     press="onPress_approval" /> -->
+					<!-- <Button id="PmReq" text="{i18n>reqPmApprove}" press="onPress_pmreq" /> -->
+		<!-- 		</contentMiddle>
+ 
+
+				<contentRight>
+					<Button id="workAssign"   text="{i18n>workAssign}"   press="onPress_wkassign" /> -->			
+					<!-- <Button id="assignChange" text="Assign Change" press="onPress_reassign" /> -->
+		<!-- 			<Button id="workResult"   text="{i18n>workResult}"   press="onPress_wkresult" />
+				</contentRight>
+			</Bar>
+		</footer> -->
+		
+	
+			 			 
+			 			 		
+	</Page>
+</core:View>
+
+

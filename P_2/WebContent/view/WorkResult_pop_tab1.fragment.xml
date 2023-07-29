@@ -1,0 +1,600 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	
+   	<f:SimpleForm
+   	    title="{i18n>worktime_group}"
+   	    id = "SimpleForm_worktime"
+   	    layout="ResponsiveGridLayout"
+   	  	labelSpanL="0"
+		labelSpanM="0"
+		emptySpanL="0"
+		emptySpanM="0"
+		emptySpanS="0"
+		columnsL="5"
+		columnsM="5"
+		editable="true">
+   	<f:content>		    
+     <t:Table id="table_worktime"
+         selectionMode="None"
+		 selectionBehavior="Row"
+		 visibleRowCount="3">
+             <t:columns>
+                   <t:Column width="8rem" hAlign="Center">
+                       <Label text="{i18n>lblStartDate}"/>
+                       <t:template>
+					<DatePicker
+						id="Isdd"
+						placeholder="{i18n>lblEnterDate}"
+                              value="{
+                                   path : 'Isdd'
+                                   }"
+						change="handleChangeIsdd"
+                        valueState="{IsddValSt}"
+                        valueStateText="{IsddValStText}"    						
+						enabled="{Enable}">
+					</DatePicker>		                                                
+                       </t:template>
+                   </t:Column>	
+                   <t:Column width="8rem"  hAlign="Center">
+                       <Label text="{i18n>lblStartTime}"/>
+                       <t:template>
+					<TimePicker
+						id="Isdz"
+						placeholder="{i18n>lblEnterTime}"
+						 value="{
+                                   path : 'Isdz'
+                                   }"
+				        displayFormat="HH:mm:ss"
+				        valueFormat="HHmmss"							
+						change="handleChangeIsdz"
+                        valueState="{IsdzValSt}"
+                        valueStateText="{IsdzValStText}"  						
+						enabled="{Enable}">
+					</TimePicker>	                                                     
+                       </t:template>
+                   </t:Column>
+                   <t:Column width="8rem" hAlign="Center">
+                       <Label text="{i18n>lblEndDate}" />
+                       <t:template>
+					<DatePicker
+						id="Iedd"
+						placeholder="{i18n>lblEnterDate}"
+                              value="{
+                                   path : 'Iedd'
+                                   }"				
+						change="handleChangeIedd"
+                        valueState="{IeddValSt}"
+                        valueStateText="{IeddValStText}"  						
+						enabled="{Enable}">
+					</DatePicker>		                                                
+                       </t:template>
+                   </t:Column>	
+                   <t:Column width="8rem" hAlign="Center">
+                       <Label text="{i18n>lblEndTime}" />
+                       <t:template>
+					<TimePicker
+						id="Iedz"
+						placeholder="{i18n>lblEnterTime}"
+						 value="{
+                                   path : 'Iedz'
+                                   }"
+				        displayFormat="HH:mm:ss"
+				        valueFormat="HHmmss"	
+						change="handleChangeIedz"
+                        valueState="{IedzValSt}"
+                        valueStateText="{IedzValStText}"  							
+						enabled="{Enable}">
+					</TimePicker>	                                                     
+                       </t:template>
+                   </t:Column>		
+                   <t:Column width="6rem" hAlign="Center">
+                       <Label text="{i18n>lblDuration}"/>
+                       <t:template>
+                          <Input 
+                              id="Idaur"
+                              value="{
+                                   path : 'Idaur'
+                                   }"
+                              textAlign="Right"
+                              editable="false"/>				                        
+                       </t:template>
+                   </t:Column>
+                   <t:Column width="3rem" hAlign="Center">
+                       <Label text="{i18n>lblUnit}"/>
+                       <t:template>
+                          <Text text="{Idaue}" textAlign="Center"/>				                        
+                       </t:template>
+                   </t:Column>	                   		                    
+                   <t:Column width="6rem" hAlign="Center">
+                       <Label text="{i18n>lblWorkTime}"/>
+                       <t:template>
+                          <Input 
+                              id="Ismnw"
+                              value="{
+                                   path : 'Ismnw'
+                                   }"
+                              textAlign="Right"
+                              change="handleChangeIsmnw"
+		                      valueState="{IsmnwValSt}"
+		                      valueStateText="{IsmnwValStText}"                               
+                              enabled="{Enable}"/>				                        
+                       </t:template>
+                   </t:Column>	
+                   <t:Column width="3rem" hAlign="Center">
+                       <Label text="{i18n>lblUnit}"/>
+                       <t:template>
+                          <Text text="{Ismne}" textAlign="Center"/>				                        
+                       </t:template>
+                   </t:Column>	                   		                    
+                   <t:Column width="10rem" hAlign="Center">
+                       <Label text="{i18n>lblWorker}"/>
+                       <t:template>
+                          <Text text="{Zname}" textAlign="Center" />				                        
+<!--                           <Input 
+                              id="Zname"
+                              value="{
+                                   path : 'Zname'
+                                   }"
+                              enabled="{Enable}"/>	 -->			                        
+                       </t:template>
+                   </t:Column>	
+<!-- 항상 Check 값 유지 
+                   <t:Column width="6rem" hAlign="Center">
+                       <CheckBox id="hd_chk" text="{i18n>lblFinish}" selected="true" enabled="false" select="onFinish"/>
+                       <t:template  width="20px">
+                          <CheckBox id="Aueru" selected="{Aueru}" enabled="false"/>
+                      </t:template>
+                   </t:Column>	
+ -->
+                   <t:Column width="18rem" hAlign="Center">
+                       <Label text="{i18n>lblDelay}" />
+                       <t:template>
+							<ComboBox id="Grund" selectedKey="{Grund}" forceSelection="false"
+								          items="{path:'Items', templateShareable:false}"
+								          change="onChangeGrund"
+					                      valueState="{GrundValSt}"
+					                      valueStateText="{GrundValStText}" 								          
+								          enabled="{Enable}">
+							     <items> 
+								    <core:Item key="{Key}" text="{KeyName}"/> 
+								 </items>
+				            <layoutData>
+				          		<l:GridData span="L3 M3 S1" />
+				          	</layoutData>								   
+							</ComboBox>		 		  
+												 		  
+<!--                           <Input 
+                              id="ground_wr"
+                              value="{
+                                   path : 'Ground'
+                                   }"
+                              />	 -->			                        
+                       </t:template>
+                   </t:Column>	
+                   <t:Column width="20rem" hAlign="Center">
+                       <Label text="{i18n>lblReason}" />
+                       <t:template>
+                          <Input 
+                              id="ltxa1"
+                              value="{
+                                   path : 'Ltxa1'
+                                   }"
+                              wrapping="false"
+                              enabled="{Enable}"/>				                        
+                       </t:template>
+                   </t:Column>			                    		                    
+             </t:columns>
+    </t:Table>    	
+  	</f:content>
+  	</f:SimpleForm>      
+<!-- sap.ui.layout.BackgroundDesign.Solid
+sap.ui.layout.BackgroundDesign.Translucent
+sap.ui.layout.BackgroundDesign.Transparent    
+ -->	    
+ 
+ 	<!-- BreakDown Data part Start point -->
+   	<f:SimpleForm
+   	    title="{i18n>breakdown_group}"
+   	    id="SimpleForm_breakdown"
+   	    layout="ResponsiveGridLayout"
+   	  	labelSpanL="1"
+		labelSpanM="1"
+		emptySpanL="0"
+		emptySpanM="0"
+		emptySpanS="0"
+		columnsL="5"
+		columnsM="5"
+		editable="true">
+   	<f:content>
+         <Label id="Severity" text="{i18n>lblSeverity}" class="sapUiTinyMarginTop"  required="{break>/Mstatus}">
+         </Label>
+		<ComboBox id="qmcod_wr" selectedKey="{break>/Qmcod}" forceSelection="false"
+		            required="{break>/Mstatus}"
+		            change="handleChangeQmcod"
+		            valueState="{break>/QmcodValSt}"
+            		valueStateText="{break>/QmcodValStText}" 
+            		enabled="{break>/Mstatus}">
+           <layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+ 		  </ComboBox>		            
+ 		  
+         <Label text="" class="sapUiTinyMarginTop" >	          
+           <layoutData>
+          		<l:GridData span="L2 M2 S1" />
+          	</layoutData>
+
+         </Label> 	 		  
+          <CheckBox id="msaus_wr" text="{i18n>lblBreakdown}" 
+          					   textAlign="Left"
+          					   select="onChKSelect"
+                               selected="{break>/Msaus}" 
+                               enabled="false">
+          	<layoutData>
+          		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+          </CheckBox>	
+         <Label id="Malfunc" text="{i18n>lblMalfuncStart}" class="sapUiTinyMarginTop" required="{break>/Mstatus}">          
+         </Label> 	
+	  	<HBox>
+	    	<items>         
+		<DatePicker
+			id="ausvn_wr"
+			placeholder="{i18n>lblEnterDate}"
+	        value="{break>/Ausvn}"	
+			editable="{header>/ZbmindEditStatus}"
+			change="handleChangeAusvn"
+            valueState="{break>/AusvnValSt}"
+            valueStateText="{break>/AusvnValStText}" 			
+			enabled="{header>/ZbmindEditStatus}"
+			required="{break>/Mstatus}">  <!-- required="true"> 20210823 필수제외 -->
+         </DatePicker>   
+         <TimePicker
+			id="auztv_wr"
+			placeholder="{i18n>lblEnterTime}"
+	        displayFormat="HH:mm:ss"
+	        valueFormat="HHmmss"	
+	        value="{break>/Auztv}"	
+			editable="{header>/ZbmindEditStatus}" 
+			change="handleChangeAuztv"
+            valueState="{break>/AuztvValSt}"
+            valueStateText="{break>/AuztvValStText}" 			
+			enabled="{header>/ZbmindEditStatus}"
+			required="{break>/Mstatus}">
+         </TimePicker>     
+          	</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox>   
+         	     
+        <!-- {break>/Mstatus} --> 	     
+         <Label id="MalfuncTo" text="{i18n>lblMalfuncEnd}" class="sapUiTinyMarginTop" required="{break>/Mstatus}">
+         	<layoutData>
+         		<l:GridData span="L2 M2 S1" />
+         	</layoutData>		          
+         </Label>   
+	  	<HBox>
+	    	<items>               
+		<DatePicker
+			id="ausbs_wr"
+			placeholder="{i18n>lblEnterDate}"
+	        value="{break>/Ausbs}"	
+			editable="{header>/ZbmindEditStatus}"
+			change="handleChangeAusbs"
+            valueState="{break>/AusbsValSt}"
+            valueStateText="{break>/AusbsValStText}" 			
+			enabled="{header>/ZbmindEditStatus}"
+			required="{break>/Mstatus}">
+         </DatePicker>   
+         <TimePicker
+			id="auztb_wr"
+			placeholder="{i18n>lblEnterTime}"
+	        displayFormat="HH:mm:ss"
+	        valueFormat="HHmmss"	
+	        value="{break>/Auztb}"	
+			editable="{header>/ZbmindEditStatus}"
+			change="handleChangeAuztb"
+            valueState="{break>/AuztbValSt}"
+            valueStateText="{break>/AuztbValStText}" 			
+			enabled="{header>/ZbmindEditStatus}"
+			required="{break>/Mstatus}">
+         </TimePicker>    
+          	</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox> 
+          		          		          		          
+         <Label text="{i18n>lblDuration}" class="sapUiTinyMarginTop" >
+         	<layoutData>
+         		<l:GridData span="L1 M1 S1" />
+         	</layoutData>		          
+         </Label> 	
+         <Input id="ausztx_wr" value="{break>/Ausztx}" editable="false" textAlign="Right">		          
+         	<layoutData>
+         		<l:GridData span="L1 M1 S1" />
+         	</layoutData>
+         </Input>   
+		 <Text text="{break>/Maueh}" >
+		   	<layoutData>
+         		<l:GridData span="L1 M1 S1" />
+         	</layoutData>
+		 </Text>         
+     		
+  	</f:content>
+  	</f:SimpleForm>     
+  	
+  	
+  	<!-- Add 200923 robin -->
+  	<!-- shutDown Data part Start point=================== -->
+   	<f:SimpleForm
+   	    title="{i18n>shutdownInformation_title}"
+   	    id="SimpleForm_shutdown"
+   	    layout="ResponsiveGridLayout"
+   	  	labelSpanL="1"
+		labelSpanM="1"
+		emptySpanL="0"
+		emptySpanM="0"
+		emptySpanS="0"
+		columnsL="5"
+		columnsM="5"
+		editable="true">
+   	<f:content>
+   	
+ 		<Label text="{i18n>lblShutdownFrom}" class="sapUiTinyMarginTop">
+   		</Label>
+         <Label id="Shutdown" text="{i18n>lblShutdownFrom}" class="sapUiTinyMarginTop" required="{break>/Mstatus}">          
+         </Label> 	
+	  	<HBox>
+    	<items>         
+		<DatePicker
+			id="shutdownF_date"
+			placeholder="{i18n>lblEnterDate}"
+	        value="{shutdown>/Zshutfrdate}"	
+			editable="{header>/ZbmindEditStatus}"
+			change="handleChangeAusvn"
+            valueState="None"
+            valueStateText="{break>/AusvnValStText}" 			
+			required="{break>/Mstatus}">
+         </DatePicker>   
+         <TimePicker
+			id="shutdownF_time"
+			placeholder="{i18n>lblEnterTime}"
+	        displayFormat="HH:mm:ss"
+	        valueFormat="HHmmss"	
+	        value="{shutdown>/Zshutfrtime}"	
+			editable="{header>/ZbmindEditStatus}" 
+			change="handleChangeAuztv"
+            valueState="None"
+			enabled="{header>/ZbmindEditStatus}"
+			required="{break>/Mstatus}">
+         </TimePicker>     
+		</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox>
+
+         <Label text="{i18n>lblShutdownTo}" class="sapUiTinyMarginTop" required="{break>/Mstatus}">
+         	<layoutData>
+         		<l:GridData span="L2 M2 S1" />
+         	</layoutData>		          
+         </Label>   
+	  	<HBox>
+	    	<items>
+		<DatePicker
+			id="shutdownT_date"
+			placeholder="{i18n>lblEnterDate}"
+	        value="{shutdown>/Zshuttodate}"	
+			editable="{header>/ZbmindEditStatus}"
+			change="handleChangeAusbs"
+            valueState="None"
+			enabled="{header>/ZbmindEditStatus}"
+			required="{break>/Mstatus}">
+         </DatePicker>   
+         <TimePicker
+			id="shutdownT_time"
+			placeholder="{i18n>lblEnterTime}"
+	        displayFormat="HH:mm:ss"
+	        valueFormat="HHmmss"	
+	        value="{shutdown>/Zshuttotime}"	
+			editable="{header>/ZbmindEditStatus}"
+			change="handleChangeAuztb"
+            valueState="None"
+			enabled="{header>/ZbmindEditStatus}"
+			required="{break>/Mstatus}">
+         </TimePicker>    
+          	</items>
+           <layoutData>
+        		<l:GridData span="L3 M3 S1" />
+          	</layoutData>
+	      </HBox>   
+  	</f:content>
+  	</f:SimpleForm>      	 		
+	<!-- shutDown Data part End point=================== -->
+	
+	
+   	<f:SimpleForm
+   	    title="{i18n>failurecode_group}"
+   	    id = "SimpleForm_failure"
+   	    layout="ResponsiveGridLayout"
+   	  	labelSpanL="0"
+		labelSpanM="0"
+		emptySpanL="0"
+		emptySpanM="0"
+		emptySpanS="0"
+		columnsL="5"
+		columnsM="5"
+		editable="true">
+   	<f:content>	  	
+			<t:Table id="table_failure"
+		         selectionMode="Single"
+				 selectionBehavior="Row"
+				 visibleRowCount="3">	
+	        	<t:toolbar>
+                 	<Toolbar>
+                    	<content>
+                        	<ToolbarSpacer/>
+	                        <Button
+	                        	id="addBtn"
+                                icon="sap-icon://add" 
+                                text="{i18n>add}"
+                                press="onAdd" 
+                                visible="false" />
+                            <Button
+                            	id="delBtn"
+                                icon="sap-icon://delete"
+                                text="{i18n>delete}"
+                         		press="onDelete"
+                         		visible="false"  />
+                        </content>
+                    </Toolbar>
+                 </t:toolbar>				 			 
+                 <t:columns>
+              	 	<t:Column width="3rem" hAlign="Center">
+                        <Label text="{i18n>lblNo}"/>
+                        <t:template>
+                            <Text text="{Seq}" />    
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="3.8rem" visible="{Enable}">
+                        <Label text="" />
+                        <t:template>
+                            <Button text="▼" press="onTabBtn_cat" enabled="true"/>
+                        </t:template>
+                    </t:Column>
+  					<t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblObjectPartGroup}" />
+                        <t:template>
+                            <Text text="{Otgrp}" />
+                        </t:template>
+                    </t:Column>
+                 	<t:Column width="10rem">
+                        <Label text="{i18n>lblObjectPartGroup}" />
+                        <t:template>
+                            <Text text="{Qktextgr}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblObjectPart}" />
+                        <t:template>
+                            <Text text="{Oteil}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem">
+                        <Label text="{i18n>lblObjectPart}" />
+                        <t:template>
+                            <!-- <Text text="{Txtcdot}" wrapping="false"  /> -->
+                            <Input value="{Txtcdot}" wrapping="false"
+					            valueState="{OteilValSt}"
+			            		valueStateText="{OteilValStText}" 
+			            		enabled = "false"/>   
+                            			            		
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblDamageGroup}" />
+                        <t:template>
+                            <Text text="{Fegrp}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem">
+                        <Label text="{i18n>lblDamageGroup}" />
+                        <t:template>
+                            <Text text="{Fktextgr}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblDamage}" />
+                        <t:template>
+                            <Text text="{Fecod}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem">
+                        <Label text="{i18n>lblDamage}" />
+                        <t:template>
+                            <!-- <Text text="{Txtcdfe}" wrapping="false" /> -->
+                            <Input value="{Txtcdfe}" wrapping="false"
+					            valueState="{FecodValSt}"
+			            		valueStateText="{FecodValStText}" 
+			            		enabled = "false"                             
+                            />                            
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="15rem">
+                        <Label text="{i18n>lblText}" />
+                        <t:template>
+                            <Text text="{Fetxt}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblCauseGroup}" />
+                        <t:template>
+                            <Text text="{Urgrp}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem">
+                        <Label text="{i18n>lblCauseGroup}" />
+                        <t:template>
+                            <Text text="{Uktextgr}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblCause}" />
+                        <t:template>
+                            <Text text="{Urcod}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem">
+                        <Label text="{i18n>lblCause}" />
+                        <t:template>
+                            <Text text="{Txtcdur}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="15rem">
+                        <Label text="{i18n>lblText}" />
+                        <t:template>
+                            <Text text="{Urtxt}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblActivityGroup}" />
+                        <t:template>
+                            <Text text="{Mngrp}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem">
+                        <Label text="{i18n>lblActivityGroup}" />
+                        <t:template>
+                            <Text text="{Mktextgr}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="5rem" visible="false">
+                        <Label text="{i18n>lblActivity}" />
+                        <t:template>
+                            <Text text="{Mncod}"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="10rem">
+                        <Label text="{i18n>lblActivity}" />
+                        <t:template>
+                            <Text text="{Txtcdma}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column width="15rem">
+                        <Label text="{i18n>lblText}" />
+                        <t:template>
+                            <Text text="{Matxt}" wrapping="false"/>
+                        </t:template>
+                    </t:Column> 
+            	</t:columns>
+    		</t:Table> 
+  	</f:content>
+  	</f:SimpleForm>  
+</core:FragmentDefinition>
