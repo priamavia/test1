@@ -1,0 +1,87 @@
+<core:View xmlns:l="sap.ui.layout"
+		   xmlns:u="sap.ui.unified"
+       	   xmlns:f="sap.ui.layout.form"
+           xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+		   controllerName="cj.pm0220.controller.Main" 
+		   xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="mainpage" title="{i18n>title}">
+		<headerContent>
+	    	<Button id="logout" icon="sap-icon://log" press="_handleLogout"/>
+	    </headerContent>   
+
+    	<f:SimpleForm	layout="ResponsiveGridLayout"
+                        columnsL="12"
+                        columnsM="12"
+			    	  	labelSpanL="4"
+						labelSpanM="2"                        
+						labelSpanS="2"                        
+						>
+   			<Label 		text="{i18n>lblPlant}" vAlign="Middle"/>
+       		<ComboBox	id="Werks" change="onSwerkSelect" required="true"/>
+       		<Text 		text="Wctr.:" textAlign="Right">
+       			<layoutData>
+        			<l:GridData span="L2 M2 S2" indentL="0"/>
+				</layoutData>
+       		</Text>
+   	   		<ComboBox 	id="Arbpl" change="onArbplSelect" />
+
+			<Label 		text="{i18n>lblNplda}"  />          			
+   			<DatePicker	id="Fdate" editable="{screenMode>/Fdate}" change="handleDateChangeFrom" />
+   	   		<DatePicker	id="Tdate" editable="{screenMode>/Tdate}" change="handleDateChangeFrom" />
+		</f:SimpleForm>
+
+		<Table 	id="listTable"
+				inset="false"
+				mode="SingleSelectMaster"
+				itemPress="iconLink"
+				growing="true"			 
+				growingThreshold="10"
+				growingScrollToLoad="true"
+				items="{ path: 'PmList>/ResultList/results' }" >
+ 			<columns>
+				<Column id="Nplda" 	width="16px" hAlign="Left"><Text text="{i18n>lblNplda}"/></Column>
+				<Column id="EqunrT" width="40px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblEqunrT}"/></Column>
+				<Column id="Equnr" 	width="14px" hAlign="Left"><Text text="{i18n>lblEqunr}"/></Column>
+				<Column id="AufnrT" width="40px" hAlign="Left" popinDisplay="Inline" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>lblAufnrT}"/></Column>
+				<Column id="Aufnr" 	width="13px" hAlign="Left"><Text text="{i18n>lblAufnr}"/></Column>
+				<Column id="Zmcnt" 	width="6px" hAlign="Center"><Text text="{i18n>lblZicon}"/></Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" mode="Active" type="Active" >		 
+			    	<cells>
+						<Text text="{PmList>Nplda}" />
+						<Text text="{PmList>EqunrT}" />
+						<Text text="{PmList>Equnr}" />
+						<Text text="{PmList>AufnrT}" />
+						<Text text="{PmList>Aufnr}" />
+						<Text text="{PmList>Zmcnt}" />
+<!-- 						<core:Icon 	src="{PmList>Zicon}"  -->
+<!--                                     color="{PmList>Color}" /> -->
+					</cells> 
+				</ColumnListItem>
+			</items>
+		</Table>
+    
+		<footer>
+			<Bar>
+<!-- 				<contentLeft> -->
+<!-- 					<Button id="orderDisp" text="{i18n>display}" press="onPress_disp" /> -->
+<!-- 				</contentLeft> -->
+
+				<contentMiddle>
+					<Button id="Search"
+							type="Accept"
+							text="{i18n>lblSearch}"
+							visible="{screenMode>/Search}" 	
+							press="onBtnSearch" />
+		 		</contentMiddle>
+
+<!-- 				<contentRight> -->
+<!-- 					<Button id="workAssign"   text="{i18n>workAssign}"   press="onPress_wkassign" />			 -->
+<!-- 				</contentRight> -->
+			</Bar>
+		</footer>    	
+	</Page>
+</core:View>

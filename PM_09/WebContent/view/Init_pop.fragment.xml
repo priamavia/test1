@@ -1,0 +1,167 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	>
+	<Dialog id="dialog_init" title="{i18n>lblNotiType}" 
+	        resizable="false" 
+	        contentWidth="45rem" 
+	        contentHeight="24rem"
+	        draggable = "true" >
+		<f:SimpleForm
+    	    layout="ResponsiveGridLayout"
+    	  	labelSpanL="2"
+			labelSpanM="2"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsL="2"
+			columnsM="2">
+   			<f:content>
+   			    <Label text="{i18n>lblMaintPlant}"  required="true" class="sapUiTinyMarginTop" >
+		            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData>
+		        </Label>
+                <Select id="swerk_init" required="true" forceSelection="false"
+                   change="onSelChange">
+		          	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </Select> 
+		        <Text>
+		          	<layoutData>
+		          		<l:GridData span="L1 M1 S1" />
+		          	</layoutData>
+		        </Text> 
+         		<Label text="{i18n>lblNotificationType}"  required="true" class="sapUiTinyMarginTop">
+		            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData>
+		        </Label>
+                <Select id="not_init" required="true" forceSelection="false" change="onChange">
+		          	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </Select> 
+		        <Label text="{i18n>lblFL}" class="sapUiTinyMarginTop">
+			            <layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData> 
+          		</Label>
+          		<HBox>
+          			<Input id="fl_init" valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+          			  width="9rem" class="sapUiTinyMarginEnd" change="onChange"/>
+          			<Text id="fl_init_tx" class="sapUiTinyMarginTop"/>
+          			<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+          		</HBox>
+<!-- 		        <MultiInput id="fl_init" valueHelpRequest="onValueHelpRequest" >
+		          	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </MultiInput>  -->
+		       <Label text="{i18n>lblEquipment}" class="sapUiTinyMarginTop">
+		          	<layoutData>
+		          		<l:GridData span="L4 M4 S4"  />
+		          	</layoutData>
+		        </Label>
+		        <HBox>
+		        	<Input id="equnr_init" valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+		        	  width="9rem" class="sapUiTinyMarginEnd" change="onChange"/>
+		        	<Text id="equnr_init_tx" class="sapUiTinyMarginTop"/>
+		        	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </HBox>
+		        
+		        <Label text="{i18n>lblAssembly}" class="sapUiTinyMarginTop">
+			        <layoutData>
+			          	<l:GridData span="L4 M4 S4" />
+			        </layoutData> 
+			    </Label>
+		        <HBox>
+		        	<Input id="bautl_init" valueHelpRequest="onValueHelpRequest" showValueHelp="true"
+		        	  width="9rem" class="sapUiTinyMarginEnd" change="onChange"/>
+		        	<Text id="bautl_init_tx" class="sapUiTinyMarginTop"/>
+		        	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </HBox>			    
+			    		        
+<!-- 		        <MultiInput id="equnr_init" valueHelpRequest="onValueHelpRequest">
+		          	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </MultiInput>  -->
+		        <Label text="{i18n>lblRequestDateTime}" class="sapUiTinyMarginTop">
+		          	<layoutData>
+		          		<l:GridData span="L4 M4 S4" />
+		          	</layoutData> 
+		        </Label>
+<!-- 		        <DateTimePicker 
+		            id="init_date"
+	        	    valueFormat="yyyyMMdd-HHmmss" 
+	        	    displayFormat="yyyy.MM.dd  HH:mm:ss"
+	        	    change="onHandleDateChange">
+		        	<layoutData>
+          				<l:GridData span="L7 M7 S7" />
+          			</layoutData>
+		        </DateTimePicker> -->
+		        <HBox>
+		        	<DatePicker
+				      id="init_date"
+				      width="8rem"
+				      placeholder="{i18n>lblEnterDate}"
+				      change="onHandleDateChange"
+				      class="sapUiTinyMarginEnd" />
+				    <Text text="~" class="sapUiTinyMarginTop sapUiTinyMarginEnd" />
+					<TimePicker
+				      id="init_time"
+				      width="7.7rem"
+				      placeholder="{i18n>lblEnterTime}"
+				      valueFormat="HHmmss"
+				      displayFormat="HH:mm:ss"
+				      change="onHandleTimeChange" />
+				    <layoutData>
+          				<l:GridData span="L7 M7 S7" />
+          			</layoutData>
+		        </HBox>
+		        <Label text="{i18n>lblRequestBy}" class="sapUiTinyMarginTop">
+				        <layoutData>
+			          	<l:GridData span="L4 M4 S4" />
+			        </layoutData>
+			    </Label>
+		        <Input id="requestby_init">
+		          	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </Input>
+		        <Label text="{i18n>lblTpmTag}" class="sapUiTinyMarginTop">
+				    <layoutData>
+			          	<l:GridData span="L4 M4 S4" />
+			        </layoutData>
+			    </Label>
+		        <Input id="tpmtag_init" maxLength="8">
+		          	<layoutData>
+		          		<l:GridData span="L7 M7 S7" />
+		          	</layoutData>
+		        </Input>		        
+    		</f:content>
+	    </f:SimpleForm>  
+		<beginButton>
+			<Button
+			   id="confirmInit"
+		       text="{i18n>continue}"
+		       press="onConfirmDialog_init"/>
+	    </beginButton>
+	    <endButton>
+		     <Button
+		       id="cancelInit"
+		       text="{i18n>cancel}"
+		       press="onCloseDialog_init"/>
+	    </endButton>
+    </Dialog>
+</core:FragmentDefinition>
